@@ -14,19 +14,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/restore', function () {
-    $faker = Faker\Factory::create();
 
-    for ($i=0; $i <50; $i++) {
-        $user = new \App\User();
-        $user->name             = $faker->name;
-        $user->last_name        = $faker->lastName;
-        $user->username         = $faker->email;
-        $user->password         = \Illuminate\Support\Facades\Hash::make('123456789');
-        $user->department_id    = $faker->randomDigit;
-        $user->save();
-    }
-});
 Route::get('/', [PageController::class, 'index'])->name('login');
 Route::post('/sing-in', [PageController::class, 'singin'])->name('sing-in');
 Route::get('/logout', [PageController::class, 'logout'])->name('logout');
