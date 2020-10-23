@@ -11,9 +11,11 @@ use App\User;
 class UserComponent extends Component
 {
     use WithPagination;
+
     public $view = 'create';
 
     public $user_id, $name, $last_name, $username, $department_id;
+
     public function render()
     {
         return view('livewire.user.user-component', [

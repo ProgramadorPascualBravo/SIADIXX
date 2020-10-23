@@ -28,6 +28,7 @@ class DepartmentComponent extends Component
         ]);
 
         $departament = new Departament();
+
         $departament->create([
            'name' => $this->name
         ]);
@@ -53,7 +54,6 @@ class DepartmentComponent extends Component
         $departament->update([
             'name'          => $this->name,
         ]);
-
         $this->cancel();
     }
 
