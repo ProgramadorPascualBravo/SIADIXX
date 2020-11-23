@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class PageController extends Controller
 {
 
     public function index()
     {
+
         return view('index');
     }
 
@@ -38,6 +41,23 @@ class PageController extends Controller
 
     public function dashboard()
     {
+        /*$role = Role::create([
+            'name' => 'writer'
+        ]);
+        //auth()->user()->givePermissionTo('create program');
+        //auth()->user()->assignRole('writer');
+        return auth()->user()->permissions;
+
+        /*$permission = Permission::create([
+            'name' => 'create program'
+        ]);
+        $role = Role::findById(1);
+        //$permission = Permission::findById(1);
+
+        $role->givePermissionTo($permission);
+        //$role->givePermissionTo($permission);
+        //$permission->assignRole($role);
+        */
         return view('dashboard');
     }
 
@@ -53,5 +73,19 @@ class PageController extends Controller
         return view('department.index');
     }
 
+    public function program()
+    {
+        return view('program.index');
+    }
+
+    public function course()
+    {
+        return view('course.index');
+    }
+
+    public function group()
+    {
+        return view('group.index');
+    }
     //Fin de ingreso
 }

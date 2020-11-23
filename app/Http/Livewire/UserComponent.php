@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Departament;
+use App\Department;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -14,13 +14,13 @@ class UserComponent extends Component
 
     public $view = 'create';
 
-    public $user_id, $name, $last_name, $username, $department_id;
+    public $user_id, $name, $last_name, $username, $department_id, $state;
 
     public function render()
     {
         return view('livewire.user.user-component', [
-            'users' => User::orderBy('id', 'desc')->paginate(15),
-            'departments' => Departament::all()
+            'users'         => User::orderBy('id', 'desc')->paginate(15),
+            'departments'   => Department::all()
         ]);
     }
 
@@ -36,7 +36,8 @@ class UserComponent extends Component
             'name'          => 'required',
             'last_name'     => 'required',
             'username'      => 'required|email:rfc|unique:users,username',
-            'department_id' => 'required|exists:departments,id'
+            'department_id' => 'required|exists:departments,id',
+            'state'         => 'required'
         ]);
 
         $user                   = new User();
@@ -45,6 +46,7 @@ class UserComponent extends Component
         $user->username         = $this->username;
         $user->department_id    = $this->department_id;
         $user->password         = Hash::make('1990duqe');
+        $user->state            = $this->state;
         $user->save();
         session()->flash('success', 'Usuario creado.');
 
@@ -58,6 +60,7 @@ class UserComponent extends Component
         $this->last_name        = $user->last_name;
         $this->username         = $user->username;
         $this->department_id    = $user->department_id;
+        $this->state            = $user->state;
         $this->view             = 'edit';
 
     }
@@ -67,18 +70,30 @@ class UserComponent extends Component
         $this->validate([
             'name'          => 'required',
             'last_name'     => 'required',
-            'department_id' => 'required'
+            'department_id' => 'required',
+            'state'         => 'required'
         ]);
 
         $user = User::find($this->user_id);
         $user->update([
             'name'          => $this->name,
             'last_name'     => $this->last_name,
-            'department_id' => $this->department_id
+            'department_id' => $this->department_id,
+            'state'         => $this->state
         ]);
 
         $this->cancel();
     }
+
+    public function change_state($id)
+    {
+        $user =         User::find($id);
+        $user->state =  !$user->state;
+        $user->save();
+        session()->flash('success', 'Acción realizada.');
+
+    }
+
     public function hydrate()
     {
         $this->resetErrorBag();
@@ -93,6 +108,7 @@ class UserComponent extends Component
         $this->username         = '';
         $this->department_id    = '';
         $this->password         = '';
+        $this->state            = '';
         $this->view             = 'create';
         $this->hydrate();
     }

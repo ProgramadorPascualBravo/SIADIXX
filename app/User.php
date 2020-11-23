@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
+    use HasRoles;
+
     protected $table = 'users';
 
     /**
@@ -14,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'last_name', 'username', 'password', 'department_id'
+        'name', 'last_name', 'username', 'password', 'department_id', 'state'
     ];
 
     /**
@@ -26,9 +29,9 @@ class User extends Authenticatable
         'password',
     ];
 
-    public function departament()
+    public function department()
     {
-        return $this->belongsTo(Departament::class, 'department_id', 'id');
+        return $this->belongsTo(Department::class, 'department_id', 'id');
     }
 
     /**

@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [PageController::class, 'index'])->name('login');
+Route::get('/', [PageController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/sing-in', [PageController::class, 'singin'])->name('sing-in');
 Route::get('/logout', [PageController::class, 'logout'])->name('logout');
 
@@ -28,6 +28,15 @@ Route::middleware(['auth'])->group(function () {
         });
         Route::prefix('/department')->group(function (){
             Route::get('', [PageController::class, 'department'])->name('department-index');
+        });
+        Route::prefix('/program')->group(function () {
+            Route::get('', [PageController::class, 'program'])->name('program-index');
+        });
+        Route::prefix('/course')->group(function () {
+            Route::get('', [PageController::class, 'course'])->name('course-index');
+        });
+        Route::prefix('/group')->group(function(){
+            Route::get('', [PageController::class, 'group'])->name('group-index');
         });
     });
 });

@@ -4827,3 +4827,11 @@ html.is-reveal-open {
   margin: auto;
 }
 
+.margin-0 {
+  margin: 0 !important;
+}
+
+.pointer {
+  cursor: pointer;
+}
+

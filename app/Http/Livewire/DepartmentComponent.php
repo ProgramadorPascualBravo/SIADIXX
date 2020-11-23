@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Departament;
+use App\Department;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -12,12 +12,12 @@ class DepartmentComponent extends Component
 
     public $view = 'create';
 
-    public $name, $departament_id;
+    public $name, $department_id, $state;
 
     public function render()
     {
         return view('livewire.department.department-component', [
-            'departaments' => Departament::orderBy('id', 'desc')->paginate(2)
+            'departments' => Department::orderBy('id', 'desc')->paginate(2)
         ]);
     }
 
@@ -27,9 +27,9 @@ class DepartmentComponent extends Component
             'name' => 'required'
         ]);
 
-        $departament = new Departament();
+        $department = new Department();
 
-        $departament->create([
+        $department->create([
            'name' => $this->name
         ]);
         session()->flash('success', 'Departamento creado.');
@@ -38,21 +38,24 @@ class DepartmentComponent extends Component
 
     public function edit($id)
     {
-        $departament            = Departament::find($id);
-        $this->name             = $departament->name;
-        $this->departament_id   = $departament->id;
+        $department             = Department::find($id);
+        $this->name             = $department->name;
+        $this->department_id    = $department->id;
+        $this->state            = $department->state;
         $this->view             = 'edit';
     }
 
     public function update()
     {
         $this->validate([
-            'name'          => 'required'
+            'name'          => 'required',
+            'state'         => 'required'
         ]);
 
-        $departament = Departament::find($this->departament_id);
-        $departament->update([
+        $department = Department::find($this->department_id);
+        $department->update([
             'name'          => $this->name,
+            'state'         => $this->state
         ]);
         $this->cancel();
     }
@@ -60,10 +63,19 @@ class DepartmentComponent extends Component
     public function destroy($id)
     {
         session()->flash('success', 'Departamento eliminado.');
-        Departament::destroy($id);
+        Department::destroy($id);
     }
 
-    public function hydrate()
+    public function change_state($id)
+    {
+        $department =           Department::find($id);
+        $department->state =    !$department->state;
+        $department->save();
+        session()->flash('success', 'Acción realizada.');
+
+    }
+
+    private function hydrate()
     {
         $this->resetErrorBag();
         $this->resetValidation();
@@ -71,7 +83,7 @@ class DepartmentComponent extends Component
 
     public function cancel()
     {
-        $this->departament_id   = '';
+        $this->department_id    = '';
         $this->name             = '';
         $this->view             = 'create';
         $this->hydrate();

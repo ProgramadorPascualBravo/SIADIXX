@@ -8,9 +8,18 @@
     <title>Suanfonson</title>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
-<div class="row">
-    <div class="column align-self-middle">
+<body style="
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+">
+    <div class="container-login" style="
+    width: 500px;
+    padding: 1em;
+    box-shadow: 0px 0px 10px black;
+">
         <form action="{{ route('sing-in') }}" method="post">
             <div class="medium-12 cell">
                 <label for="username">
@@ -34,8 +43,6 @@
             </div>
             @csrf
         </form>
-
     </div>
-</div>
 </body>
 </html>
