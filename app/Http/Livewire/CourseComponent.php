@@ -3,18 +3,18 @@
 namespace App\Http\Livewire;
 
 use App\Course;
-use App\Department;
 use App\Program;
+use App\Traits\ClearErrorsLivewireComponent;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class CourseComponent extends Component
 {
-    use WithPagination;
+    use WithPagination, ClearErrorsLivewireComponent;
 
     public $view = 'create';
 
-    public $course_id, $name, $codigo, $program_id, $moodle_id, $state;
+    public $course_id, $name, $code, $program_id, $moodle_id, $state;
 
     public function render()
     {
@@ -30,7 +30,7 @@ class CourseComponent extends Component
     {
         $this->validate([
             'name'              => 'required',
-            'codigo'            => 'required|unique:courses,codigo',
+            'code'              => 'required|unique:courses,code',
             'program_id'        => 'required|exists:programs,id',
             'moodle_id'         => 'required|numeric',
             'state'             => 'required|numeric'
@@ -40,7 +40,7 @@ class CourseComponent extends Component
 
         $course->create([
             'name'              => $this->name,
-            'codigo'            => $this->codigo,
+            'code'              => $this->code,
             'program_id'        => $this->program_id,
             'moodle_id'         => $this->moodle_id,
             'state'             => $this->state
@@ -55,7 +55,7 @@ class CourseComponent extends Component
         $course             = Course::find($id);
         $this->course_id    = $course->id;
         $this->name         = $course->name;
-        $this->codigo       = $course->codigo;
+        $this->code         = $course->code;
         $this->program_id   = $course->program_id;
         $this->moodle_id    = $course->moodle_id;
         $this->state        = $course->state;
@@ -66,7 +66,7 @@ class CourseComponent extends Component
     {
         $this->validate([
             'name'              => 'required',
-            'codigo'            => 'required|exists:courses,codigo',
+            'code'              => 'required|exists:courses,code',
             'program_id'        => 'required|exists:programs,id',
             'moodle_id'         => 'required|numeric',
             'state'             => 'required|numeric'
@@ -76,7 +76,7 @@ class CourseComponent extends Component
 
         $course->update([
             'name'              => $this->name,
-            'codigo'            => $this->codigo,
+            'code'              => $this->code,
             'program_id'        => $this->program_id,
             'moodle_id'         => $this->moodle_id,
             'state'             => $this->state
@@ -88,8 +88,8 @@ class CourseComponent extends Component
 
     public function change_state($id)
     {
-        $course =           Course::find($id);
-        $course->state =    !$course->state;
+        $course         =   Course::find($id);
+        $course->state  =   !$course->state;
         $course->save();
         session()->flash('success', 'Acción realizada.');
 
@@ -99,7 +99,7 @@ class CourseComponent extends Component
     {
         $this->course_id    = '';
         $this->name         = '';
-        $this->codigo       = '';
+        $this->code         = '';
         $this->state        = '';
         $this->program_id   = '';
         $this->moodle_id    = '';
@@ -107,9 +107,4 @@ class CourseComponent extends Component
         $this->hydrate();
     }
 
-    private function hydrate()
-    {
-        $this->resetErrorBag();
-        $this->resetValidation();
-    }
 }

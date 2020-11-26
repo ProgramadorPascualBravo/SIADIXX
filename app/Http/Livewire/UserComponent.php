@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Department;
+use App\Traits\ClearErrorsLivewireComponent;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -10,7 +11,7 @@ use App\User;
 
 class UserComponent extends Component
 {
-    use WithPagination;
+    use WithPagination, ClearErrorsLivewireComponent;
 
     public $view = 'create';
 
@@ -92,12 +93,6 @@ class UserComponent extends Component
         $user->save();
         session()->flash('success', 'Acción realizada.');
 
-    }
-
-    public function hydrate()
-    {
-        $this->resetErrorBag();
-        $this->resetValidation();
     }
 
     public function cancel()

@@ -3,12 +3,13 @@
 namespace App\Http\Livewire;
 
 use App\Department;
+use App\Traits\ClearErrorsLivewireComponent;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class DepartmentComponent extends Component
 {
-    use WithPagination;
+    use WithPagination, ClearErrorsLivewireComponent;
 
     public $view = 'create';
 
@@ -73,12 +74,6 @@ class DepartmentComponent extends Component
         $department->save();
         session()->flash('success', 'Acción realizada.');
 
-    }
-
-    private function hydrate()
-    {
-        $this->resetErrorBag();
-        $this->resetValidation();
     }
 
     public function cancel()

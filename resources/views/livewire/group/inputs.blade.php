@@ -4,33 +4,20 @@
     <span class="form-error is-visible">{{ $message }}</span>
     @enderror
 
-    <label for="codigo">Código<input class="@error('code') is-invalid-input @enderror" type="text" name="codigo" id="codigo" wire:model.defer="code"></label>
+    <label for="code">Code<input class="@error('code') is-invalid-input @enderror" type="text" name="code" id="code" wire:model.defer="code"></label>
     @error('code')
     <span class="form-error is-visible">{{ $message }}</span>
     @enderror
 
     <div class="medium-12 cell">
-        <label for="program_id">Programa
-            <select class="@error('department_id') is-invalid-input @enderror" name="program_id" id="program_id" wire:model.defer="program_id">
+        <label for="program_id">Curso
+            <select class="@error('course_id') is-invalid-input @enderror" name="course_id" id="course_id" wire:model.defer="course_id">
                 <option value="">Seleccione una opción</option>
-                @foreach($programs as $program)
-                    <option value="{{ $program->id }}">{{ $program->name }}</option>
+                @foreach($courses as $course)
+                    <option value="{{ $course->id }}">{{ $course->name }}</option>
                 @endforeach
             </select>
-            @error('program_id')
-            <span class="form-error is-visible">{{ $message }}</span>
-        @enderror
-    </div>
-
-    <div class="medium-12 cell">
-        <label for="department_id">Moodle
-            <select class="@error('moodle_id') is-invalid-input @enderror" name="moodle_id" id="moodle_id" wire:model.defer="moodle_id">
-                <option value="">Seleccione una opción</option>
-                <option value="1">Pregrado</option>
-                <option value="2">Inglés</option>
-                <option value="3">Posgrado</option>
-            </select>
-            @error('moodle_id')
+            @error('course_id')
             <span class="form-error is-visible">{{ $message }}</span>
         @enderror
     </div>

@@ -24,7 +24,7 @@
         <tr>
             <td>{{ $course->id }}</td>
             <td>{{ $course->name }}</td>
-            <td>{{ $course->codigo }}</td>
+            <td>{{ $course->code }}</td>
             <td>{{ $course->program->faculty }}</td>
             <td>{{ $course->program->name }}</td>
             <td>{{ $course->moodle_id }}</td>

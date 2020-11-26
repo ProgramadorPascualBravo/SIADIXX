@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Department;
 use App\Program;
+use App\Traits\ClearErrorsLivewireComponent;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -11,6 +12,7 @@ class ProgramComponent extends Component
 {
 
     use WithPagination;
+    use ClearErrorsLivewireComponent;
 
     public $view = 'create';
 
@@ -97,9 +99,4 @@ class ProgramComponent extends Component
 
     }
 
-    private function hydrate()
-    {
-        $this->resetErrorBag();
-        $this->resetValidation();
-    }
 }
