@@ -24,7 +24,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('', [PageController::class, 'dashboard'])->name('dashboard');
         Route::prefix('/users')->group(function () {
             Route::get('', [PageController::class, 'user'])->name('user-index');
-            Route::post('/create', [UserController::class, 'store'])->name('user-create');
         });
         Route::prefix('/department')->group(function (){
             Route::get('', [PageController::class, 'department'])->name('department-index');

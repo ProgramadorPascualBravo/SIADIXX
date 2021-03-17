@@ -15,7 +15,7 @@
         <div class="top-bar-left">
             <ul class="dropdown menu" data-dropdown-menu>
                 <li>
-                    <a href="{{ route('dashboard') }}">Suanfonson</a>
+                    <a href="{{ route('dashboard') }}">SIADI</a>
                 </li>
                 <li>
                     <a href="#">Módulos</a>

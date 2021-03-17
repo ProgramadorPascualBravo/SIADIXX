@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/sgucm.iml" filepath="$PROJECT_DIR$/.idea/sgucm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/SIADI.iml" filepath="$PROJECT_DIR$/.idea/SIADI.iml" />
     </modules>
   </component>
 </project>
