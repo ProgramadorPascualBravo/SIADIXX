@@ -5,7 +5,7 @@
             <button class="button" wire:click="cancel">Agregar nuevo registro</button>
         </div>
         <div class="medium-6 cell content-table">
-            @include('livewire.program.table-program')
+            <livewire:program-table />
         </div>
         <div class="medium-5 cell medium-offset-1">
             @include("livewire.program.$view")

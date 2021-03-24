@@ -1,5 +1,5 @@
 <div>
-    <div wire:ignore.self  id="form-create" class="show-form">
+    <div wire:ignore.self >
         <div class="content">
             <h3 class="subheader">Nuevo usuario</h3>
             @include('livewire.user.inputs')

@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'last_name', 'username', 'password', 'department_id', 'state'
+        'name', 'last_name', 'username', 'password', 'department_id', 'state', 'verified'
     ];
 
     /**
@@ -29,19 +29,19 @@ class User extends Authenticatable
         'password',
     ];
 
+    /**
+      * The attributes that should be cast to native types.
+      *
+      * @var array
+    */
+    protected $casts = [
+       'state' => 'boolean',
+       'verified' => 'boolean'
+    ];
+
     public function department()
     {
         return $this->belongsTo(Department::class, 'department_id', 'id');
     }
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-    */
 
 }

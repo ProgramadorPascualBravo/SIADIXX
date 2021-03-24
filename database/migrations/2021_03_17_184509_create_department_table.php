@@ -17,7 +17,7 @@ class CreateDepartmentTable extends Migration
             $table->engine = 'InnoDB';
             $table->id();
             $table->string('name')->unique();
-            $table->smallInteger('state');
+            $table->smallInteger('state')->default('1');
             $table->timestamps();
         });
     }

@@ -4,10 +4,10 @@
         <div class="medium-12 cell text-right">
             <button class="button" wire:click="cancel">Agregar nuevo registro</button>
         </div>
-        <div class="medium-6 cell content-table">
-            @include('livewire.department.table-department')
+        <div class="medium-8 cell content-table">
+            <livewire:department-table />
         </div>
-        <div class="medium-5 cell medium-offset-1">
+        <div class="medium-3 cell medium-offset-1">
             @include("livewire.department.$view")
         </div>
 </div>

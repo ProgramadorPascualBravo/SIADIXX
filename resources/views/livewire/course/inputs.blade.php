@@ -23,19 +23,6 @@
     </div>
 
     <div class="medium-12 cell">
-        <label for="department_id">Moodle
-            <select class="@error('moodle_id') is-invalid-input @enderror" name="moodle_id" id="moodle_id" wire:model.defer="moodle_id">
-                <option value="">Seleccione una opción</option>
-                <option value="1">Pregrado</option>
-                <option value="2">Inglés</option>
-                <option value="3">Posgrado</option>
-            </select>
-            @error('moodle_id')
-            <span class="form-error is-visible">{{ $message }}</span>
-        @enderror
-    </div>
-
-    <div class="medium-12 cell">
         <label for="state">Estado
             <select class="@error('state') is-invalid-input @enderror" name="state" id="state" wire:model.defer="state">
                 <option value="">Seleccione una opción</option>

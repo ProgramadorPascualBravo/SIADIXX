@@ -4,28 +4,28 @@ namespace App\Http\Livewire;
 
 use App\Department;
 use App\Traits\ClearErrorsLivewireComponent;
+use Illuminate\Database\QueryException;
 use Livewire\Component;
-use Livewire\WithPagination;
 
 class DepartmentComponent extends Component
 {
-    use WithPagination, ClearErrorsLivewireComponent;
+    use ClearErrorsLivewireComponent;
 
     public $view = 'create';
 
     public $name, $department_id, $state;
 
+    protected $listeners = ['errorNotUnique', 'edit'];
+
     public function render()
     {
-        return view('livewire.department.department-component', [
-            'departments' => Department::orderBy('id', 'desc')->paginate(2)
-        ]);
+        return view('livewire.department.department-component');
     }
 
     public function store()
     {
         $this->validate([
-            'name' => 'required'
+           'name' => 'required|unique:departments,name'
         ]);
 
         $department = new Department();
@@ -33,6 +33,9 @@ class DepartmentComponent extends Component
         $department->create([
            'name' => $this->name
         ]);
+
+        $this->emit('refreshLivewireDatatable');
+
         session()->flash('success', 'Departamento creado.');
     }
 
@@ -52,19 +55,18 @@ class DepartmentComponent extends Component
             'name'          => 'required',
             'state'         => 'required'
         ]);
-
-        $department = Department::find($this->department_id);
-        $department->update([
-            'name'          => $this->name,
-            'state'         => $this->state
-        ]);
-        $this->cancel();
-    }
-
-    public function destroy($id)
-    {
-        session()->flash('success', 'Departamento eliminado.');
-        Department::destroy($id);
+       try {
+            $department = Department::find($this->department_id);
+            $department->update([
+               'name'        => $this->name,
+               'state'       => $this->state
+            ]);
+            $this->cancel();
+            $this->emit('refreshLivewireDatatable');
+            session()->flash('success', 'Departamento actualizado.');
+       } catch (QueryException $queryException) {
+            $this->errorNotUnique();
+       }
     }
 
     public function change_state($id)
@@ -82,5 +84,10 @@ class DepartmentComponent extends Component
         $this->name             = '';
         $this->view             = 'create';
         $this->hydrate();
+    }
+
+    public function errorNotUnique()
+    {
+       session()->flash('error', 'Error al editar el departamento.');
     }
 }

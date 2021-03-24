@@ -5,6 +5,8 @@ namespace App\Http\Livewire;
 use App\Course;
 use App\Program;
 use App\Traits\ClearErrorsLivewireComponent;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -14,13 +16,14 @@ class CourseComponent extends Component
 
     public $view = 'create';
 
-    public $course_id, $name, $code, $program_id, $moodle_id, $state;
+    public $course_id, $name, $code, $program_id, $state;
 
-    public function render()
+   protected $listeners = ['errorNotUnique', 'edit'];
+
+   public function render()
     {
         return view('livewire.course.course-component',
             [
-                'courses'    => Course::orderBy('id', 'desc')->paginate(2),
                 'programs'   => Program::all()
             ]
         );
@@ -32,7 +35,6 @@ class CourseComponent extends Component
             'name'              => 'required',
             'code'              => 'required|unique:courses,code',
             'program_id'        => 'required|exists:programs,id',
-            'moodle_id'         => 'required|numeric',
             'state'             => 'required|numeric'
         ]);
 
@@ -42,7 +44,6 @@ class CourseComponent extends Component
             'name'              => $this->name,
             'code'              => $this->code,
             'program_id'        => $this->program_id,
-            'moodle_id'         => $this->moodle_id,
             'state'             => $this->state
         ]);
 
@@ -57,7 +58,6 @@ class CourseComponent extends Component
         $this->name         = $course->name;
         $this->code         = $course->code;
         $this->program_id   = $course->program_id;
-        $this->moodle_id    = $course->moodle_id;
         $this->state        = $course->state;
         $this->view         = 'edit';
     }
@@ -68,22 +68,26 @@ class CourseComponent extends Component
             'name'              => 'required',
             'code'              => 'required|exists:courses,code',
             'program_id'        => 'required|exists:programs,id',
-            'moodle_id'         => 'required|numeric',
             'state'             => 'required|numeric'
         ]);
 
-        $course = Course::find($this->course_id);
+        try  {
 
-        $course->update([
-            'name'              => $this->name,
-            'code'              => $this->code,
-            'program_id'        => $this->program_id,
-            'moodle_id'         => $this->moodle_id,
-            'state'             => $this->state
-        ]);
+           $course = Course::find($this->course_id);
 
-        session()->flash('success', 'Curso actualizado');
-        $this->cancel();
+           $course->update([
+               'name'              => $this->name,
+               'code'              => $this->code,
+               'program_id'        => $this->program_id,
+               'state'             => $this->state
+           ]);
+
+           session()->flash('success', 'Curso actualizado');
+           $this->cancel();
+           $this->emit('refreshLivewireDatatable');
+        } catch (QueryException $queryException) {
+           $this->errorNotUnique();
+        }
     }
 
     public function change_state($id)
@@ -106,5 +110,10 @@ class CourseComponent extends Component
         $this->view         = 'create';
         $this->hydrate();
     }
+
+   public function errorNotUnique()
+   {
+      session()->flash('error', 'Error al editar la materia.');
+   }
 
 }

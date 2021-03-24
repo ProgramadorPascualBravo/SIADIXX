@@ -18,10 +18,11 @@ class GroupComponent extends Component
 
     public $name, $code, $course_id, $state, $group_id;
 
-    public function render()
+   protected $listeners = ['errorNotUnique', 'edit'];
+
+   public function render()
     {
         return view('livewire.group.group-component', [
-            'groups'    => Group::orderBy('id', 'desc')->paginate(2),
             'courses'   => Course::all()
         ]);
     }
@@ -49,7 +50,7 @@ class GroupComponent extends Component
 
         $this->group_id     = $group->id;
         $this->name         = $group->name;
-        $this->code         = explode("--", $group->code)[1];
+        $this->code         = $group->code;
         $this->course_id    = $group->course_id;
         $this->state        = $group->state;
         $this->view         = 'edit';
@@ -97,4 +98,9 @@ class GroupComponent extends Component
         $this->hydrate();
 
     }
+
+   public function errorNotUnique()
+   {
+      session()->flash('error', 'Error al editar la materia.');
+   }
 }

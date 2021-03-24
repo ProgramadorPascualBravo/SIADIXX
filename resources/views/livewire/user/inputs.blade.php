@@ -40,4 +40,15 @@
             <span class="form-error is-visible">{{ $message }}</span>
         @enderror
     </div>
+    <div class="medium-12 cell">
+        <label for="verified">Verificado
+            <select class="@error('verified') is-invalid-input @enderror" name="verified" id="verified" wire:model.defer="verified">
+                <option value="">Seleccione una opción</option>
+                <option value="1">Activo</option>
+                <option value="0">Desactivado</option>
+            </select>
+            @error('verified')
+            <span class="form-error is-visible">{{ $message }}</span>
+        @enderror
+    </div>
 </div>

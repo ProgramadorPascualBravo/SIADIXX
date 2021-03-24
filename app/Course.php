@@ -11,7 +11,7 @@ class Course extends Model
     protected $table = 'courses';
 
     protected $fillable = [
-      'code', 'name', 'program_id', 'moodle_id', 'state'
+      'code', 'name', 'program_id', 'state'
     ];
 
     public function program() : BelongsTo

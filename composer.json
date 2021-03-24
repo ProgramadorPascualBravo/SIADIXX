@@ -16,6 +16,7 @@
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
         "livewire/livewire": "^2.3",
+        "mediconesystems/livewire-datatables": "^0.4.3",
         "spatie/laravel-permission": "^3.17"
     },
     "require-dev": {

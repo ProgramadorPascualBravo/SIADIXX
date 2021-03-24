@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Department;
 use App\Program;
 use App\Traits\ClearErrorsLivewireComponent;
+use Illuminate\Database\QueryException;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -18,10 +19,11 @@ class ProgramComponent extends Component
 
     public $program_id, $name, $department_id, $state, $faculty;
 
+    protected $listeners = ['errorNotUnique', 'edit'];
+
     public function render()
     {
         return view('livewire.program.program-component', [
-            'programs'      => Program::orderBy('id', 'desc')->paginate(2),
             'departments'   => Department::all()
         ]);
     }
@@ -64,19 +66,23 @@ class ProgramComponent extends Component
             'name'              => 'required',
             'department_id'     => 'required|exists:departments,id',
             'faculty'           => 'required',
-            'state'             => 'required|numeric'
+            'state'             => 'required'
         ]);
 
-        $program = Program::find($this->program_id);
-        $program->update([
-           'name'           => $this->name,
-           'department_id'  => $this->department_id,
-           'faculty'        => $this->faculty,
-           'state'          => $this->state,
-        ]);
-
-        session()->flash('success', 'Programa actualizado');
-        $this->cancel();
+        try {
+           $program = Program::find($this->program_id);
+           $program->update([
+              'name'           => $this->name,
+              'department_id'  => $this->department_id,
+              'faculty'        => $this->faculty,
+              'state'          => $this->state,
+           ]);
+           $this->cancel();
+           $this->emit('refreshLivewireDatatable');
+           session()->flash('success', 'Programa actualizado');
+        } catch (QueryException $queryException) {
+           $this->errorNotUnique();
+        }
     }
 
     public function cancel()
@@ -97,6 +103,11 @@ class ProgramComponent extends Component
         $program->save();
         session()->flash('success', 'Acción realizada.');
 
+    }
+
+    public function errorNotUnique()
+    {
+       session()->flash('error', 'Error al editar el usuario.');
     }
 
 }

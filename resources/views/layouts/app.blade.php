@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Dashboard</title>
     <link rel="stylesheet" href="{{ asset('css/foundation-icons/foundation-icons.css') }}">
+    <link href="{{ asset('css/tailwind.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @livewireStyles
 </head>
@@ -52,6 +53,7 @@
         @include('sessions.session')
         @yield('content')
     </div>
+    <script src="{{ asset('js/alpine.min.js')  }}" defer></script>
     @livewireScripts
     <script src="{{ asset('js/app.js')  }}"></script>
 </body>

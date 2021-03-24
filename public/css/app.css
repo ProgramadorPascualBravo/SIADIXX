@@ -4834,4 +4834,6 @@ html.is-reveal-open {
 .pointer {
   cursor: pointer;
 }
-
+[x-cloak] {
+  display: none;
+}
