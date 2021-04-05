@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Support\Facades\Auth;
 use Mediconesystems\LivewireDatatables\BooleanColumn;
 use Mediconesystems\LivewireDatatables\Column;
+use Mediconesystems\LivewireDatatables\DateColumn;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 use Mediconesystems\LivewireDatatables\NumberColumn;
 
@@ -40,7 +41,8 @@ class UserTable extends LivewireDatatable
          BooleanColumn::name('state')->label('Estado')->filterable()->hide(),
          BooleanColumn::name('verified')->label('Verificado')->filterable()->hide(),
          Column::name('department.name')->filterable()->label('Departamento'),
-         Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight()->hide(),
+         DateColumn::name('created_at')->label('Fecha creación')->filterable(),
+         Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight(),
          Column::delete()->label('Eliminar')->alignRight()->hide()
       ];
    }

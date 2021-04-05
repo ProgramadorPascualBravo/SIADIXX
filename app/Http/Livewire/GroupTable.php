@@ -6,6 +6,7 @@ use App\Course;
 use App\Group;
 use Mediconesystems\LivewireDatatables\BooleanColumn;
 use Mediconesystems\LivewireDatatables\Column;
+use Mediconesystems\LivewireDatatables\DateColumn;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 use Mediconesystems\LivewireDatatables\NumberColumn;
 
@@ -34,7 +35,8 @@ class GroupTable extends LivewireDatatable
            Column::name('course.name')->filterable(
               $this->courses->pluck('name')
            )->label('Materia'),
-           Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight()->hide(),
+           DateColumn::name('created_at')->label('Fecha creación')->filterable(),
+           Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight(),
            Column::delete()->label('Eliminar')->alignRight()->hide()
         ];
     }

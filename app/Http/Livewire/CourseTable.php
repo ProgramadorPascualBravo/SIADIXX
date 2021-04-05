@@ -7,6 +7,7 @@ use App\Program;
 use Illuminate\Support\Facades\Auth;
 use Mediconesystems\LivewireDatatables\BooleanColumn;
 use Mediconesystems\LivewireDatatables\Column;
+use Mediconesystems\LivewireDatatables\DateColumn;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 use Mediconesystems\LivewireDatatables\NumberColumn;
 
@@ -33,11 +34,12 @@ class CourseTable extends LivewireDatatable
            })->label('id'),
            Column::name('code')->label('Código')->filterable()->searchable(),
            Column::name('name')->label('Nombre Materia')->editable()->filterable()->searchable(),
-           BooleanColumn::name('state')->label('Estado')->filterable()->hide(),
+           BooleanColumn::name('state')->label('Estado')->filterable(),
            Column::name('program.name')->filterable(
               $this->programs->pluck('name')
            )->label('Programa'),
-           Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight()->hide(),
+           DateColumn::name('created_at')->label('Fecha creación')->filterable(),
+           Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight(),
            Column::delete()->label('Eliminar')->alignRight()->hide()
         ];
     }

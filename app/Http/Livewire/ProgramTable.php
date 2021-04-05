@@ -37,7 +37,7 @@ class ProgramTable extends LivewireDatatable
            Column::name('department.name')->filterable(
               $this->department->pluck('name')
            )->label('Departamento'),
-           Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight()->hide(),
+           Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight(),
            Column::delete()->label('Eliminar')->alignRight()->hide()
         ];
     }

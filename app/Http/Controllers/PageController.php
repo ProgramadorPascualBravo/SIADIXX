@@ -68,6 +68,10 @@ class PageController extends Controller
         return view('user.index');
     }
 
+    public function student()
+    {
+       return view('student.index');
+    }
     public function department()
     {
         return view('department.index');

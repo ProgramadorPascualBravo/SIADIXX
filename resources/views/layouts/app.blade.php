@@ -22,6 +22,7 @@
                     <a href="#">Módulos</a>
                     <ul class="menu vertical">
                         <li><a href="{{ route('user-index') }}">Usuarios</a></li>
+                        <li><a href="{{ route('student-index') }}">Usuarios Moodle</a></li>
                         <li><a href="{{ route('department-index') }}">Departamentos</a></li>
                         <li><a href="{{ route('program-index') }}">Programas</a></li>
                         <li><a href="{{ route('course-index') }}">Cursos</a></li>

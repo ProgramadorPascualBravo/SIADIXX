@@ -35,7 +35,7 @@ class DepartmentTable extends LivewireDatatable
          Column::name('name')->label('Nombre')->editable()->searchable()->truncate(),
          BooleanColumn::name('state')->label('Estado')->filterable(),
          DateColumn::name('created_at')->label('Fecha creación')->filterable(),
-         Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight()->hide(),
+         Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight(),
          Column::delete()->label('Eliminar')->alignRight()->hide()
       ];
    }

@@ -25,6 +25,9 @@ Route::middleware(['auth'])->group(function () {
         Route::prefix('/users')->group(function () {
             Route::get('', [PageController::class, 'user'])->name('user-index');
         });
+        Route::prefix('/students')->group(function () {
+           Route::get('', [PageController::class, 'student'])->name('student-index');
+        });
         Route::prefix('/department')->group(function (){
             Route::get('', [PageController::class, 'department'])->name('department-index');
         });

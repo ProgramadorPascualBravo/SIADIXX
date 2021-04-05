@@ -123,8 +123,8 @@ class UserComponent extends Component
         $this->hydrate();
     }
 
-   public function errorNotUnique()
-   {
-      session()->flash('error', 'Error al editar el usuario.');
-   }
+    public function errorNotUnique()
+    {
+       session()->flash('error', 'Error al editar el usuario.');
+    }
 }
