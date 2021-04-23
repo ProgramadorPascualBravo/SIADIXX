@@ -40,5 +40,11 @@ Route::middleware(['auth'])->group(function () {
         Route::prefix('/group')->group(function(){
             Route::get('', [PageController::class, 'group'])->name('group-index');
         });
+        Route::prefix('/rol-moodle')->group(function(){
+            Route::get('', [PageController::class, 'rol_moodle'])->name('rol-moodle-index');
+        });
+        Route::prefix('/enrollment')->group(function(){
+            Route::get('', [PageController::class, 'enrollment'])->name('enrollment-index');
+        });
     });
 });

@@ -19,7 +19,7 @@ class StudentComponent extends Component
 
    public $view = 'create';
 
-   public $user_id, $name, $last_name, $email, $document, $country, $department, $city, $address, $telephone, $cellphone, $state, $block;
+   public $user_id, $name, $last_name, $email, $document, $state, $block;
 
    protected $listeners = ['errorNotUnique', 'edit'];
 
@@ -52,14 +52,7 @@ class StudentComponent extends Component
          $student->last_name     = $this->last_name;
          $student->email         = $this->email;
          //$user->department_id    = $this->department_id;
-         $student->password      = Hash::make($this->document);
-         $student->document      = $this->document;
-         $student->country       = $this->country;
-         $student->department    = $this->department;
-         $student->city          = $this->city;
-         $student->address       = $this->address;
-         $student->telephone     = $this->telephone;
-         $student->cellphone     = $this->cellphone;
+         $student->password      = md5($this->document);
          $student->state         = $this->state;
          $student->save();
          $this->cancel();
@@ -78,14 +71,8 @@ class StudentComponent extends Component
       $this->name          = $student->name;
       $this->last_name     = $student->last_name;
       $this->email         = $student->email;
-      //$user->department_id    = $this->department_id;
       $this->document      = $student->document;
-      $this->country       = $student->country;
-      $this->department    = $student->department;
-      $this->city          = $student->city;
-      $this->address       = $student->address;
-      $this->telephone     = $student->telephone;
-      $this->cellphone     = $student->cellphone;
+      //$user->department_id    = $this->department_id;
       $this->state         = $student->state;
       $this->view          = 'edit';
 
@@ -110,12 +97,6 @@ class StudentComponent extends Component
             'last_name'     => $this->last_name,
             'email'         => $this->email,
             'document'      => $this->document,
-            'country'       => $this->country,
-            'department'    => $this->department,
-            'city'          => $this->city,
-            'address'       => $this->address,
-            'telephone'     => $this->telephone,
-            'cellphone'     => $this->cellphone,
             'state'         => $this->state,
          ]);
          $this->cancel();
@@ -143,12 +124,6 @@ class StudentComponent extends Component
       $this->last_name     = '';
       $this->email         = '';
       $this->document      = '';
-      $this->country       = '';
-      $this->department    = '';
-      $this->city          = '';
-      $this->address       = '';
-      $this->telephone     = '';
-      $this->cellphone     = '';
       $this->view          = 'create';
       $this->hydrate();
    }

@@ -16,7 +16,7 @@ class GroupComponent extends Component
 
     public $view = 'create';
 
-    public $name, $code, $course_id, $state, $group_id;
+    public $name, $code, $course_id, $state, $period, $group_id;
 
    protected $listeners = ['errorNotUnique', 'edit'];
 
@@ -31,8 +31,8 @@ class GroupComponent extends Component
     {
         $this->validate([
             'name'      => 'required',
-            'code'      => 'required|unique:groups,code',
             'course_id' => 'required|exists:courses,id',
+            'period'    => 'required',
             'state'     => 'required'
         ]);
 
@@ -40,7 +40,8 @@ class GroupComponent extends Component
 
         $course->groups()->create([
             'name'      => $this->name,
-            'code'      => $course->code . "--" . $this->code,
+            'code'      => $course->code . $this->name,
+            'period'    => $this->period
         ]);
     }
 
@@ -50,7 +51,7 @@ class GroupComponent extends Component
 
         $this->group_id     = $group->id;
         $this->name         = $group->name;
-        $this->code         = $group->code;
+        $this->period       = $group->period;
         $this->course_id    = $group->course_id;
         $this->state        = $group->state;
         $this->view         = 'edit';
@@ -61,8 +62,8 @@ class GroupComponent extends Component
     {
         $this->validate([
             'name'      => 'required',
-            'code'      => 'required',
             'course_id' => 'required|exists:courses,id',
+            'period'    => 'required',
             'state'     => 'required'
         ]);
 
@@ -72,8 +73,9 @@ class GroupComponent extends Component
 
         $group->update([
             'name'      => $this->name,
-            'code'      => $course->code . "--" . $this->code,
+            'code'      => $course->code . $this->name,
             'course_id' => $course->id,
+            'period'    => $this->period,
             'state'     => $this->state
         ]);
 
@@ -87,13 +89,14 @@ class GroupComponent extends Component
         $group->save();
     }
 
-    private function cancel()
+    public function cancel()
     {
         $this->group_id     = '';
         $this->state        = '';
         $this->code         = '';
         $this->name         = '';
         $this->course_id    = '';
+        $this->period       = '';
         $this->view         = 'create';
         $this->hydrate();
 

@@ -1,46 +1,22 @@
-@import "~foundation-sites/dist/css/foundation.css";
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
-.show-form {
-    display: none;
-    position: fixed;
-    width: 100%;
-    left: 0;
-    top: 0;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-    align-self: center;
-    align-content: center;
-    background-color: rgba(0, 0, 0, 0.3);
-    .content {
-        width: 50%;
-        background-color: #ffffff;
-        padding: 1em;
-        box-sizing: content-box;
-        position: relative;
-        z-index: 10;
-    }
-    &[data-type='edit'] {
-        display: flex;
-    }
+.btn {
+  @apply py-2 px-3 rounded flex items-center space-x-2 leading-4 text-xs leading-4 font-medium uppercase tracking-wider duration-75 cursor-pointer mx-2;
+  &-red {
+    @apply border-red-300 border-2 text-red-500 hover:bg-red-200;
+  }
+  &-green {
+    @apply border-green-400 border-2 text-green-500 hover:bg-green-200;
+  }
+  &-blue {
+    @apply border-blue-400 border-2 text-blue-500 hover:bg-blue-200;
+  }
 }
-
-.d-flex {
-    display: flex;
+.input-underline {
+  @apply mt-0 block w-full px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-black;
 }
-
-.flex-end {
-    justify-content: flex-end;
-}
-
-.auto {
-    margin: auto;
-}
-
-.margin-0 {
-    margin: 0 !important;
-}
-
-.pointer {
-    cursor: pointer;
+.is-invalid-input {
+   @apply border-red-200 text-red-500;
 }

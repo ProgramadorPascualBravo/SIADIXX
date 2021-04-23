@@ -1,11 +1,15 @@
-<div>
+<div class="px-5">
     <div wire:ignore.self >
-        <div class="content">
-            <h3 class="subheader">Nuevo usuario</h3>
+        <div class="my-4">
+            <h2 class="text-2xl mb-4 text-center">Nuevo usuario</h2>
             @include('livewire.user.inputs')
-            <div class="text-right">
-                <a class="clear button close-form" wire:click="cancel">Cancelar</a>
-                <a class="button" wire:click="store">Guardar</a>
+            <div class="text-right my-4 flex flex-row-reverse">
+                <button class="btn btn-green mr-0" wire:click="store">
+                    <span>Guardar</span>
+                </button>
+                <button @click="open = true" class="btn btn-red" wire:click="cancel">
+                    <span>Cancelar</span>
+                </button>
             </div>
         </div>
     </div>

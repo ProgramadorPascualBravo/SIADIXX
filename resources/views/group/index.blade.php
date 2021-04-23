@@ -1,9 +1,11 @@
 @extends('layouts.app')
 @section('content')
-    <div class="medium-12 cell">
-        <h2 class="h1">Módulo grupos</h2>
-    </div>
-    <div class="medium-12 cell">
-        @livewire('group-component')
+    <div class="grid grid-cols-1 gap-2">
+        <div>
+            <h1 class="font-bold text-4xl my-4 text-center">Módulo de grupos</h1>
+        </div>
+        <div>
+            @livewire('group-component')
+        </div>
     </div>
 @endsection

@@ -16,7 +16,7 @@ class UserComponent extends Component
 
     public $view = 'create';
 
-    public $user_id, $name, $last_name, $username, $department_id, $state, $verified;
+    public $user_id, $name, $last_name, $username, $department_id, $state;
 
     protected $listeners = ['errorNotUnique', 'edit'];
 
@@ -40,8 +40,7 @@ class UserComponent extends Component
             'last_name'     => 'required',
             'username'      => 'required|email:rfc|unique:users,username',
             'department_id' => 'required|exists:departments,id',
-            'state'         => 'required',
-            'verified'      => 'required'
+            'state'         => 'required'
         ]);
 
         $user                   = new User();
@@ -51,7 +50,6 @@ class UserComponent extends Component
         $user->department_id    = $this->department_id;
         $user->password         = Hash::make('1990duqe');
         $user->state            = $this->state;
-        $user->verified         = $this->verified;
         $user->save();
         session()->flash('success', 'Usuario creado.');
 
@@ -66,9 +64,7 @@ class UserComponent extends Component
         $this->username         = $user->username;
         $this->department_id    = $user->department_id;
         $this->state            = $user->state;
-        $this->verified         = $user->verified;
         $this->view             = 'edit';
-
     }
 
     public function update()
@@ -78,7 +74,6 @@ class UserComponent extends Component
             'last_name'     => 'required',
             'department_id' => 'required',
             'state'         => 'required',
-            'verified'      => 'required'
         ]);
 
         $user = User::find($this->user_id);
@@ -89,11 +84,11 @@ class UserComponent extends Component
                'last_name'     => $this->last_name,
                'department_id' => $this->department_id,
                'state'         => $this->state,
-               'verified'      => $this->verified
            ]);
            $this->cancel();
            $this->emit('refreshLivewireDatatable');
-           session()->flash('success', 'Usuario actualizado');
+           //session()->flash('success', 'Usuario actualizado');
+
         } catch (QueryException $queryException) {
            $this->errorNotUnique();
         }
@@ -118,7 +113,6 @@ class UserComponent extends Component
         $this->department_id    = '';
         $this->password         = '';
         $this->state            = '';
-        $this->verified         = '';
         $this->view             = 'create';
         $this->hydrate();
     }

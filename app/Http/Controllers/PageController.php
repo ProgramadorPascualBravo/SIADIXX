@@ -91,5 +91,14 @@ class PageController extends Controller
     {
         return view('group.index');
     }
+
+    public function rol_moodle()
+    {
+       return view('rol_moodle.index');
+    }
+    public function enrollment()
+    {
+       return view('enrollment.index');
+    }
     //Fin de ingreso
 }

@@ -1,54 +1,49 @@
-<div>
-    <div class="medium-12 cell">
-        <label for="name">Nombre<input class="@error('name') is-invalid-input @enderror" type="text" name="name" id="name" wire:model.defer="name"></label>
+<div class="grid grid-cols-1 gap-2">
+    <label class="block">
+        <span class="text-gray-700">Nombre</span>
+        <input type="text"
+               class="@error('name') is-invalid-input @enderror input-underline" name="name" id="name" wire:model.defer="name" autocomplete="off">
         @error('name')
             <span class="form-error is-visible">{{ $message }}</span>
         @enderror
-    </div>
-    <div class="medium-12 cell">
-        <label for="last_name">Apellido<input class="@error('last_name') is-invalid-input @enderror" type="text" name="last_name" id="last_name" wire:model.defer="last_name"></label>
+    </label>
+    <label class="block">
+        <span class="text-gray-700">Apellido</span>
+        <input type="text"
+               class="@error('last_name') is-invalid-input @enderror input-underline" name="last_name" id="last_name" wire:model.defer="last_name" autocomplete="off">
         @error('last_name')
-            <span class="form-error is-visible">{{ $message }}</span>
+        <span class="form-error is-visible">{{ $message }}</span>
         @enderror
-    </div>
-    <div class="medium-12 cell">
-        <label for="username">Usuario<input class="@error('username') is-invalid-input @enderror" type="text" name="username" id="username" wire:model.defer="username"></label>
+    </label>
+    <label class="block">
+        <span class="text-gray-700">Correo electronico</span>
+        <input type="email"
+               class="@error('username') is-invalid-input @enderror input-underline" name="username" id="username" wire:model.defer="username" autocomplete="off">
         @error('username')
-            <span class="form-error is-visible">{{ $message }}</span>
+        <span class="form-error is-visible">{{ $message }}</span>
         @enderror
-    </div>
-    <div class="medium-12 cell">
-        <label for="department_id">Departamento
-            <select class="@error('department_id') is-invalid-input @enderror" name="department_id" id="department_id" wire:model.defer="department_id">
-                <option value="">Seleccione una opción</option>
-                @foreach($departments as $department)
-                    <option value="{{ $department->id }}">{{ $department->name }}</option>
-                @endforeach
-            </select>
+    </label>
+    <label class="block">
+        <span class="text-gray-700">Departamento</span>
+        <select class="@error('department_id') is-invalid-input @enderror input-underline" name="department_id" id="department_id" wire:model.defer="department_id">
+            <option value="">Seleccione una opción</option>
+            @foreach($departments as $department)
+                <option value="{{ $department->id }}">{{ $department->name }}</option>
+            @endforeach
+        </select>
         @error('department_id')
             <span class="form-error is-visible">{{ $message }}</span>
         @enderror
-    </div>
-    <div class="medium-12 cell">
-        <label for="state">Estado
-            <select class="@error('state') is-invalid-input @enderror" name="state" id="state" wire:model.defer="state">
-                <option value="">Seleccione una opción</option>
-                <option value="1">Activo</option>
-                <option value="0">Desactivado</option>
-            </select>
-            @error('state')
+    </label>
+    <label class="block">
+        <span class="text-gray-700">Estado</span>
+        <select class="@error('state') is-invalid-input @enderror input-underline" name="state" id="state" wire:model.defer="state">
+            <option value="">Seleccione una opción</option>
+            <option value="1">Activo</option>
+            <option value="0">Desactivado</option>
+        </select>
+        @error('state')
             <span class="form-error is-visible">{{ $message }}</span>
         @enderror
-    </div>
-    <div class="medium-12 cell">
-        <label for="verified">Verificado
-            <select class="@error('verified') is-invalid-input @enderror" name="verified" id="verified" wire:model.defer="verified">
-                <option value="">Seleccione una opción</option>
-                <option value="1">Activo</option>
-                <option value="0">Desactivado</option>
-            </select>
-            @error('verified')
-            <span class="form-error is-visible">{{ $message }}</span>
-        @enderror
-    </div>
+    </label>
 </div>

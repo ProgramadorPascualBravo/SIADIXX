@@ -1,13 +1,13 @@
-<div>
-    <div class="grid-x">
-        @include('sessions.session')
-        <div class="medium-12 cell text-right">
-            <button class="button" wire:click="cancel">Agregar nuevo registro</button>
-        </div>
-        <div class="medium-6 cell content-table">
-            <livewire:program-table />
-        </div>
-        <div class="medium-5 cell medium-offset-1">
-            @include("livewire.program.$view")
+    <div>
+        <div class="grid grid-cols-4 gap-2">
+            <div class="col-span-4 text-right pr-4">
+                <button class="btn bg-gray-800 text-white" wire:click="cancel" >Agregar nuevo registro</button>
+            </div>
+            <div class="col-span-3 pl-4">
+                <livewire:program-table />
+            </div>
+            <div class="col-span-1">
+                @include("livewire.program.$view")
+            </div>
         </div>
     </div>

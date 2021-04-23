@@ -1,36 +1,41 @@
-<div class="medium-12 cell">
-    <label for="name">Nombre<input class="@error('name') is-invalid-input @enderror" type="text" name="name" id="name" wire:model.defer="name"></label>
-    @error('name')
-    <span class="form-error is-visible">{{ $message }}</span>
-    @enderror
-
-    <label for="codigo">Código<input class="@error('code') is-invalid-input @enderror" type="text" name="codigo" id="codigo" wire:model.defer="code"></label>
-    @error('code')
-    <span class="form-error is-visible">{{ $message }}</span>
-    @enderror
-
-    <div class="medium-12 cell">
-        <label for="program_id">Programa
-            <select class="@error('department_id') is-invalid-input @enderror" name="program_id" id="program_id" wire:model.defer="program_id">
-                <option value="">Seleccione una opción</option>
-                @foreach($programs as $program)
-                    <option value="{{ $program->id }}">{{ $program->name }}</option>
-                @endforeach
-            </select>
-            @error('program_id')
+<div class="grid grid-cols-1 gap-2">
+    <div class="block">
+        <span class="text-gray-700">Nombres</span>
+        <input type="text"
+               class="@error('name') is-invalid-input @enderror input-underline" name="name" id="name" wire:model.defer="name">
+        @error('name')
+        <span class="form-error is-visible">{{ $message }}</span>
+        @enderror
+    </div>
+    <div class="block">
+        <span class="text-gray-700">Código</span>
+        <input type="text"
+               class="@error('code') is-invalid-input @enderror input-underline" name="code" id="code" wire:model.defer="code">
+        @error('code')
             <span class="form-error is-visible">{{ $message }}</span>
         @enderror
     </div>
-
-    <div class="medium-12 cell">
-        <label for="state">Estado
-            <select class="@error('state') is-invalid-input @enderror" name="state" id="state" wire:model.defer="state">
-                <option value="">Seleccione una opción</option>
-                <option value="1">Activo</option>
-                <option value="0">Desactivado</option>
-            </select>
-            @error('state')
+    <label class="block">
+        <span class="text-gray-700">Programa</span>
+        <select class="@error('program_id') is-invalid-input @enderror input-underline" name="program_id" id="program_id" wire:model.defer="program_id">
+            <option value="">Seleccione una opción</option>
+            @foreach($programs as $program)
+                <option value="{{ $program->id }}">{{ $program->name }}</option>
+            @endforeach
+        </select>
+        @error('program_id')
             <span class="form-error is-visible">{{ $message }}</span>
         @enderror
-    </div>
+    </label>
+    <label class="block">
+        <span class="text-gray-700">Estado</span>
+        <select class="@error('state') is-invalid-input @enderror input-underline" name="state" id="state" wire:model.defer="state">
+            <option value="">Seleccione una opción</option>
+            <option value="1">Activo</option>
+            <option value="0">Desactivado</option>
+        </select>
+        @error('state')
+        <span class="form-error is-visible">{{ $message }}</span>
+        @enderror
+    </label>
 </div>

@@ -10,7 +10,7 @@ $factory->define(\App\Student::class, function (Faker $faker) {
        "name" => $faker->name,
        "last_name" => $faker->lastName,
        "email" => $faker->email,
-       "password" => \Illuminate\Support\Facades\Hash::make('1990duqe'),
+       "password" => md5('1990duqe'),
        "document" => rand(10000000, 99999999),
        "country" => $faker->country,
        "department" => $faker->state,

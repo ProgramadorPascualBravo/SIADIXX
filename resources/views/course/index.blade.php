@@ -1,9 +1,11 @@
 @extends('layouts.app')
 @section('content')
-    <div class="medium-12 cell">
-        <h2 class="h1">Módulo cursos</h2>
-    </div>
-    <div class="medium-12 cell">
-        @livewire('course-component')
+    <div class="grid grid-cols-1 gap-2">
+        <div>
+            <h1 class="font-bold text-4xl my-4 text-center">Módulo de asignatura</h1>
+        </div>
+        <div>
+            @livewire('course-component')
+        </div>
     </div>
 @endsection

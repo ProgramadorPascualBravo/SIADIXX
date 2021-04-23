@@ -29,12 +29,14 @@ class GroupTable extends LivewireDatatable
            NumberColumn::callback(['id'], function ($id){
               return $id;
            })->label('id'),
-           Column::name('code')->label('Código')->filterable()->searchable(),
-           Column::name('name')->label('Grupo')->editable()->filterable()->searchable(),
+           Column::name('code')->label('Codigo')->searchable()->filterable(),
+           Column::callback(['name', 'course.name'], function ($name, $course_name){
+              return "Grupo: {$name} de {$course_name}";
+           })->label('Grupo')->searchable()->filterable(),
            BooleanColumn::name('state')->label('Estado')->filterable()->hide(),
            Column::name('course.name')->filterable(
               $this->courses->pluck('name')
-           )->label('Materia'),
+           )->label('Asignatura'),
            DateColumn::name('created_at')->label('Fecha creación')->filterable(),
            Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight(),
            Column::delete()->label('Eliminar')->alignRight()->hide()
