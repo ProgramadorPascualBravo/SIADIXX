@@ -20,7 +20,7 @@ class PageController extends Controller
     public function singin(Request $request)
     {
         $request->validate([
-            'username' => 'required|email:rfc',
+            'username' => 'required|email:rfc|exists:users,username,state,1',
             'password' => 'required'
         ]);
 

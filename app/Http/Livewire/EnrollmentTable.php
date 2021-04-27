@@ -16,6 +16,13 @@ class EnrollmentTable extends LivewireDatatable
     public $model       = Enrollment::class;
     public $hideable    = 'select';
     public $exportable  = true;
+    protected $state    = [
+         'Desmatriculado',
+         'Matrículado',
+         'Cancelada',
+         'Finalizada',
+         'Retirado'
+    ];
 
     protected $listeners = ['refreshLivewireDatatable'];
 
@@ -34,10 +41,12 @@ class EnrollmentTable extends LivewireDatatable
               $this->groups->pluck('code')
            )->searchable(),
            Column::name('email')->label('Email')->filterable()->searchable(),
-           Column::name('rol')->label('Rol')->editable()->filterable(
+           Column::name('rol')->label('Rol')->filterable(
               $this->roles->pluck('name')
            )->searchable(),
-           BooleanColumn::name('state')->label('Estado')->filterable(),
+           Column::name('state')->label('Estado')->filterable(
+              $this->state
+           ),
            DateColumn::name('created_at')->label('Fecha creación')->filterable(),
            Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight(),
            Column::delete()->label('Eliminar')->alignRight()->hide()

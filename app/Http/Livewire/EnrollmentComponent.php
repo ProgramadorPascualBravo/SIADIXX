@@ -21,20 +21,27 @@ class EnrollmentComponent extends Component
    public $id_enrollment, $code, $rol, $email, $state;
    protected $listeners = ['errorNotUnique', 'edit'];
 
+   public $states_badget     = [
+      'Desmatriculado',
+      'Matrículado',
+      'Cancelada',
+      'Finalizada',
+      'Retirado'
+   ];
    public function render()
    {
       return view('livewire.enrollment.enrollment-component', [
-         'groups' => Group::all(['code', 'name']),
+         'groups' => Group::all(),
          'roles' => RolMoodle::all(['name'])
       ]);
    }
    public function store()
    {
       $this->validate([
-         'code'              => 'required|exists:groups,code',
+         'code'              => 'required|exists:groups,code|unique_with:enrollments,email',
          'email'             => 'required|exists:students,email',
          'rol'               => 'required|exists:roles_moodle,name',
-         'state'             => 'required|numeric'
+         'state'             => 'required'
       ]);
 
       $enrollment = new Enrollment();
@@ -46,6 +53,8 @@ class EnrollmentComponent extends Component
          'state'             => $this->state
       ]);
 
+      $this->emit('refreshLivewireDatatable');
+      $this->cancel();
       session()->flash('success', 'Nueva matrícula creado.');
 
    }
@@ -67,7 +76,7 @@ class EnrollmentComponent extends Component
          'code'              => 'required|exists:groups,code',
          'email'             => 'required|exists:students,email',
          'rol'               => 'required|exists:roles_moodle,name',
-         'state'             => 'required|numeric'
+         'state'             => 'required'
       ]);
 
       try  {

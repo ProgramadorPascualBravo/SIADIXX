@@ -7,7 +7,7 @@
                 <button class="btn btn-green mr-0" wire:click="store">
                     <span>Guardar</span>
                 </button>
-                <button @click="open = true" class="btn btn-red" wire:click="cancel">
+                <button class="btn btn-red" wire:click="cancel">
                     <span>Cancelar</span>
                 </button>
             </div>
