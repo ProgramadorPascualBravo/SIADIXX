@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('password', 250);
             $table->smallInteger('state');
             $table->timestamps();
-            $table->foreign('department_id')->references('id')->on('department');
+            $table->foreign('department_id')->references('id')->on('departments');
         });
     }
 
