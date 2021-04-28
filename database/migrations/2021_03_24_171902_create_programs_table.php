@@ -19,7 +19,7 @@ class CreateProgramsTable extends Migration
             $table->string('faculty', 250);
             $table->smallInteger('state')->default('1');
             $table->foreignId('department_id');
-            $table->foreign('department_id')->references('id')->on('department');
+            $table->foreign('department_id')->references('id')->on('departments');
             $table->timestamps();
         });
     }
