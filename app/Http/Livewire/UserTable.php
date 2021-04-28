@@ -38,6 +38,7 @@ class UserTable extends LivewireDatatable
          })->label('id'),
          Column::name('name')->label('Nombres')->filterable()->searchable()->editable(),
          Column::name('last_name')->label('Apellidos')->filterable()->searchable()->editable(),
+         Column::name('document')->label('Documento')->filterable()->searchable(),
          Column::name('username')->label('Email')->filterable()->searchable(),
          BooleanColumn::name('state')->label('Estado')->filterable()->hide(),
          BooleanColumn::name('verified')->label('Verificado')->filterable()->hide(),

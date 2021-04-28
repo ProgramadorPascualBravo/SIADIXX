@@ -16,6 +16,14 @@
         @enderror
     </label>
     <label class="block">
+        <span class="text-gray-700">Documento</span>
+        <input type="text"
+               class="@error('document') is-invalid-input @enderror input-underline" name="document" id="document" wire:model.defer="document" autocomplete="off">
+        @error('document')
+        <span class="form-error is-visible">{{ $message }}</span>
+        @enderror
+    </label>
+    <label class="block">
         <span class="text-gray-700">Correo electronico</span>
         <input type="email"
                class="@error('username') is-invalid-input @enderror input-underline" name="username" id="username" wire:model.defer="username" autocomplete="off">

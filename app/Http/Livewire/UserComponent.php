@@ -16,7 +16,7 @@ class UserComponent extends Component
 
     public $view = 'create';
 
-    public $user_id, $name, $last_name, $username, $department_id, $state;
+    public $user_id, $name, $last_name, $username, $document, $department_id, $state;
 
     protected $listeners = ['errorNotUnique', 'edit'];
 
@@ -39,6 +39,7 @@ class UserComponent extends Component
             'name'          => 'required',
             'last_name'     => 'required',
             'username'      => 'required|email:rfc|unique:users,username',
+            'document'      => 'required|unique:users,document',
             'department_id' => 'required|exists:departments,id',
             'state'         => 'required'
         ]);
@@ -47,10 +48,13 @@ class UserComponent extends Component
         $user->name             = $this->name;
         $user->last_name        = $this->last_name;
         $user->username         = $this->username;
+        $user->document         = $this->document;
         $user->department_id    = $this->department_id;
-        $user->password         = Hash::make('1990duqe');
+        $user->password         = Hash::make($this->document);
         $user->state            = $this->state;
         $user->save();
+        $this->cancel();
+        $this->emit('refreshLivewireDatatable');
         session()->flash('success', 'Usuario creado.');
 
     }
@@ -62,6 +66,7 @@ class UserComponent extends Component
         $this->name             = $user->name;
         $this->last_name        = $user->last_name;
         $this->username         = $user->username;
+        $this->document         = $user->document;
         $this->department_id    = $user->department_id;
         $this->state            = $user->state;
         $this->view             = 'edit';
@@ -110,6 +115,7 @@ class UserComponent extends Component
         $this->name             = '';
         $this->last_name        = '';
         $this->username         = '';
+        $this->document         = '';
         $this->department_id    = '';
         $this->password         = '';
         $this->state            = '';
