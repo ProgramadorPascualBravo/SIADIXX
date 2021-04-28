@@ -18,7 +18,7 @@ class CreateCoursesTable extends Migration
             $table->string('code', 200)->unique();
             $table->string('name', 250);
             $table->smallInteger('state')->default('1');
-            $table->foreignId('program_id');
+            $table->foreign('program_id')->references('id')->on('programs');
             $table->timestamps();
         });
     }

@@ -15,16 +15,18 @@ class ProgramTable extends LivewireDatatable
     public $model    = Program::class;
 
    public $hideable = 'select';
+
    public $exportable = true;
 
    protected $listeners = ['refreshLivewireDatatable'];
 
+   /*
    public function builder()
     {
        //TODO Datos según departamento
-       return $this->model::query()->where('programs.department_id', Auth::user()->department_id);
+       return $this->model::query());
     }
-
+   */
     public function columns() : array
     {
         return [
@@ -36,7 +38,7 @@ class ProgramTable extends LivewireDatatable
            BooleanColumn::name('state')->label('Estado')->filterable()->hide(),
            Column::name('department.name')->filterable(
               $this->department->pluck('name')
-           )->label('Departamento'),
+           )->label('Categoria'),
            Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight(),
            Column::delete()->label('Eliminar')->alignRight()->hide()
         ];

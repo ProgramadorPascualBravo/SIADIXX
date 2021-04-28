@@ -19,7 +19,7 @@ class CreateGroupsTable extends Migration
             $table->string('code', 250)->unique();
             $table->string('period', 10);
             $table->smallInteger('state')->default(1);
-            $table->foreignId('course_id');
+            $table->foreign('course_id')->references('id')->on('courses');
             $table->timestamps();
         });
     }
