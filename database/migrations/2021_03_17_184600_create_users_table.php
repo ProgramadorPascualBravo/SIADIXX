@@ -21,7 +21,8 @@ class CreateUsersTable extends Migration
             $table->string('username')->unique();
             $table->string('password', 250);
             $table->smallInteger('state');
-            $table->timestamps();
+           $table->foreignId('department_id');
+           $table->timestamps();
             $table->foreign('department_id')->references('id')->on('departments');
         });
     }
