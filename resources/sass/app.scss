@@ -20,3 +20,8 @@
 .is-invalid-input {
    @apply border-red-200 text-red-500;
 }
+
+.table-cell .btn {
+  display: inline-block;
+  margin: 0;
+}
