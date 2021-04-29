@@ -20,12 +20,6 @@ class CreateStudentsTable extends Migration
             $table->string('email', 350)->unique();
             $table->string('password', 250);
             $table->string('document')->unique();
-            $table->string('country');
-            $table->string('department');
-            $table->string('city');
-            $table->string('address');
-            $table->string('telephone');
-            $table->string('cellphone');
             $table->smallInteger('state')->default(1);
             $table->timestamps();
         });

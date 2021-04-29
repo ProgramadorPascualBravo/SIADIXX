@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Student;
+use Mediconesystems\LivewireDatatables\BooleanColumn;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\DateColumn;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
@@ -34,13 +35,8 @@ class StudentTable extends LivewireDatatable
             Column::name('last_name')->label('Apellidos')->filterable()->searchable()->editable(),
             Column::name('email')->label('Email')->filterable()->searchable(),
             Column::name('document')->label('Documento')->filterable()->searchable(),
-            Column::name('country')->label('Pais')->filterable()->searchable()->hide()->editable(),
-            Column::name('department')->label('Departamento')->filterable()->searchable()->hide()->editable(),
-            Column::name('city')->label('Ciudad')->filterable()->searchable()->hide()->editable(),
-            Column::name('address')->label('Dirección')->filterable()->searchable()->hide()->editable(),
-            Column::name('telephone')->label('Telefono')->filterable()->searchable()->hide()->editable(),
-            Column::name('cellphone')->label('Celular')->filterable()->searchable()->hide()->editable(),
-            DateColumn::name('created_at')->label('Fecha creación')->filterable(),
+           BooleanColumn::name('state')->label('Estado')->filterable()->hide(),
+           DateColumn::name('created_at')->label('Fecha creación')->filterable(),
             Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight(),
             Column::delete()->label('Eliminar')->alignRight()->hide()
         ];
