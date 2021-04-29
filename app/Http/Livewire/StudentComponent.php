@@ -51,6 +51,7 @@ class StudentComponent extends Component
          $student->name          = $this->name;
          $student->last_name     = $this->last_name;
          $student->email         = $this->email;
+         $student->document         = $this->document;
          //$user->department_id    = $this->department_id;
          $student->password      = md5($this->document);
          $student->state         = $this->state;
