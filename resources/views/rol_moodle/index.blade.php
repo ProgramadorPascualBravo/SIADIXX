@@ -1,9 +1,12 @@
 @extends('layouts.app')
 @section('content')
-    <div class="medium-12 cell">
-        <h2 class="h1">Módulo Roles Moodle</h2>
-    </div>
-    <div class="medium-12 cell">
-        @livewire('rol-moodle-component')
+    <div class="grid grid-cols-1 gap-2">
+        <div>
+            <h1 class="font-bold text-4xl my-4 text-center">Módulo Roles Moodle</h1>
+        </div>
+        <div>
+            @livewire('rol-moodle-component')
+        </div>
     </div>
 @endsection
+

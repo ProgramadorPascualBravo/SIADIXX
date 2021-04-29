@@ -32,6 +32,7 @@
                 <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('program-index') }}">Programas</a></li>
                 <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('course-index') }}">Asignaturas</a></li>
                 <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('group-index') }}">Grupos</a></li>
+                <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('rol-moodle-index') }}">Roles Matrícula</a></li>
                 <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('enrollment-index') }}">Matrículas</a></li>
             </ul>
         </div>

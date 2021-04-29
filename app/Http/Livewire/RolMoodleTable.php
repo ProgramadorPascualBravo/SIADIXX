@@ -35,4 +35,9 @@ class RolMoodleTable extends LivewireDatatable
            Column::delete()->label('Eliminar')->alignRight()->hide()
         ];
     }
+
+   public function edit($id)
+   {
+      $this->emit('edit', $id);
+   }
 }
