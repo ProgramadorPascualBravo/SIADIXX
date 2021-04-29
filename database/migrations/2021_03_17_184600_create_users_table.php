@@ -22,8 +22,8 @@ class CreateUsersTable extends Migration
             $table->string('password', 250);
             $table->smallInteger('state')->default(1);
             $table->smallInteger('verified')->default(0);
-           $table->foreignId('department_id');
-           $table->timestamps();
+            $table->foreignId('department_id');
+            $table->timestamps();
             $table->foreign('department_id')->references('id')->on('departments');
         });
     }
