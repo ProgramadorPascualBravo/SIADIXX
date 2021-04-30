@@ -22,6 +22,13 @@ class EnrollmentComponent extends Component
 
    public $id_enrollment, $code, $rol, $email, $state;
    protected $listeners = ['edit'];
+   public $states_badget     = [
+      'Desmatriculado',
+      'Matrículado',
+      'Cancelada',
+      'Finalizada',
+      'Retirado'
+   ];
 
    public function render()
    {
