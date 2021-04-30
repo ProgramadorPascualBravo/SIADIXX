@@ -10,7 +10,7 @@
     <label class="block">
         <span class="text-gray-700">Estado</span>
         <select class="@error('state') is-invalid-input @enderror input-underline" name="state" id="state" wire:model.defer="state">
-            <option value="">Seleccione una opción</option>
+            <option selected value="">Seleccione una opción</option>
             <option value="1">Activo</option>
             <option value="0">Desactivado</option>
         </select>

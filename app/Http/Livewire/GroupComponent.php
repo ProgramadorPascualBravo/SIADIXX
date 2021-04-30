@@ -5,13 +5,15 @@ namespace App\Http\Livewire;
 use App\Course;
 use App\Group;
 use App\Traits\ClearErrorsLivewireComponent;
+use App\Traits\FlashMessageLivewaire;
+use Illuminate\Database\QueryException;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class GroupComponent extends Component
 {
 
-    use WithPagination, ClearErrorsLivewireComponent;
+    use WithPagination, ClearErrorsLivewireComponent, FlashMessageLivewaire;
 
 
     public $view = 'create';
@@ -35,14 +37,22 @@ class GroupComponent extends Component
             'period'    => 'required',
             'state'     => 'required'
         ]);
+        try {
 
-        $course = Course::find($this->course_id);
+           $course = Course::findOrFail($this->course_id);
 
-        $course->groups()->create([
-            'name'      => $this->name,
-            'code'      => $course->code . $this->name,
-            'period'    => $this->period
-        ]);
+           $course->groups()->create([
+               'name'      => $this->name,
+               'code'      => $course->code . $this->name,
+               'period'    => $this->period
+           ]);
+
+           $this->cancel();
+           $this->refreshTable();
+           $this->showAlert('alert-success', __('messages.success.create'));
+        } catch (QueryException $queryException) {
+           $this->showAlert('alert-error', __('messages.error.create'));
+        }
     }
 
     public function edit($id)
@@ -67,26 +77,26 @@ class GroupComponent extends Component
             'state'     => 'required'
         ]);
 
-        $group          = Group::find($this->group_id);
-        $course         = Course::find($this->course_id);
-        //TODO Validar si tiene matrículas
+        try {
 
-        $group->update([
-            'name'      => $this->name,
-            'code'      => $course->code . $this->name,
-            'course_id' => $course->id,
-            'period'    => $this->period,
-            'state'     => $this->state
-        ]);
+           $group          = Group::findOrFail($this->group_id);
+           $course         = Course::findOrFail($this->course_id);
+           //TODO Validar si tiene matrículas
 
-        $this->cancel();
-    }
+           $group->update([
+               'name'      => $this->name,
+               'code'      => $course->code . $this->name,
+               'course_id' => $course->id,
+               'period'    => $this->period,
+               'state'     => $this->state
+           ]);
 
-    public function change_state($id)
-    {
-        $group          =   Group::find($id);
-        $group->state   =   !$group->state;
-        $group->save();
+           $this->cancel();
+           $this->refreshTable();
+           $this->showAlert('alert-success', __('messages.success.update'));
+        } catch (QueryException $queryException) {
+           $this->showAlert('alert-error', __('messages.error.update'));
+        }
     }
 
     public function cancel()
@@ -102,8 +112,4 @@ class GroupComponent extends Component
 
     }
 
-   public function errorNotUnique()
-   {
-      session()->flash('error', 'Error al editar la materia.');
-   }
 }

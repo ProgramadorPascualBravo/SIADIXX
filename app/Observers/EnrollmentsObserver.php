@@ -16,7 +16,7 @@ class EnrollmentsObserver
      */
     public function created(Enrollment $enrollment)
     {
-       if ($enrollment->state === 'Matrículado') {
+       if ($enrollment->state === 'Matrículado' ) {
          $enrollment_moodle = new EnrollmentMoodle();
          $enrollment_moodle->create([
              'email'             => $enrollment->email,

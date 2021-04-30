@@ -7,6 +7,7 @@ namespace App\Http\Livewire;
 use App\Department;
 use App\Student;
 use App\Traits\ClearErrorsLivewireComponent;
+use App\Traits\FlashMessageLivewaire;
 use App\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Hash;
@@ -15,13 +16,13 @@ use Livewire\WithPagination;
 
 class StudentComponent extends Component
 {
-   use WithPagination, ClearErrorsLivewireComponent;
+   use WithPagination, ClearErrorsLivewireComponent, FlashMessageLivewaire;
 
    public $view = 'create';
 
    public $user_id, $name, $last_name, $email, $document, $state, $block;
 
-   protected $listeners = ['errorNotUnique', 'edit'];
+   protected $listeners = ['edit'];
 
    public function render()
    {
@@ -30,37 +31,33 @@ class StudentComponent extends Component
       ]);
    }
 
-   public function destroy($id)
-   {
-      session()->flash('success', 'Usuario eliminado.');
-      User::destroy($id);
-   }
-
    public function store()
    {
       $this->validate([
          'name'          => 'required',
          'last_name'     => 'required',
-         'email'         => 'required|email:rfc|unique:students,email',
+         'email'         => 'required|email:rfc|unique:students,email|unique_with:students,document',
          'document'      => 'required|unique:students,document',
          'state'         => 'required',
       ]);
       try {
 
-         $student                = new Student();
-         $student->name          = $this->name;
-         $student->last_name     = $this->last_name;
-         $student->email         = $this->email;
-         $student->document         = $this->document;
-         //$user->department_id    = $this->department_id;
-         $student->password      = md5($this->document);
-         $student->state         = $this->state;
-         $student->save();
+         $student = new Student();
+
+         $student->create([
+            'name'          => $this->name,
+            'last_name'     => $this->last_name,
+            'email'         => $this->email,
+            'document'      => $this->document,
+            'password'      => md5($this->document),
+            'state'         => $this->state
+
+         ]);
          $this->cancel();
-         $this->emit('refreshLivewireDatatable');
-         session()->flash('success', 'Usuario creado.');
+         $this->refreshTable();
+         $this->showAlert('alert-success', __('messages.success.create'));
       } catch (QueryException $queryException) {
-         $this->errorNotUnique();
+         $this->showAlert('alert-error', __('messages.error.create'));
       }
 
    }
@@ -73,7 +70,6 @@ class StudentComponent extends Component
       $this->last_name     = $student->last_name;
       $this->email         = $student->email;
       $this->document      = $student->document;
-      //$user->department_id    = $this->department_id;
       $this->state         = $student->state;
       $this->view          = 'edit';
 
@@ -86,13 +82,12 @@ class StudentComponent extends Component
          'last_name'     => 'required',
          'email'         => 'required|email:rfc',
          'document'      => 'required',
-         //'department_id' => 'required|exists:departments,id',
          'state'         => 'required',
-   ]);
+      ]);
 
-      $student = Student::find($this->user_id);
       try {
 
+         $student = Student::findOrFail($this->user_id);
          $student->update([
             'name'          => $this->name,
             'last_name'     => $this->last_name,
@@ -101,20 +96,11 @@ class StudentComponent extends Component
             'state'         => $this->state,
          ]);
          $this->cancel();
-         $this->emit('refreshLivewireDatatable');
-         session()->flash('success', 'Usuario actualizado');
+         $this->refreshTable();
+         $this->showAlert('alert-success', __('messages.success.update'));
       } catch (QueryException $queryException) {
-         $this->errorNotUnique();
+         $this->showAlert('alert-error', __('messages.error.update'));
       }
-
-   }
-
-   public function change_state($id)
-   {
-      $student =         Student::find($id);
-      $student->state =  !$student->state;
-      $student->save();
-      session()->flash('success', 'Acción realizada.');
 
    }
 
@@ -129,8 +115,4 @@ class StudentComponent extends Component
       $this->hydrate();
    }
 
-   public function errorNotUnique()
-   {
-      session()->flash('error', 'Error al editar el usuario.');
-   }
 }

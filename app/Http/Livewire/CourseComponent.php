@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Course;
 use App\Program;
 use App\Traits\ClearErrorsLivewireComponent;
+use App\Traits\FlashMessageLivewaire;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -12,13 +13,13 @@ use Livewire\WithPagination;
 
 class CourseComponent extends Component
 {
-    use WithPagination, ClearErrorsLivewireComponent;
+    use WithPagination, ClearErrorsLivewireComponent, FlashMessageLivewaire;
 
     public $view = 'create';
 
     public $course_id, $name, $code, $program_id, $state;
 
-   protected $listeners = ['errorNotUnique', 'edit'];
+   protected $listeners = ['edit'];
 
    public function render()
     {
@@ -33,21 +34,28 @@ class CourseComponent extends Component
     {
         $this->validate([
             'name'              => 'required',
-            'code'              => 'required|unique:courses,code',
+            'code'              => 'required|unique:courses,code|unique_with:courses,id',
             'program_id'        => 'required|exists:programs,id',
             'state'             => 'required|numeric'
         ]);
+        try {
 
-        $course = new Course();
+            $course = new Course();
 
-        $course->create([
-            'name'              => $this->name,
-            'code'              => $this->code,
-            'program_id'        => $this->program_id,
-            'state'             => $this->state
-        ]);
+            $course->create([
+               'name'              => $this->name,
+               'code'              => $this->code,
+               'program_id'        => $this->program_id,
+               'state'             => $this->state
+            ]);
 
-        session()->flash('success', 'Nuevo curso creado.');
+           $this->cancel();
+           $this->refreshTable();
+           $this->showAlert('alert-success', __('messages.success.create'));
+
+        } catch (QueryException $queryException) {
+           $this->showAlert('alert-error', __('messages.error.create'));
+        }
 
     }
 
@@ -73,7 +81,7 @@ class CourseComponent extends Component
 
         try  {
 
-           $course = Course::find($this->course_id);
+           $course = Course::findOrFail($this->course_id);
 
            $course->update([
                'name'              => $this->name,
@@ -82,21 +90,12 @@ class CourseComponent extends Component
                'state'             => $this->state
            ]);
 
-           session()->flash('success', 'Curso actualizado');
            $this->cancel();
-           $this->emit('refreshLivewireDatatable');
+           $this->refreshTable();
+           $this->showAlert('alert-success', __('messages.success.update'));
         } catch (QueryException $queryException) {
-           $this->errorNotUnique();
+           $this->showAlert('alert-error', __('messages.error.update'));
         }
-    }
-
-    public function change_state($id)
-    {
-        $course         =   Course::find($id);
-        $course->state  =   !$course->state;
-        $course->save();
-        session()->flash('success', 'Acción realizada.');
-
     }
 
     public function cancel()
@@ -110,10 +109,5 @@ class CourseComponent extends Component
         $this->view         = 'create';
         $this->hydrate();
     }
-
-   public function errorNotUnique()
-   {
-      session()->flash('error', 'Error al editar la materia.');
-   }
 
 }

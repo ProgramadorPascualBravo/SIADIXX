@@ -6,18 +6,20 @@ namespace App\Http\Livewire;
 
 use App\RolMoodle;
 use App\Traits\ClearErrorsLivewireComponent;
+use App\Traits\FlashMessageLivewaire;
 use Illuminate\Database\QueryException;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class RolMoodleComponent extends Component
 {
-   use ClearErrorsLivewireComponent;
+   use ClearErrorsLivewireComponent, WithPagination, FlashMessageLivewaire;
 
    public $view = 'create';
 
    public $id_rol_moodle, $name, $state;
 
-   protected $listeners = ['errorNotUnique', 'edit'];
+   protected $listeners = ['edit'];
 
    public function render()
    {
@@ -27,18 +29,24 @@ class RolMoodleComponent extends Component
    public function store()
    {
       $this->validate([
-         'name' => 'required|unique:roles_moodle,name'
+         'name'      => 'required|unique:roles_moodle,name',
+         'state'     => 'required'
       ]);
 
-      $rolMoodle = new RolMoodle();
+      try {
 
-      $rolMoodle->create([
-         'name' => $this->name
-      ]);
+         $rolMoodle = new RolMoodle();
 
-      $this->emit('refreshLivewireDatatable');
+         $rolMoodle->create([
+            'name' => $this->name
+         ]);
+         $this->cancel();
+         $this->refreshTable();
+         $this->showAlert('alert-success', __('messages.success.create'));
+      }catch (QueryException $queryException) {
+         $this->showAlert('alert-error', __('messages.error.create'));
+      }
 
-      session()->flash('success', 'Rol creado.');
    }
 
 
@@ -58,26 +66,17 @@ class RolMoodleComponent extends Component
          'state'         => 'required'
       ]);
       try {
-         $rolMoodle = RolMoodle::find($this->department_id);
+         $rolMoodle = RolMoodle::findOrFail($this->department_id);
          $rolMoodle->update([
             'name'        => $this->name,
             'state'       => $this->state
          ]);
          $this->cancel();
-         $this->emit('refreshLivewireDatatable');
-         session()->flash('success', 'Rol actualizado.');
+         $this->refreshTable();
+         $this->showAlert('alert-success', __('messages.success.update'));
       } catch (QueryException $queryException) {
-         $this->errorNotUnique();
+         $this->showAlert('alert-error', __('messages.error.update'));
       }
-   }
-
-   public function change_state($id)
-   {
-      $rolMoodle =           RolMoodle::find($id);
-      $rolMoodle->state =    !$rolMoodle->state;
-      $rolMoodle->save();
-      session()->flash('success', 'Acción realizada.');
-
    }
 
    public function cancel()
@@ -88,8 +87,4 @@ class RolMoodleComponent extends Component
       $this->hydrate();
    }
 
-   public function errorNotUnique()
-   {
-      session()->flash('error', 'Error al editar el rol.');
-   }
 }

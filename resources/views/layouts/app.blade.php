@@ -54,7 +54,6 @@
         </div>
     </nav>
 </header>
-    @include('sessions.session')
     @yield('content')
     <script src="{{ asset('js/alpine.min.js')  }}" defer></script>
     <script nomodule src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine-ie11.min.js" defer></script>

@@ -35,8 +35,8 @@ class StudentTable extends LivewireDatatable
             Column::name('last_name')->label('Apellidos')->filterable()->searchable()->editable(),
             Column::name('email')->label('Email')->filterable()->searchable(),
             Column::name('document')->label('Documento')->filterable()->searchable(),
-           BooleanColumn::name('state')->label('Estado')->filterable()->hide(),
-           DateColumn::name('created_at')->label('Fecha creación')->filterable(),
+            BooleanColumn::name('state')->label('Estado')->filterable()->hide(),
+            DateColumn::name('created_at')->label('Fecha creación')->filterable(),
             Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight(),
             Column::delete()->label('Eliminar')->alignRight()->hide()
         ];
@@ -51,4 +51,5 @@ class StudentTable extends LivewireDatatable
     {
        $this->emit('edit', $id);
     }
+
 }

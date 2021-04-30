@@ -9,25 +9,20 @@ use App\Enrollment;
 use App\Group;
 use App\RolMoodle;
 use App\Traits\ClearErrorsLivewireComponent;
+use App\Traits\FlashMessageLivewaire;
 use Illuminate\Database\QueryException;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class EnrollmentComponent extends Component
 {
-   use ClearErrorsLivewireComponent;
+   use ClearErrorsLivewireComponent, WithPagination, FlashMessageLivewaire;
 
    public $view = 'create';
 
    public $id_enrollment, $code, $rol, $email, $state;
-   protected $listeners = ['errorNotUnique', 'edit'];
+   protected $listeners = ['edit'];
 
-   public $states_badget     = [
-      'Desmatriculado',
-      'Matrículado',
-      'Cancelada',
-      'Finalizada',
-      'Retirado'
-   ];
    public function render()
    {
       return view('livewire.enrollment.enrollment-component', [
@@ -43,19 +38,23 @@ class EnrollmentComponent extends Component
          'rol'               => 'required|exists:roles_moodle,name',
          'state'             => 'required'
       ]);
+      try {
 
-      $enrollment = new Enrollment();
+         $enrollment = new Enrollment();
 
-      $enrollment->create([
-         'email'             => $this->email,
-         'code'              => $this->code,
-         'rol'               => $this->rol,
-         'state'             => $this->state
-      ]);
+         $enrollment->create([
+            'email'             => $this->email,
+            'code'              => $this->code,
+            'rol'               => $this->rol,
+            'state'             => $this->state
+         ]);
 
-      $this->emit('refreshLivewireDatatable');
-      $this->cancel();
-      session()->flash('success', 'Nueva matrícula creado.');
+         $this->cancel();
+         $this->refreshTable();
+         $this->showAlert('alert-success', __('messages.success.create'));
+      } catch (QueryException $queryException) {
+         $this->showAlert('alert-error', __('messages.error.create'));
+      }
 
    }
 
@@ -90,21 +89,12 @@ class EnrollmentComponent extends Component
             'state'             => $this->state
          ]);
 
-         session()->flash('success', 'Matrícula actualizada');
          $this->cancel();
-         $this->emit('refreshLivewireDatatable');
+         $this->refreshTable();
+         $this->showAlert('alert-success', __('messages.success.update'));
       } catch (QueryException $queryException) {
-         $this->errorNotUnique();
+         $this->showAlert('alert-error', __('messages.error.update'));
       }
-   }
-
-   public function change_state($id)
-   {
-      $enrollment         =   Enrollment::find($id);
-      $enrollment->state  =   !$enrollment->state;
-      $enrollment->save();
-      session()->flash('success', 'Acción realizada.');
-
    }
 
    public function cancel()
@@ -118,8 +108,4 @@ class EnrollmentComponent extends Component
       $this->hydrate();
    }
 
-   public function errorNotUnique()
-   {
-      session()->flash('error', 'Error al editar la materia.');
-   }
 }

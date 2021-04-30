@@ -18,8 +18,11 @@ class EnrollmentsMoodle extends Migration
           $table->string('code', 100);
           $table->string('email', 200);
           $table->string('rol', 100);
+          $table->string('rol', 100);
+          $table->foreignId('enrollment_id');
           $table->foreign('email')->references('email')->on('enrollments');
           $table->foreign('code')->references('code')->on('enrollments');
+          $table->foreign('enrollment_id')->references('id')->on('enrollments');
           $table->timestamps();
        });
     }

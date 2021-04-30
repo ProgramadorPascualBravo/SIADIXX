@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Department;
 use App\Traits\ClearErrorsLivewireComponent;
+use App\Traits\FlashMessageLivewaire;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
@@ -12,13 +13,13 @@ use App\User;
 
 class UserComponent extends Component
 {
-    use WithPagination, ClearErrorsLivewireComponent;
+    use WithPagination, ClearErrorsLivewireComponent, FlashMessageLivewaire;
 
     public $view = 'create';
 
     public $user_id, $name, $last_name, $username, $document, $department_id, $state;
 
-    protected $listeners = ['errorNotUnique', 'edit'];
+    protected $listeners = ['edit'];
 
     public function render()
     {
@@ -27,14 +28,9 @@ class UserComponent extends Component
         ]);
     }
 
-    public function destroy($id)
-    {
-        session()->flash('success', 'Usuario eliminado.');
-        User::destroy($id);
-    }
-
     public function store()
     {
+
         $this->validate([
             'name'          => 'required',
             'last_name'     => 'required',
@@ -43,19 +39,23 @@ class UserComponent extends Component
             'department_id' => 'required|exists:departments,id',
             'state'         => 'required'
         ]);
-
-        $user                   = new User();
-        $user->name             = $this->name;
-        $user->last_name        = $this->last_name;
-        $user->username         = $this->username;
-        $user->document         = $this->document;
-        $user->department_id    = $this->department_id;
-        $user->password         = Hash::make($this->document);
-        $user->state            = $this->state;
-        $user->save();
-        $this->cancel();
-        $this->emit('refreshLivewireDatatable');
-        session()->flash('success', 'Usuario creado.');
+       try {
+           $user                   = new User();
+           $user->create([
+               'name'            => $this->name,
+               'last_name'       => $this->last_name,
+               'username'        => $this->username,
+               'document'        => $this->document,
+               'department_id'   => $this->department_id,
+               'password'        => Hash::make($this->document),
+               'state'           => $this->state
+           ]);
+           $this->cancel();
+           $this->refreshTable();
+           $this->showAlert('alert-success', __('messages.success.create'));
+       } catch (QueryException $queryException) {
+          $this->showAlert('alert-error', __('messages.error.create'));
+       }
 
     }
 
@@ -81,9 +81,8 @@ class UserComponent extends Component
             'state'         => 'required',
         ]);
 
-        $user = User::find($this->user_id);
         try {
-
+           $user = User::findOrFail($this->user_id);
            $user->update([
                'name'          => $this->name,
                'last_name'     => $this->last_name,
@@ -91,21 +90,12 @@ class UserComponent extends Component
                'state'         => $this->state,
            ]);
            $this->cancel();
-           $this->emit('refreshLivewireDatatable');
-           //session()->flash('success', 'Usuario actualizado');
+           $this->refreshTable();
+           $this->showAlert('alert-success', __('messages.success.update'));
 
         } catch (QueryException $queryException) {
-           $this->errorNotUnique();
+           $this->showAlert('alert-error', __('messages.error.update'));
         }
-
-    }
-
-    public function change_state($id)
-    {
-        $user =         User::find($id);
-        $user->state =  !$user->state;
-        $user->save();
-        session()->flash('success', 'Acción realizada.');
 
     }
 
@@ -123,8 +113,4 @@ class UserComponent extends Component
         $this->hydrate();
     }
 
-    public function errorNotUnique()
-    {
-       session()->flash('error', 'Error al editar el usuario.');
-    }
 }

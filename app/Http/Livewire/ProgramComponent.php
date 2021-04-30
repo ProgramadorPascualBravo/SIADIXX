@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Department;
 use App\Program;
 use App\Traits\ClearErrorsLivewireComponent;
+use App\Traits\FlashMessageLivewaire;
 use Illuminate\Database\QueryException;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -12,14 +13,13 @@ use Livewire\WithPagination;
 class ProgramComponent extends Component
 {
 
-    use WithPagination;
-    use ClearErrorsLivewireComponent;
+    use WithPagination, ClearErrorsLivewireComponent, FlashMessageLivewaire;
 
     public $view = 'create';
 
     public $program_id, $name, $department_id, $state, $faculty;
 
-    protected $listeners = ['errorNotUnique', 'edit'];
+    protected $listeners = ['edit'];
 
     public function render()
     {
@@ -34,19 +34,26 @@ class ProgramComponent extends Component
             'name'              => 'required',
             'department_id'     => 'required|exists:departments,id',
             'faculty'           => 'required',
-            'state'             => 'required|numeric'
+            'state'             => 'required'
         ]);
 
-        $program = new Program();
+        try {
 
-        $program->create([
-            'name'              => $this->name,
-            'state'             => $this->state,
-            'department_id'     => $this->department_id,
-            'faculty'           => $this->faculty
-        ]);
+           $program = new Program();
 
-        session()->flash('success', 'Nuevo programa creado.');
+           $program->create([
+               'name'              => $this->name,
+               'state'             => $this->state,
+               'department_id'     => $this->department_id,
+               'faculty'           => $this->faculty
+           ]);
+
+           $this->cancel();
+           $this->refreshTable();
+           $this->showAlert('alert-success', __('messages.success.create'));
+        } catch (QueryException $queryException) {
+           $this->showAlert('alert-error', __('messages.error.create'));
+        }
     }
 
     public function edit($id)
@@ -70,7 +77,7 @@ class ProgramComponent extends Component
         ]);
 
         try {
-           $program = Program::find($this->program_id);
+           $program = Program::findOrFail($this->program_id);
            $program->update([
               'name'           => $this->name,
               'department_id'  => $this->department_id,
@@ -78,11 +85,10 @@ class ProgramComponent extends Component
               'state'          => $this->state,
            ]);
            $this->cancel();
-           $this->emit('refreshLivewireDatatable');
-           session()->flash('success', 'Programa actualizado');
+           $this->refreshTable();
+           $this->showAlert('alert-success', __('messages.success.update'));
         } catch (QueryException $queryException) {
-           $this->errorNotUnique();
-        }
+           $this->showAlert('alert-error', __('messages.error.update'));        }
     }
 
     public function cancel()
@@ -94,20 +100,6 @@ class ProgramComponent extends Component
         $this->department_id    = '';
         $this->view             = 'create';
         $this->hydrate();
-    }
-
-    public function change_state($id)
-    {
-        $program =          Program::find($id);
-        $program->state =   !$program->state;
-        $program->save();
-        session()->flash('success', 'Acción realizada.');
-
-    }
-
-    public function errorNotUnique()
-    {
-       session()->flash('error', 'Error al editar el usuario.');
     }
 
 }
