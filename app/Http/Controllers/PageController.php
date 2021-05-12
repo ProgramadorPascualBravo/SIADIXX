@@ -72,6 +72,12 @@ class PageController extends Controller
     {
        return view('student.index');
     }
+
+    public function studentMassCreation()
+    {
+       return view('student.mass-creation');
+    }
+
     public function department()
     {
         return view('department.index');
@@ -96,9 +102,15 @@ class PageController extends Controller
     {
        return view('rol_moodle.index');
     }
+
     public function enrollment()
     {
        return view('enrollment.index');
     }
+
+   public function enrollmentMassCreation()
+   {
+      return view('enrollment.mass-creation');
+   }
     //Fin de ingreso
 }

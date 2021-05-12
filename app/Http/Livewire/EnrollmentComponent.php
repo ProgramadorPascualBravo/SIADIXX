@@ -50,10 +50,10 @@ class EnrollmentComponent extends Component
          $enrollment = new Enrollment();
 
          $enrollment->create([
-            'email'             => $this->email,
-            'code'              => $this->code,
-            'rol'               => $this->rol,
-            'state'             => $this->state
+            'email'             => trim($this->email),
+            'code'              => trim($this->code),
+            'rol'               => trim($this->rol),
+            'state'             => trim(trim($this)->state)
          ]);
 
          $this->cancel();
@@ -90,10 +90,10 @@ class EnrollmentComponent extends Component
          $enrollment = Enrollment::find($this->id_enrollment);
 
          $enrollment->update([
-            'email'             => $this->email,
-            'code'              => $this->code,
-            'rol'               => $this->rol,
-            'state'             => $this->state
+            'email'          => trim($this->email),
+            'code'           => trim($this->code),
+            'rol'            => trim($this->rol),
+            'state'          => trim($this->state)
          ]);
 
          $this->cancel();

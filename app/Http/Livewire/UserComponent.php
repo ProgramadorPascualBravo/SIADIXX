@@ -35,20 +35,20 @@ class UserComponent extends Component
             'name'          => 'required',
             'last_name'     => 'required',
             'username'      => 'required|email:rfc|unique:users,username',
-            'document'      => 'required|unique:users,document',
+            'document'      => 'required|unique:users,document|numeric',
             'department_id' => 'required|exists:departments,id',
             'state'         => 'required'
         ]);
        try {
            $user                   = new User();
            $user->create([
-               'name'            => $this->name,
-               'last_name'       => $this->last_name,
-               'username'        => $this->username,
-               'document'        => $this->document,
-               'department_id'   => $this->department_id,
-               'password'        => Hash::make($this->document),
-               'state'           => $this->state
+               'name'            => trim($this->name),
+               'last_name'       => trim($this->last_name),
+               'username'        => trim($this->username),
+               'document'        => trim($this->document),
+               'department_id'   => trim($this->department_id),
+               'password'        => Hash::make(trim($this->document)),
+               'state'           => trim($this->state)
            ]);
            $this->cancel();
            $this->refreshTable();
@@ -77,6 +77,7 @@ class UserComponent extends Component
         $this->validate([
             'name'          => 'required',
             'last_name'     => 'required',
+            'document'      => 'required|numeric',
             'department_id' => 'required',
             'state'         => 'required',
         ]);
@@ -84,10 +85,11 @@ class UserComponent extends Component
         try {
            $user = User::findOrFail($this->user_id);
            $user->update([
-               'name'          => $this->name,
-               'last_name'     => $this->last_name,
-               'department_id' => $this->department_id,
-               'state'         => $this->state,
+               'name'          => trim($this->name),
+               'last_name'     => trim($this->last_name),
+               'department_id' => trim($this->department_id),
+               'document'      => trim($this->document),
+               'state'         => trim($this->state)
            ]);
            $this->cancel();
            $this->refreshTable();

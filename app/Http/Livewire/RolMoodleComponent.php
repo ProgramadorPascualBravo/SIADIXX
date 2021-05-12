@@ -38,7 +38,7 @@ class RolMoodleComponent extends Component
          $rolMoodle = new RolMoodle();
 
          $rolMoodle->create([
-            'name' => $this->name
+            'name' => trim($this->name)
          ]);
          $this->cancel();
          $this->refreshTable();
@@ -68,8 +68,8 @@ class RolMoodleComponent extends Component
       try {
          $rolMoodle = RolMoodle::findOrFail($this->department_id);
          $rolMoodle->update([
-            'name'        => $this->name,
-            'state'       => $this->state
+            'name'        => trim($this->name),
+            'state'       => trim($this->state)
          ]);
          $this->cancel();
          $this->refreshTable();

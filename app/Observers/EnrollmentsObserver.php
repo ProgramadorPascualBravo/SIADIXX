@@ -5,9 +5,12 @@ namespace App\Observers;
 use App\Enrollment;
 use App\EnrollmentMoodle;
 use Illuminate\Database\Eloquent\Model;
+use phpDocumentor\Reflection\Types\False_;
 
 class EnrollmentsObserver
 {
+    public $afterCommit = true;
+
     /**
      * Handle the enrollment "created" event.
      *
@@ -16,14 +19,14 @@ class EnrollmentsObserver
      */
     public function created(Enrollment $enrollment)
     {
-       if ($enrollment->state === 'Matrículado' ) {
-         $enrollment_moodle = new EnrollmentMoodle();
-         $enrollment_moodle->create([
-             'email'             => $enrollment->email,
-             'code'              => $enrollment->code,
-             'rol'               => $enrollment->rol,
-             'enrollment_id'     => $enrollment->id
-         ]);
+        if ($enrollment->state === 'Matrículado' ) {
+             $enrollment_moodle = new EnrollmentMoodle();
+             $enrollment_moodle->create([
+                 'email'             => $enrollment->email,
+                 'code'              => $enrollment->code,
+                 'rol'               => $enrollment->rol,
+                 'enrollment_id'     => $enrollment->id
+             ]);
        }
 
     }

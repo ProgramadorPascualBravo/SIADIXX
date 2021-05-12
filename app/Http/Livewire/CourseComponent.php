@@ -43,10 +43,10 @@ class CourseComponent extends Component
             $course = new Course();
 
             $course->create([
-               'name'              => $this->name,
-               'code'              => $this->code,
-               'program_id'        => $this->program_id,
-               'state'             => $this->state
+               'name'              => trim($this->name),
+               'code'              => trim($this->code),
+               'program_id'        => trim($this->program_id),
+               'state'             => trim($this->state)
             ]);
 
            $this->cancel();
@@ -84,10 +84,10 @@ class CourseComponent extends Component
            $course = Course::findOrFail($this->course_id);
 
            $course->update([
-               'name'              => $this->name,
-               'code'              => $this->code,
-               'program_id'        => $this->program_id,
-               'state'             => $this->state
+               'name'              => trim($this->name),
+               'code'              => trim($this->code),
+               'program_id'        => trim($this->program_id),
+               'state'             => trim($this->state)
            ]);
 
            $this->cancel();

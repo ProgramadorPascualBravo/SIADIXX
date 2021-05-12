@@ -25,7 +25,7 @@
     </div>
     <div class="block">
         <span class="text-gray-700">Documento</span>
-        <input type="text"
+        <input type="number"
                class="@error('document') is-invalid-input @enderror input-underline" name="document" id="document" wire:model.defer="document" autocomplete="off">
         @error('document')
             <span class="form-error is-visible">{{ $message }}</span>

@@ -42,9 +42,10 @@ class GroupComponent extends Component
            $course = Course::findOrFail($this->course_id);
 
            $course->groups()->create([
-               'name'      => $this->name,
-               'code'      => $course->code . $this->name,
-               'period'    => $this->period
+               'name'      => trim($this->name),
+               'code'      => trim($course->code . $this->name),
+               'period'    => trim($this->period),
+               'short_name'=> trim($course->code . $this->name. $this->period)
            ]);
 
            $this->cancel();
@@ -84,11 +85,12 @@ class GroupComponent extends Component
            //TODO Validar si tiene matrículas
 
            $group->update([
-               'name'      => $this->name,
-               'code'      => $course->code . $this->name,
-               'course_id' => $course->id,
-               'period'    => $this->period,
-               'state'     => $this->state
+               'name'      => trim($this->name),
+               'code'      => trim($course->code . $this->name),
+               'course_id' => trim($course->id),
+               'period'    => trim($this->period),
+               'state'     => trim($this->state),
+               'short_name'=> trim($course->code . $this->name. $this->period)
            ]);
 
            $this->cancel();

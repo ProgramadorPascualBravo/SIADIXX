@@ -1,8 +1,5 @@
 <?php
-
-
 namespace App\Http\Livewire;
-
 
 use App\User;
 use Illuminate\Support\Facades\Auth;

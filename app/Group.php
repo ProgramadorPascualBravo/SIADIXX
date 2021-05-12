@@ -10,7 +10,7 @@ class Group extends Model
     protected $table = 'groups';
 
     protected $fillable = [
-      'name', 'code', 'course_id', 'state', 'period'
+      'name', 'code', 'course_id', 'state', 'period', 'short_name'
     ];
 
     public function course() : BelongsTo

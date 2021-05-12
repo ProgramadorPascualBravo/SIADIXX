@@ -1,4 +1,4 @@
-<div class="fixed w-screen bottom-0 left-0 h-auto rounded p-5 bg-green-500 bg-opacity-75"
+<div class="fixed w-screen bottom-0 left-0 h-auto rounded p-5 bg-green-500 bg-opacity-75 z-50"
      x-transition:enter="ease-out duration-300"
      x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
      x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
@@ -14,7 +14,7 @@
          {{ $message }}
      </p>
 </div>
-<div class="fixed w-screen bottom-0 left-0 h-auto rounded p-5 bg-red-500 bg-opacity-90"
+<div class="fixed w-screen bottom-0 left-0 h-auto rounded p-5 bg-red-500 bg-opacity-75 z-50"
      x-transition:enter="ease-out duration-300"
      x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
      x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"

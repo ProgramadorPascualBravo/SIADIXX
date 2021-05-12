@@ -15,7 +15,7 @@
 <header>
     <nav class="flex items-center bg-gray-800 p-4 text-white">
         <div class="flex items-center flex-shrink-0 text-white mr-6">
-            <span class="font-semibold text-xl tracking-tight">SIADI</span>
+            <span class="font-semibold text-xl tracking-tight"><a href="{{ route('dashboard') }}">SIADI</a></span>
         </div>
         <div class="mr-6 relative" x-data="{ open : false}" >
             <a @click="open = true" class="cursor-pointer">Módulos</a>

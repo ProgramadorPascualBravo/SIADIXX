@@ -27,6 +27,7 @@ Route::middleware(['auth'])->group(function () {
         });
         Route::prefix('/students')->group(function () {
            Route::get('', [PageController::class, 'student'])->name('student-index');
+           Route::get('/mass-creation', [PageController::class, 'studentMassCreation'])->name('student-mass-creation');
         });
         Route::prefix('/department')->group(function (){
             Route::get('', [PageController::class, 'department'])->name('department-index');
@@ -45,6 +46,7 @@ Route::middleware(['auth'])->group(function () {
         });
         Route::prefix('/enrollment')->group(function(){
             Route::get('', [PageController::class, 'enrollment'])->name('enrollment-index');
+            Route::get('/mass-creation', [PageController::class, 'enrollmentMassCreation'])->name('enrollment-mass-creation');
         });
     });
 });

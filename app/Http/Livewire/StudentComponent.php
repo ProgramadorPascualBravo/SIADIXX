@@ -8,9 +8,7 @@ use App\Department;
 use App\Student;
 use App\Traits\ClearErrorsLivewireComponent;
 use App\Traits\FlashMessageLivewaire;
-use App\User;
 use Illuminate\Database\QueryException;
-use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -37,7 +35,7 @@ class StudentComponent extends Component
          'name'          => 'required',
          'last_name'     => 'required',
          'email'         => 'required|email:rfc|unique:students,email|unique_with:students,document',
-         'document'      => 'required|unique:students,document',
+         'document'      => 'required|unique:students,document|numeric',
          'state'         => 'required',
       ]);
       try {
@@ -45,12 +43,12 @@ class StudentComponent extends Component
          $student = new Student();
 
          $student->create([
-            'name'          => $this->name,
-            'last_name'     => $this->last_name,
-            'email'         => $this->email,
-            'document'      => $this->document,
-            'password'      => md5($this->document),
-            'state'         => $this->state
+            'name'          => trim($this->name),
+            'last_name'     => trim($this->last_name),
+            'email'         => trim($this->email),
+            'document'      => trim($this->document),
+            'password'      => md5(trim($this->document)),
+            'state'         => trim($this->state)
 
          ]);
          $this->cancel();
@@ -89,11 +87,11 @@ class StudentComponent extends Component
 
          $student = Student::findOrFail($this->user_id);
          $student->update([
-            'name'          => $this->name,
-            'last_name'     => $this->last_name,
-            'email'         => $this->email,
-            'document'      => $this->document,
-            'state'         => $this->state,
+            'name'          => trim($this->name),
+            'last_name'     => trim($this->last_name),
+            'email'         => trim($this->email),
+            'document'      => trim($this->document),
+            'state'         => trim($this->state),
          ]);
          $this->cancel();
          $this->refreshTable();
