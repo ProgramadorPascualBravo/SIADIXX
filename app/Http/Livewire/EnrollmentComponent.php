@@ -53,7 +53,7 @@ class EnrollmentComponent extends Component
             'email'             => trim($this->email),
             'code'              => trim($this->code),
             'rol'               => trim($this->rol),
-            'state'             => trim(trim($this)->state)
+            'state'             => $this->state
          ]);
 
          $this->cancel();
@@ -93,7 +93,7 @@ class EnrollmentComponent extends Component
             'email'          => trim($this->email),
             'code'           => trim($this->code),
             'rol'            => trim($this->rol),
-            'state'          => trim($this->state)
+            'state'          => $this->state
          ]);
 
          $this->cancel();
