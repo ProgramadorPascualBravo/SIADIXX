@@ -9,7 +9,7 @@ class Enrollment extends Model
     protected $table = 'enrollments';
 
     protected $fillable = [
-      'email', 'code', 'rol', 'state'
+      'email', 'code', 'rol', 'state', 'period'
     ];
 
 }

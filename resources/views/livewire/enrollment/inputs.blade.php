@@ -20,6 +20,19 @@
         @enderror
     </div>
     <label class="block">
+        <span class="text-gray-700">Período</span>
+        <select class="@error('period') is-invalid-input @enderror input-underline" name="period" id="period" wire:model.defer="period">
+            <option value="">Seleccione una opción</option>
+            <option value="{{ date('Y') }}1">1</option>
+            <option value="{{ date('Y') }}2">2</option>
+            <option value="{{ date('Y') }}3">3</option>
+            <option value="{{ date('Y') }}4">4</option>
+        </select>
+        @error('period')
+        <span class="form-error is-visible">{{ $message }}</span>
+        @enderror
+    </label>
+    <label class="block">
         <span class="text-gray-700">Rol</span>
         <select class="@error('rol') is-invalid-input @enderror input-underline" name="rol" id="rol" wire:model.defer="rol">
             <option value="">Seleccione una opción</option>

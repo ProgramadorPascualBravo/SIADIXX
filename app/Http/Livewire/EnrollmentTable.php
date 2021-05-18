@@ -44,6 +44,7 @@ class EnrollmentTable extends LivewireDatatable
            Column::name('rol')->label('Rol')->filterable(
               $this->roles->pluck('name')
            )->searchable(),
+           Column::name('period')->label('Periodo')->filterable()->searchable(),
            Column::name('state')->label('Estado')->filterable(
               $this->state
            ),

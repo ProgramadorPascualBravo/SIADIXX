@@ -1,6 +1,15 @@
 <div class="grid px-5 grid-cols-4 gap-4">
     @include("sessions.session-input")
-    <div class="col-span-4">
+    <div class="col-span-4 flex flex-row-reverse">
+        <button class="btn btn-red w-auto" wire:click="cancel">
+            Reiniciar
+        </button>
+        <button class="btn btn-green w-auto" wire:click="download('app/file/anexo-2.xlsx')">
+            Plantilla Básica
+        </button>
+        <button class="btn btn-green w-auto" wire:click="download('app/file/anexo-2-extend.xlsx')">
+            Plantilla Extendida
+        </button>
     </div>
     <div class="col-span-1 flex flex-col items-center">
         <span>¿Anexo extendido?</span>

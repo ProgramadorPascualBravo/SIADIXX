@@ -21,9 +21,10 @@ class CreateEnrollmentsTable extends Migration
             $table->enum('state', [
                'Desmatriculado', 'Matrículado', 'Cancelada','Finalizada','Retirado'
             ])->default('Matrículado');
+            $table->string('period', 10);
             $table->foreign('email')->references('email')->on('students');
             $table->foreign('code')->references('code')->on('groups');
-            $table->unique(['code', 'email']);
+            $table->unique(['code', 'email', 'period']);
             $table->timestamps();
         });
     }

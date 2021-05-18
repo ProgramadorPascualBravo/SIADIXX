@@ -20,7 +20,7 @@ class EnrollmentComponent extends Component
 
    public $view = 'create';
 
-   public $id_enrollment, $code, $rol, $email, $state;
+   public $id_enrollment, $code, $rol, $email, $state, $period;
    protected $listeners = ['edit'];
    public $states_badget     = [
       'Desmatriculado',
@@ -40,10 +40,11 @@ class EnrollmentComponent extends Component
    public function store()
    {
       $this->validate([
-         'code'              => 'required|exists:groups,code|unique_with:enrollments,email',
+         'code'              => 'required|exists:groups,code|unique_with:enrollments,email,period',
          'email'             => 'required|exists:students,email',
          'rol'               => 'required|exists:roles_moodle,name',
-         'state'             => 'required'
+         'state'             => 'required',
+         'period'            => 'required'
       ]);
       try {
 
@@ -53,7 +54,8 @@ class EnrollmentComponent extends Component
             'email'             => trim($this->email),
             'code'              => trim($this->code),
             'rol'               => trim($this->rol),
-            'state'             => $this->state
+            'state'             => $this->state,
+            'period'            => $this->period
          ]);
 
          $this->cancel();
@@ -73,6 +75,7 @@ class EnrollmentComponent extends Component
       $this->code          = $enrollment->code;
       $this->rol           = $enrollment->rol;
       $this->state         = $enrollment->state;
+      $this->period        = $enrollment->period;
       $this->view          = 'edit';
    }
 
@@ -82,7 +85,8 @@ class EnrollmentComponent extends Component
          'code'              => 'required|exists:groups,code',
          'email'             => 'required|exists:students,email',
          'rol'               => 'required|exists:roles_moodle,name',
-         'state'             => 'required'
+         'state'             => 'required',
+         'period'            => 'required'
       ]);
 
       try  {
@@ -93,7 +97,8 @@ class EnrollmentComponent extends Component
             'email'          => trim($this->email),
             'code'           => trim($this->code),
             'rol'            => trim($this->rol),
-            'state'          => $this->state
+            'state'          => $this->state,
+            'period'          => $this->period
          ]);
 
          $this->cancel();
@@ -111,6 +116,7 @@ class EnrollmentComponent extends Component
       $this->code             = '';
       $this->rol              = '';
       $this->state            = '';
+      $this->period           = '';
       $this->view             = 'create';
       $this->hydrate();
    }

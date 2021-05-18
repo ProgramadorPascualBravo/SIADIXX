@@ -18,7 +18,7 @@ class GroupComponent extends Component
 
     public $view = 'create';
 
-    public $name, $code, $course_id, $state, $period, $group_id;
+    public $name, $code, $course_id, $state, $group_id;
 
    protected $listeners = ['errorNotUnique', 'edit', 'showAlert'];
 
@@ -75,7 +75,6 @@ class GroupComponent extends Component
             'name'      => 'required',
             'course_id' => 'required|exists:courses,id',
             'period'    => 'required',
-            'state'     => 'required'
         ]);
 
         try {
@@ -89,7 +88,6 @@ class GroupComponent extends Component
                'code'      => trim($course->code . $this->name),
                'course_id' => trim($course->id),
                'period'    => trim($this->period),
-               'state'     => trim($this->state),
                'short_name'=> trim($course->code . $this->name. $this->period)
            ]);
 
@@ -108,7 +106,6 @@ class GroupComponent extends Component
         $this->code         = '';
         $this->name         = '';
         $this->course_id    = '';
-        $this->period       = '';
         $this->view         = 'create';
         $this->hydrate();
 
