@@ -17,4 +17,9 @@ class Group extends Model
     {
         return $this->belongsTo(Course::class, 'course_id', 'id');
     }
+
+    public function enrollments()
+    {
+       return $this->hasMany(Enrollment::class, 'code', 'code');
+    }
 }

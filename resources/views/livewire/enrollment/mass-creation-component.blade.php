@@ -2,7 +2,18 @@
     @include("sessions.session-input")
     <div class="col-span-4">
     </div>
-    <div class="col-span-1 flex justify-center">
+    <div class="col-span-1 flex flex-col items-center">
+        <span>¿Anexo extendido?</span>
+        <div class="flex my-3">
+            <label for="anexo_user" class="mr-2">
+                Sí
+                <input class="text-green-500 h-6 w-6 cursor-pointer" type="radio" wire:model="anexo_user" name="anexo_user" value="1">
+            </label>
+            <label for="anexo_user" class="ml-2">
+                No
+                <input class="text-red-500 h-6 w-6 cursor-pointer" type="radio" wire:model="anexo_user" name="anexo_user" value="0">
+            </label>
+        </div>
         <form wire:submit.prevent="analyze"
               x-data="{ isUploading: false, progress: 0 }"
               x-on:livewire-upload-start="isUploading = true"

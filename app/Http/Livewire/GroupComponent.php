@@ -20,7 +20,7 @@ class GroupComponent extends Component
 
     public $name, $code, $course_id, $state, $period, $group_id;
 
-   protected $listeners = ['errorNotUnique', 'edit'];
+   protected $listeners = ['errorNotUnique', 'edit', 'showAlert'];
 
    public function render()
     {

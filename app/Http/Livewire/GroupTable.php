@@ -3,12 +3,16 @@
 namespace App\Http\Livewire;
 
 use App\Course;
+use App\Enrollment;
 use App\Group;
+use App\Traits\FlashMessageLivewaire;
+use Illuminate\Database\QueryException;
 use Mediconesystems\LivewireDatatables\BooleanColumn;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\DateColumn;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 use Mediconesystems\LivewireDatatables\NumberColumn;
+use phpDocumentor\Reflection\DocBlock\Tags\Return_;
 
 class GroupTable extends LivewireDatatable
 {
@@ -26,9 +30,6 @@ class GroupTable extends LivewireDatatable
     public function columns()
     {
         return [
-           NumberColumn::callback(['id'], function ($id){
-              return $id;
-           })->label('id'),
            Column::name('code')->label('Codigo')->searchable()->filterable(),
            Column::callback(['name', 'course.name'], function ($name, $course_name){
               return "Grupo: {$name} de {$course_name}";
@@ -39,6 +40,9 @@ class GroupTable extends LivewireDatatable
            )->label('Asignatura'),
            DateColumn::name('created_at')->label('Fecha creación')->filterable(),
            Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight(),
+           Column::callback(['code'], function ($code){
+              return view('livewire.datatables.close', ['value' => $code]);
+           })->label('Cerrar Matrículas'),
            Column::delete()->label('Eliminar')->alignRight()->hide()
         ];
     }
@@ -51,5 +55,18 @@ class GroupTable extends LivewireDatatable
    public function edit($id)
    {
       $this->emit('edit', $id);
+   }
+   public function close($code)
+   {
+      try {
+         Enrollment::where('code', $code)
+                  ->where('state', 'Matrículado')
+                  ->update([
+                     'state' => 'Finalizada'
+                  ]);
+         $this->emit('showAlert', 'alert-success', 'Operación realizada!');
+      } catch (QueryException $queryException) {
+         $this->emit('showAlert', ['alert-error', $queryException->getMessage()]);;
+      }
    }
 }

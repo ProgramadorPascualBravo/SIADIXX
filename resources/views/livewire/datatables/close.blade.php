@@ -1,0 +1,1 @@
+<button @click="open = true" wire:click="close('{{ $value }}')" class="btn btn-green m-0 hollow open-form" data-open="form-edit">Cerrar</button>

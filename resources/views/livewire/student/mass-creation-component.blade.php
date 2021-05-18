@@ -1,8 +1,23 @@
 <div class="grid px-5 grid-cols-4 gap-4">
     @include("sessions.session-input")
-    <div class="col-span-4">
+    <div class="col-span-4 flex flex-row-reverse">
+        <button class="btn btn-red w-auto" wire:click="cancel">
+            Reiniciar
+        </button>
     </div>
-    <div class="col-span-1 flex justify-center">
+
+    <div class="col-span-1 flex justify-center flex-col items-center">
+        <span>¿Anexo extendido?</span>
+        <div class="flex m-2">
+            <label for="anexo_user" class="mr-2">
+                Sí
+                <input type="radio" wire:model="anexo_user" name="anexo_user" value="1">
+            </label>
+            <label for="anexo_user" class="ml-2">
+                No
+                <input type="radio" wire:model="anexo_user" name="anexo_user" value="0">
+            </label>
+        </div>
         <form wire:submit.prevent="analyze"
               x-data="{ isUploading: false, progress: 0 }"
               x-on:livewire-upload-start="isUploading = true"

@@ -42,8 +42,20 @@ class StudentMassCreationComponent extends Component
 
          $this->failures = $import->failures();
 
+         $this->cancel();
+
       } catch (FileException | QueryException | Exception $exception) {
          dd($exception);
       }
+   }
+
+   public function cancel()
+   {
+       $this->resetErrorBag();
+       $this->resetValidation();
+       $this->file = null;
+       $this->failures = [];
+       $this->quantity = ['processed' => 0, 'mistakes' => 0];
+       $this->filename = null;
    }
 }

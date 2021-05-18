@@ -4,8 +4,8 @@
 namespace App\Http\Livewire;
 
 
+use App\Imports\EnrollmentExtendImport;
 use App\Imports\EnrollmentImport;
-use App\Imports\T;
 use App\Traits\FlashMessageLivewaire;
 use Illuminate\Database\QueryException;
 use Livewire\Component;
@@ -17,7 +17,7 @@ class EnrollmentMassCreationComponent extends Component
 {
    use FlashMessageLivewaire, WithFileUploads;
 
-   public $file, $failures = [], $quantity = ['processed' => 0, 'mistakes' => 0], $filename = null;
+   public $file, $failures = [], $quantity = ['processed' => 0, 'mistakes' => 0], $filename = null, $anexo_user = 0;
 
    public function render()
    {
@@ -30,15 +30,28 @@ class EnrollmentMassCreationComponent extends Component
          'file' => 'required|mimes:application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,xlsx,xls'
       ]);
       $this->filename = $this->file->getClientOriginalName();
-      try {
 
-         $import = new EnrollmentImport();
+      try {
+          if ($this->anexo_user) {
+             $import = new EnrollmentExtendImport();
+          } else {
+            $import = new EnrollmentImport();
+         }
          $import->import($this->file);
          $this->quantity = $import->count;
          $this->failures = $import->failures();
-
-      } catch (FileException | QueryException | Exception $exception) {
+         //$this->cancel();
+      } catch (FileException | Exception $exception) {
          dd($exception);
       }
+   }
+
+   public function cancel()
+   {
+       $this->file = null;
+       $this->failures = [];
+       $this->quantity = ['processed' => 0, 'mistakes' => 0];
+       $this->filename = null;
+       $this->anexo_user = 0;
    }
 }

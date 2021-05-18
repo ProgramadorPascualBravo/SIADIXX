@@ -48,12 +48,12 @@ class EnrollmentImport implements ToModel, WithHeadingRow, SkipsOnFailure, WithV
       ]);
    }
 
-   public function onError(\Throwable $throwable)
+   public function onError(\Throwable $e)
    {
        $this->count['processed']--;
        $this->count['mistakes']++;
        $array = $this->values;
-       $array['errors'] = [[$throwable->errorInfo[2]]];
+       $array['errors'] = [[$e->errorInfo[2]]];
        $this->failures->add($array);
    }
 
