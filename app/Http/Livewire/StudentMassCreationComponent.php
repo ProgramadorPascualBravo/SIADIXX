@@ -43,8 +43,6 @@ class StudentMassCreationComponent extends Component
 
          $this->failures = $import->failures();
 
-         $this->cancel();
-
       } catch (FileException | QueryException | Exception $exception) {
          dd($exception);
       }
