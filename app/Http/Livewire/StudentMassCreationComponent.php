@@ -7,6 +7,7 @@ namespace App\Http\Livewire;
 use App\Imports\StudentExcel;
 use App\Imports\StudentsImport;
 use App\Student;
+use App\Traits\DownloadDocument;
 use App\Traits\FlashMessageLivewaire;
 use Illuminate\Database\QueryException;
 use Livewire\Component;
@@ -17,7 +18,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class StudentMassCreationComponent extends Component
 {
-   use FlashMessageLivewaire, WithFileUploads;
+   use FlashMessageLivewaire, WithFileUploads, DownloadDocument;
 
    public $file, $failures = [], $quantity = ['processed' => 0, 'mistakes' => 0];
 
