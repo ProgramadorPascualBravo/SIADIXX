@@ -16,6 +16,9 @@
                     Iniciar sesión
                 </h2>
             </div>
+            @foreach($errors->all() as $error)
+            <div class="text-center text-red-600">{{ $error }}</div>
+            @endforeach
             <form class="mt-8 space-y-6"  action="{{ route('sing-in') }}" method="POST">
                 <div class="rounded-md shadow-sm -space-y-px">
                     <div>

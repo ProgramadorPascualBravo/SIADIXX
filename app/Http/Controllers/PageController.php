@@ -29,7 +29,7 @@ class PageController extends Controller
         if (Auth::attempt($credentials)) {
             return redirect()->intended('dashboard');
         }
-        return redirect(route('login'));
+        return redirect(route('login'))->withErrors(['failed' => 'Estas credenciales no coinciden con nuestros registros. ']);
     }
 
     public function logout ()

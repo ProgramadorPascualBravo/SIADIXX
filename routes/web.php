@@ -22,18 +22,28 @@ Route::get('/logout', [PageController::class, 'logout'])->name('logout');
 Route::middleware(['auth'])->group(function () {
     Route::prefix('/dashboard')->group(function(){
         Route::get('', [PageController::class, 'dashboard'])->name('dashboard');
-        Route::view('/users', 'user.index')->name('user-index')->middleware('permission:user_read');
-        Route::view('/role', 'permission-rol.index', ['option' => false])->name('rol-index');;
-        Route::view('/permission', 'permission-rol.index', ['option' => true])->name('permission-index');
-        Route::view('/students', 'student.index')->name('student-index');
-        Route::view('/students/mass-creation', 'student.mass-creation')->name('student-mass-creation');
-        Route::view('/category', 'department.index')->name('department-index');
-        Route::view('/program', 'program.index')->name('program-index');
-        Route::view('/course', 'course.index')->name('course-index');
-        Route::view('/group', 'group.index')->name('group-index');
-        Route::view('/role-moodle', 'rol_moodle.index')->name('rol-moodle-index');
-        Route::view('/enrollment', 'enrollment.index')->name('enrollment-index');
-        Route::view('/enrollment/mass-creation', 'enrollment.mass-creation')->name('enrollment-mass-creation');
+        Route::view('/users', 'user.index')->name('user-index')
+           ->middleware('permission:user_read');
+        Route::view('/role', 'permission-role.index', ['option' => false])->name('role-index');;
+        Route::view('/permission', 'permission-role.index', ['option' => true])->name('permission-index');
+        Route::view('/students', 'student.index')->name('student-index')
+           ->middleware('permission:moodle_read');
+        Route::view('/students/mass-creation', 'student.mass-creation')->name('student-mass-creation')
+           ->middleware('permission:moodle_massive');
+        Route::view('/category', 'department.index')->name('department-index')
+           ->middleware('permission:category_read');
+        Route::view('/program', 'program.index')->name('program-index')
+           ->middleware('permission:program_read');
+        Route::view('/course', 'course.index')->name('course-index')
+           ->middleware('permission:course-read');
+        Route::view('/group', 'group.index')->name('group-index')
+           ->middleware('permission:group_read');
+        Route::view('/role-moodle', 'rol_moodle.index')->name('role-moodle-index')
+           ->middleware('permission:rol_read');
+        Route::view('/enrollment', 'enrollment.index')->name('enrollment-index')
+           ->middleware('permission:enrollment_read');
+        Route::view('/enrollment/mass-creation', 'enrollment.mass-creation')->name('enrollment-mass-creation')
+           ->middleware('permission:enrollment_massive');
 
     });
 });

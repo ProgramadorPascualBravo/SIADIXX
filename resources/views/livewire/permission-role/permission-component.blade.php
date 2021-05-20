@@ -17,11 +17,7 @@
                 </label>
         </div>
         <div class="col-span-4 pl-4 mt-1 flex flex-row-reverse">
-            @if($view == 'create')
-                <button class="btn btn-blue inline-flex" type="submit" wire:click="store">Crear</button>
-            @else
-                <button class="btn btn-blue inline-flex" type="submit" wire:click="update">Actualizar</button>
-            @endif
+            <button class="btn btn-blue inline-flex" wire:click="update">Actualizar</button>
             <input type="text"
                    class="@error('name') is-invalid-input @enderror inline-flex" name="name" id="name" wire:model.defer="name">
         </div>

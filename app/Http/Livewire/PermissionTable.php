@@ -4,6 +4,8 @@
 namespace App\Http\Livewire;
 
 
+use App\User;
+use Illuminate\Support\Facades\Auth;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 use Spatie\Permission\Models\Permission;
@@ -16,9 +18,10 @@ class PermissionTable extends LivewireDatatable
    public $search = false, $role_id = null;
 
    public $title = "Asignar Permiso";
+
    protected $listeners = ['refreshLivewireDatatable', 'refreshTableCustom'];
 
-   public $afterTableSlot = 'livewire.permission-rol.select';
+   public $afterTableSlot = 'livewire.permission-role.select';
 
    public function builder()
    {
@@ -35,11 +38,17 @@ class PermissionTable extends LivewireDatatable
 
    public function columns()
    {
-      return [
+      $columns = [
          Column::name('name')->filterable()->label('Rol'),
+         Column::callback(['name'], function ($name){
+            return User::permission($name)->count();
+         })->label('Roles con el permiso')->filterable(),
          Column::checkbox('name')->label('Asignar'),
-         Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight(),
       ];
+      if (Auth::user()->can('permission_write')) {
+         array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight());
+      }
+      return $columns;
    }
 
    public function assign()

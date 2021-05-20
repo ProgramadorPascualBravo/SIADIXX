@@ -7,6 +7,7 @@ use App\Enrollment;
 use App\Group;
 use App\Traits\FlashMessageLivewaire;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Auth;
 use Mediconesystems\LivewireDatatables\BooleanColumn;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\DateColumn;
@@ -29,7 +30,7 @@ class GroupTable extends LivewireDatatable
 
     public function columns()
     {
-        return [
+        $columns =  [
            Column::name('code')->label('Codigo')->searchable()->filterable(),
            Column::callback(['name', 'course.name'], function ($name, $course_name){
               return "Grupo: {$name} de {$course_name}";
@@ -39,12 +40,18 @@ class GroupTable extends LivewireDatatable
               $this->courses->pluck('name')
            )->label('Asignatura'),
            DateColumn::name('created_at')->label('Fecha creación')->filterable(),
-           Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight(),
            Column::callback(['code'], function ($code){
               return view('livewire.datatables.close', ['value' => $code]);
            })->label('Cerrar Matrículas'),
-           Column::delete()->label('Eliminar')->alignRight()->hide()
         ];
+       if (Auth::user()->can('group_write')) {
+          array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight());
+       }
+       if (Auth::user()->can('group_destroy')){
+          array_push($columns, Column::delete()->label('Eliminar')->alignRight()->hide());
+       }
+
+       return $columns;
     }
 
    public function getCoursesProperty()

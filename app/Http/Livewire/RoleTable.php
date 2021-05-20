@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 
 
 use App\User;
+use Illuminate\Support\Facades\Auth;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 use Spatie\Permission\Models\Role;
@@ -15,7 +16,7 @@ class RoleTable extends LivewireDatatable
 
    public $search = false, $user_id;
    public $title = "Asignar Rol";
-   public $afterTableSlot = 'livewire.permission-rol.select';
+   public $afterTableSlot = 'livewire.permission-role.select';
    protected $listeners = ['refreshLivewireDatatable', 'refreshTableCustom'];
 
    public function builder()
@@ -29,14 +30,21 @@ class RoleTable extends LivewireDatatable
 
    public function columns()
    {
-      return [
+      $columns = [
          Column::name('name')->filterable()->label('Rol'),
          Column::callback(['name'], function ($name){
             return User::role($name)->count();
          })->label('Cantidad de usuarios')->filterable(),
          Column::checkbox('name')->label('Asignar'),
-         Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight(),
       ];
+      if (Auth::user()->can('role_write')) {
+         array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight());
+      }
+      if (Auth::user()->can('role_destroy')){
+         array_push($columns, Column::delete()->label('Eliminar')->alignRight()->hide());
+      }
+
+      return $columns;
    }
 
    public function edit($id)

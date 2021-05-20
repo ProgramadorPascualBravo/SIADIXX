@@ -29,7 +29,7 @@ class ProgramTable extends LivewireDatatable
    */
     public function columns() : array
     {
-        return [
+        $columns =  [
            NumberColumn::callback(['id'], function ($id){
               return $id;
            })->label('id'),
@@ -39,9 +39,16 @@ class ProgramTable extends LivewireDatatable
            Column::name('department.name')->filterable(
               $this->department->pluck('name')
            )->label('Categoria'),
-           Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight(),
-           Column::delete()->label('Eliminar')->alignRight()->hide()
         ];
+
+        if (Auth::user()->can('program_write')) {
+             array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight());
+        }
+        if (Auth::user()->can('program_destroy')){
+             array_push($columns, Column::delete()->label('Eliminar')->alignRight()->hide());
+        }
+
+        return $columns;
     }
 
     public function edit($id)

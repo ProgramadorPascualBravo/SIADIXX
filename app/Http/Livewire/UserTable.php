@@ -29,7 +29,7 @@ class UserTable extends LivewireDatatable
 
    public function columns() : array
    {
-      $collumns = [
+      $columns = [
          NumberColumn::callback(['id'], function ($id){
             return $id;
          })->label('id'),
@@ -44,11 +44,13 @@ class UserTable extends LivewireDatatable
       ];
 
       if (Auth::user()->can('user_write')) {
-         array_push($collumns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight());
-         array_push($collumns, Column::delete()->label('Eliminar')->alignRight()->hide());
+         array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight());
+      }
+      if (Auth::user()->can('user_destroy')){
+         array_push($columns, Column::delete()->label('Eliminar')->alignRight()->hide());
       }
 
-      return $collumns;
+      return $columns;
    }
 
    public function refreshLivewireDatatable()

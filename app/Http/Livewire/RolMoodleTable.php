@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\RolMoodle;
+use Illuminate\Support\Facades\Auth;
 use Mediconesystems\LivewireDatatables\BooleanColumn;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\DateColumn;
@@ -24,16 +25,21 @@ class RolMoodleTable extends LivewireDatatable
 
     public function columns()
     {
-        return [
+        $columns = [
            NumberColumn::callback(['id'], function ($id){
               return $id;
            })->label('id'),
            Column::name('name')->label('Nombre')->editable()->searchable()->truncate(),
            BooleanColumn::name('state')->label('Estado')->filterable(),
            DateColumn::name('created_at')->label('Fecha creación')->filterable(),
-           Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight(),
-           Column::delete()->label('Eliminar')->alignRight()->hide()
         ];
+        if (Auth::user()->can('role_moodle_write')) {
+          array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight());
+        }
+        if (Auth::user()->can('role_moodle_destroy')){
+          array_push($columns, Column::delete()->label('Eliminar')->alignRight()->hide());
+        }
+        return $columns;
     }
 
    public function edit($id)

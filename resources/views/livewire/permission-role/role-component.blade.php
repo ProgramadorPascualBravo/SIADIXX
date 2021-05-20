@@ -13,7 +13,7 @@
                         @endforeach
                     </select>
                     @error('user_id')
-                    <span class="form-error is-visible">{{ $message }}</span>
+                    <span class="form-error text-red-700 is-visible">{{ $message }}</span>
                     @enderror
                 </label>
 
@@ -24,8 +24,13 @@
             @else
                 <button class="btn btn-blue inline-flex" type="submit" wire:click="update">Actualizar</button>
             @endif
-            <input type="text"
-                   class="@error('name') is-invalid-input @enderror inline-flex" name="name" id="name" wire:model.defer="name">
+            <div class="flex flex-col">
+                <input type="text"
+                       class="@error('name') border-2 border-solid @enderror inline-flex" name="name" id="name" wire:model.defer="name">
+                @error('name')
+                    <span class="form-error text-red-700 is-visible">{{ $message }}</span>
+                @enderror
+            </div>
         </div>
         <div class="col-span-4 px-4">
             <livewire:role-table />

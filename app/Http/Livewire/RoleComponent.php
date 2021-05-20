@@ -25,7 +25,7 @@ class RoleComponent extends Component
 
    public function render()
    {
-      return view('livewire.permission-rol.role-component', [
+      return view('livewire.permission-role.role-component', [
          'roles' => Role::all(),
          'users' => User::all()
       ]);
@@ -77,12 +77,15 @@ class RoleComponent extends Component
 
    public function assign($roles)
    {
+      $this->validate([
+         'user_id' => 'required'
+      ]);
       try {
          $user = User::find($this->user_id);
          $user->syncRoles($roles);
-         $this->showAlert('alert-success', __('messages.success.create'));
+         $this->showAlert('alert-success', __('messages.success.update'));
       }catch (QueryException | Exception $exception) {
-         $this->showAlert('alert-error', __('messages.errors.create'));
+         $this->showAlert('alert-error', __('messages.errors.update'));
 
       }
    }

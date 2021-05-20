@@ -21,7 +21,7 @@ class CourseTable extends LivewireDatatable
 
     public function columns()
     {
-        return [
+        $columns = [
            NumberColumn::callback(['id'], function ($id){
               return $id;
            })->label('id'),
@@ -32,9 +32,15 @@ class CourseTable extends LivewireDatatable
               $this->programs->pluck('name')
            )->label('Programa'),
            DateColumn::name('created_at')->label('Fecha creación')->filterable(),
-           Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight(),
-           Column::delete()->label('Eliminar')->alignRight()->hide()
         ];
+          if (Auth::user()->can('course_write')) {
+             array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight());
+          }
+          if (Auth::user()->can('course_destroy')){
+             array_push($columns, Column::delete()->label('Eliminar')->alignRight()->hide());
+          }
+
+          return $columns;
     }
 
     public function getProgramsProperty()

@@ -6,6 +6,7 @@ namespace App\Http\Livewire;
 
 use App\Imports\EnrollmentExtendImport;
 use App\Imports\EnrollmentImport;
+use App\Traits\ClearErrorsLivewireComponent;
 use App\Traits\DownloadDocument;
 use App\Traits\FlashMessageLivewaire;
 use Illuminate\Database\QueryException;
@@ -16,7 +17,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class EnrollmentMassCreationComponent extends Component
 {
-   use FlashMessageLivewaire, WithFileUploads, DownloadDocument;
+   use FlashMessageLivewaire, WithFileUploads, DownloadDocument, ClearErrorsLivewireComponent;
 
    public $file, $failures = [], $quantity = ['processed' => 0, 'mistakes' => 0], $filename = null, $anexo_user = 0;
 
@@ -54,5 +55,7 @@ class EnrollmentMassCreationComponent extends Component
        $this->quantity = ['processed' => 0, 'mistakes' => 0];
        $this->filename = null;
        $this->anexo_user = 0;
+       $this->hydrate();
+
    }
 }

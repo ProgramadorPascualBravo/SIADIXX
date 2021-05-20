@@ -7,6 +7,7 @@ namespace App\Http\Livewire;
 use App\Imports\StudentExcel;
 use App\Imports\StudentsImport;
 use App\Student;
+use App\Traits\ClearErrorsLivewireComponent;
 use App\Traits\DownloadDocument;
 use App\Traits\FlashMessageLivewaire;
 use Illuminate\Database\QueryException;
@@ -18,7 +19,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class StudentMassCreationComponent extends Component
 {
-   use FlashMessageLivewaire, WithFileUploads, DownloadDocument;
+   use FlashMessageLivewaire, WithFileUploads, DownloadDocument, ClearErrorsLivewireComponent;
 
    public $file, $failures = [], $quantity = ['processed' => 0, 'mistakes' => 0];
 
@@ -50,11 +51,12 @@ class StudentMassCreationComponent extends Component
 
    public function cancel()
    {
-       $this->resetErrorBag();
-       $this->resetValidation();
+
        $this->file = null;
        $this->failures = [];
        $this->quantity = ['processed' => 0, 'mistakes' => 0];
        $this->filename = null;
+       $this->hydrate();
+
    }
 }
