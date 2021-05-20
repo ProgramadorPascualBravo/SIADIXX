@@ -6,7 +6,7 @@
                 <a href="{{ route('student-mass-creation') }}" class="btn w-max bg-gray-800 text-white">Creacíón masivamente</a>
             </div>
         @endcan
-        <div class="@cannot('moodle_write') col-span-4 px-4 @endcan cancol-span-3 pl-4">
+        <div class="@cannot('moodle_write') col-span-4 px-4 @endcan col-span-3 pl-4">
             <livewire:student-table />
         </div>
         @can('moodle_write')

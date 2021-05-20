@@ -78,11 +78,11 @@ class PermissionsSeeder extends Seeder
         * Rols
         */
 
-       Permission::create(['name' => 'rol_read']);
+       Permission::create(['name' => 'role_moodle_read']);
 
-       Permission::create(['name' => 'rol_write']);
+       Permission::create(['name' => 'role_moodle_write']);
 
-       Permission::create(['name' => 'rol_destroy']);
+       Permission::create(['name' => 'role_moodle_destroy']);
 
        /**
         * Enrollment
@@ -95,6 +95,16 @@ class PermissionsSeeder extends Seeder
        Permission::create(['name' => 'enrollment_destroy']);
 
        Permission::create(['name' => 'enrollment_massive']);
+
+       Permission::create(['name' => 'role_read']);
+
+       Permission::create(['name' => 'role_write']);
+
+       Permission::create(['name' => 'role_destroy']);
+
+       Permission::create(['name' => 'permission_write']);
+
+       Permission::create(['name' => 'permission_read']);
 
        /**
         *  Búsqueda
