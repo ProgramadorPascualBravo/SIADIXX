@@ -11,10 +11,6 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        /*
-        if ($user->save()) {
-            dd("Wuju");
-        }
-        dd("Nehhh");*/
+
     }
 }

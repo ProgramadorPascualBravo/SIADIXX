@@ -3,7 +3,8 @@
 @import "tailwindcss/utilities";
 
 .btn {
-  @apply py-2 px-3 rounded flex items-center space-x-2 leading-4 text-xs leading-4 font-medium uppercase tracking-wider duration-75 cursor-pointer mx-2;
+  @apply py-2 px-3 rounded inline-flex items-center space-x-2 leading-4 text-xs leading-4 font-medium uppercase tracking-wider duration-75 cursor-pointer mx-2;
+  width: fit-content;
   &-red {
     @apply border-red-300 border-2 text-red-500 hover:bg-red-200;
   }

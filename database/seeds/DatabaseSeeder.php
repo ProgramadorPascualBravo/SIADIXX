@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         //$this->call(CourseSeeder::class);
         //$this->call(GroupSeeder::class);
         //$this->call(StudentSeeder::class);
-        $this->call(EnrollmentSeed::class);
+        //$this->call(EnrollmentSeed::class);
+        //$this->call(PermissionsSeeder::class);
     }
 }
