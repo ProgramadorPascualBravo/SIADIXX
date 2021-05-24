@@ -10,7 +10,7 @@
         </button>
     </div>
 
-    <div class="col-span-1 flex justify-center flex-col items-center">
+    <div class="col-span-1 flex flex-col items-center">
         <form wire:submit.prevent="analyze"
               x-data="{ isUploading: false, progress: 0 }"
               x-on:livewire-upload-start="isUploading = true"

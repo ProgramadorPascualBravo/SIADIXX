@@ -30,15 +30,16 @@ class ProgramTable extends LivewireDatatable
     public function columns() : array
     {
         $columns =  [
-           NumberColumn::callback(['id'], function ($id){
-              return $id;
-           })->label('id'),
+
            Column::name('name')->label('Nombre Programa')->editable()->filterable()->searchable(),
            Column::name('faculty')->label('Facultad')->editable()->filterable()->searchable(),
            BooleanColumn::name('state')->label('Estado')->filterable()->hide(),
            Column::name('department.name')->filterable(
               $this->department->pluck('name')
            )->label('Categoria'),
+           Column::callback(['id'], function ($id){
+              return view('fragments.link-to', ['route' => 'program-detail', 'params' => ['id' => $id], 'name' => 'Ver', 'btn' => 'btn-blue']);
+           })->label('Detalle'),
         ];
 
         if (Auth::user()->can('program_write')) {

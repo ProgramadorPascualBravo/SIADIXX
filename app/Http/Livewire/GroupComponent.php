@@ -34,7 +34,6 @@ class GroupComponent extends Component
         $this->validate([
             'name'      => 'required',
             'course_id' => 'required|exists:courses,id',
-            'period'    => 'required',
             'state'     => 'required'
         ]);
         try {
@@ -44,8 +43,7 @@ class GroupComponent extends Component
            $course->groups()->create([
                'name'      => trim($this->name),
                'code'      => trim($course->code . $this->name),
-               'period'    => trim($this->period),
-               'short_name'=> trim($course->code . $this->name. $this->period)
+               'short_name'=> trim($course->code . $this->name)
            ]);
 
            $this->cancel();
@@ -62,7 +60,6 @@ class GroupComponent extends Component
 
         $this->group_id     = $group->id;
         $this->name         = $group->name;
-        $this->period       = $group->period;
         $this->course_id    = $group->course_id;
         $this->state        = $group->state;
         $this->view         = 'edit';
@@ -74,7 +71,6 @@ class GroupComponent extends Component
         $this->validate([
             'name'      => 'required',
             'course_id' => 'required|exists:courses,id',
-            'period'    => 'required',
         ]);
 
         try {
@@ -87,8 +83,7 @@ class GroupComponent extends Component
                'name'      => trim($this->name),
                'code'      => trim($course->code . $this->name),
                'course_id' => trim($course->id),
-               'period'    => trim($this->period),
-               'short_name'=> trim($course->code . $this->name. $this->period)
+               'short_name'=> trim($course->code . $this->name)
            ]);
 
            $this->cancel();

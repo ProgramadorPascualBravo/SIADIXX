@@ -1,0 +1,1 @@
+<a class="btn {{ $btn ?? 'btn-green' }}" href="{{ route($route, $params) }}">{!! $name !!}</a>

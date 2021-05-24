@@ -29,15 +29,15 @@ class StudentTable extends LivewireDatatable
     public function columns()
     {
         $columns = [
-            NumberColumn::callback(['id'], function ($id){
-               return $id;
-            })->label('id'),
             Column::name('name')->label('Nombres')->editable()->filterable()->searchable(),
             Column::name('last_name')->label('Apellidos')->filterable()->searchable()->editable(),
             Column::name('email')->label('Email')->filterable()->searchable(),
             Column::name('document')->label('Documento')->filterable()->searchable(),
             BooleanColumn::name('state')->label('Estado')->filterable()->hide(),
             DateColumn::name('created_at')->label('Fecha creación')->filterable(),
+            Column::callback(['id'], function ($id){
+               return view('fragments.link-to', ['route' => 'student-detail', 'params' => ['id' => $id], 'name' => 'Ver']);
+            })->label('Detalle'),
         ];
         if (Auth::user()->can('moodle_write')) {
            array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight());

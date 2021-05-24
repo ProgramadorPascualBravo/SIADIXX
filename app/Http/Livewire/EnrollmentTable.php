@@ -51,7 +51,7 @@ class EnrollmentTable extends LivewireDatatable
            ),
            DateColumn::name('created_at')->label('Fecha creación')->filterable(),
         ];
-        if (Auth::user()->can('enrollemnt_write')) {
+        if (Auth::user()->can('enrollment_write')) {
           array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight());
         }
         if (Auth::user()->can('enrollment_destroy')){

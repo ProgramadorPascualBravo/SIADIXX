@@ -16,4 +16,9 @@ class Student extends Model
     {
         return $this->hasMany(Enrollment::class, 'email', 'email');
     }
+
+    public function user_external()
+    {
+       return $this->hasOne(StudentDBMoodle::class, 'username', 'email');
+    }
 }

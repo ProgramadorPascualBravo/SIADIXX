@@ -40,16 +40,20 @@ class GroupTable extends LivewireDatatable
               $this->courses->pluck('name')
            )->label('Asignatura'),
            DateColumn::name('created_at')->label('Fecha creación')->filterable(),
+           Column::callback(['id'], function ($id){
+              return view('fragments.link-to', ['route' => 'group-detail', 'params' => ['id' => $id], 'name' => "Ver", 'btn' => 'btn-blue']);
+           })->label('Detalle del grupo')->alignCenter(),
+
            Column::callback(['code'], function ($code){
               return view('livewire.datatables.close', ['value' => $code]);
            })->label('Cerrar Matrículas'),
         ];
-       if (Auth::user()->can('group_write')) {
-          array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight());
-       }
-       if (Auth::user()->can('group_destroy')){
-          array_push($columns, Column::delete()->label('Eliminar')->alignRight()->hide());
-       }
+        if (Auth::user()->can('group_write')) {
+           array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight());
+        }
+        if (Auth::user()->can('group_destroy')){
+           array_push($columns, Column::delete()->label('Eliminar')->alignRight()->hide());
+        }
 
        return $columns;
     }

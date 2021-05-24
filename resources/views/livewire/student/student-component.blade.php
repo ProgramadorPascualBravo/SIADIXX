@@ -1,7 +1,7 @@
 <div>
     @include("sessions.session-input")
     <div class="grid grid-cols-4 gap-2">
-        @can('moodle-massive')
+        @can('moodle_massive')
             <div class="col-span-4 text-right pr-4">
                 <a href="{{ route('student-mass-creation') }}" class="btn w-max bg-gray-800 text-white">Creacíón masivamente</a>
             </div>

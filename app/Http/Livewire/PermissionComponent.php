@@ -15,7 +15,7 @@ class PermissionComponent extends Component
 {
    use WithPagination, FlashMessageLivewaire, ClearErrorsLivewireComponent;
 
-   public $view = 'edit';
+   public $view = 'create';
 
    public $listeners = ['edit', 'assign'];
 

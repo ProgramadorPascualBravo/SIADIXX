@@ -22,9 +22,6 @@ class CourseTable extends LivewireDatatable
     public function columns()
     {
         $columns = [
-           NumberColumn::callback(['id'], function ($id){
-              return $id;
-           })->label('id'),
            Column::name('code')->label('Código')->filterable()->searchable(),
            Column::name('name')->label('Nombre Materia')->editable()->filterable()->searchable(),
            BooleanColumn::name('state')->label('Estado')->filterable(),
@@ -32,6 +29,9 @@ class CourseTable extends LivewireDatatable
               $this->programs->pluck('name')
            )->label('Programa'),
            DateColumn::name('created_at')->label('Fecha creación')->filterable(),
+           Column::callback(['id'], function ($id){
+              return view('fragments.link-to', ['route' => 'course-detail', 'params' => ['id' => $id], 'name' => 'Ver', 'btn' => 'btn-blue']);
+           })->label('Detalle'),
         ];
           if (Auth::user()->can('course_write')) {
              array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight());

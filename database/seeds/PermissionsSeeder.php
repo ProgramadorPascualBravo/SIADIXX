@@ -37,6 +37,8 @@ class PermissionsSeeder extends Seeder
 
        Permission::create(['name' => 'moodle_massive']);
 
+       Permission::create(['name' => 'moodle_detail']);
+
        /**
         *  Categoria
         */
@@ -55,6 +57,8 @@ class PermissionsSeeder extends Seeder
 
        Permission::create(['name' => 'program_destroy']);
 
+       Permission::create(['name' => 'program_detail']);
+
        /**
         * Course
         */
@@ -63,6 +67,8 @@ class PermissionsSeeder extends Seeder
        Permission::create(['name' => 'course_write']);
 
        Permission::create(['name' => 'course_destroy']);
+
+       Permission::create(['name' => 'course_detail']);
 
        /**
         * Group
@@ -73,6 +79,8 @@ class PermissionsSeeder extends Seeder
        Permission::create(['name' => 'group_write']);
 
        Permission::create(['name' => 'group_destroy']);
+
+       Permission::create(['name' => 'group_detail']);
 
        /**
         * Rols
