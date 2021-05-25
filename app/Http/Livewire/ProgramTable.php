@@ -20,17 +20,10 @@ class ProgramTable extends LivewireDatatable
 
    protected $listeners = ['refreshLivewireDatatable'];
 
-   /*
-   public function builder()
-    {
-       //TODO Datos según departamento
-       return $this->model::query());
-    }
-   */
+
     public function columns() : array
     {
         $columns =  [
-
            Column::name('name')->label('Nombre Programa')->editable()->filterable()->searchable(),
            Column::name('faculty')->label('Facultad')->editable()->filterable()->searchable(),
            BooleanColumn::name('state')->label('Estado')->filterable()->hide(),
@@ -39,7 +32,7 @@ class ProgramTable extends LivewireDatatable
            )->label('Categoria'),
            Column::callback(['id'], function ($id){
               return view('fragments.link-to', ['route' => 'program-detail', 'params' => ['id' => $id], 'name' => 'Ver', 'btn' => 'btn-blue']);
-           })->label('Detalle'),
+           })->label('Detalle')->alignRight(),
         ];
 
         if (Auth::user()->can('program_write')) {

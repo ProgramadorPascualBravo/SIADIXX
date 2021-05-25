@@ -11,9 +11,9 @@ class ProgramDetailComponent extends Component
 {
    public $program;
 
-   public function mount($id)
+   public function mount($program)
    {
-      $this->program = Program::find($id);
+      $this->program = $program;
    }
 
    public function render()

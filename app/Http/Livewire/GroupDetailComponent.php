@@ -10,9 +10,9 @@ class GroupDetailComponent extends Component
 {
    public $group;
 
-   public function mount($id)
+   public function mount($group)
    {
-      $this->group = Group::find($id);
+      $this->group = $group;
    }
 
    public function render()

@@ -38,11 +38,4 @@ class PageController extends Controller
         Session::flush();
         return redirect(route('login'));
     }
-
-    public function dashboard()
-    {
-
-        return view('dashboard');
-    }
-
 }

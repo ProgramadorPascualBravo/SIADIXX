@@ -59,7 +59,7 @@
             </ul>
         </div>
         <div>
-            <a href="">Búsquedas</a>
+            <a href="{{ route('search-index') }}">Búsquedas</a>
         </div>
         <div class="flex-1 text-right relative" x-data="{ open : false }">
             <a @click="open = true" class="text-white cursor-pointer bg-gray-300 py-2 px-4 rounded text-gray-800">{{ Auth::user()->name }} {{ Auth::user()->last_name }} <i class="fi-torso"></i></a>

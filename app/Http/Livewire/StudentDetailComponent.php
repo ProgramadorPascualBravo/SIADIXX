@@ -12,9 +12,9 @@ class StudentDetailComponent extends Component
 {
    public $enrollments, $student;
 
-   function mount($id)
+   function mount(Student $student)
    {
-      $this->student = Student::find($id);
+      $this->student = $student;
       $this->enrollments = $this->student->enrollments;
    }
 

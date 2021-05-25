@@ -39,7 +39,7 @@ class UserTable extends LivewireDatatable
          Column::name('username')->label('Email')->filterable()->searchable(),
          BooleanColumn::name('state')->label('Estado')->filterable()->hide(),
          BooleanColumn::name('verified')->label('Verificado')->filterable()->hide(),
-         Column::name('department.name')->filterable()->label('Departamento'),
+         Column::name('department.name')->filterable()->label('Categoria'),
          DateColumn::name('created_at')->label('Fecha creación')->filterable(),
       ];
 

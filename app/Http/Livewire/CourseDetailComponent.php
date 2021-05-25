@@ -11,9 +11,9 @@ class CourseDetailComponent extends Component
 {
    public $course;
 
-   public function mount($id)
+   public function mount($course)
    {
-      $this->course = Course::find($id);
+      $this->course  = $course;
    }
 
    public function render()

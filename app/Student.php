@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Str;
 
 class Student extends Model
 {
@@ -20,5 +21,10 @@ class Student extends Model
     public function user_external()
     {
        return $this->hasOne(StudentDBMoodle::class, 'username', 'email');
+    }
+
+    public function getFullNameAttribute()
+    {
+       return  Str::title($this->name. ' ' .$this->last_name);
     }
 }
