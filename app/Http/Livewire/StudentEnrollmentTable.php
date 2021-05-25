@@ -35,10 +35,10 @@ class StudentEnrollmentTable extends LivewireDatatable
    {
       $columns = [
          Column::callback(['group.course.name', 'group.course.id'], function ($name, $id){
-            return view('fragments.link-to', ['route' => 'course-detail', 'params' => ['id' => $id], 'name' => $name]);
+            return view('fragments.link-to-name', ['route' => 'course-detail', 'params' => ['id' => $id], 'name' => $name]);
          })->label('Asignatura')->searchable(),
          Column::callback(['group.name', 'group.id'], function ($name, $id){
-            return view('fragments.link-to', ['route' => 'group-detail', 'params' => ['id' => $id], 'name' => $name]);
+            return view('fragments.link-to-name', ['route' => 'group-detail', 'params' => ['id' => $id], 'name' => $name]);
          })->label('Grupo')->searchable()->alignCenter(),
          Column::name('rol')->filterable(
             $this->roles->pluck('name')

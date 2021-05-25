@@ -21,7 +21,7 @@ class StudentMassCreationComponent extends Component
 {
    use FlashMessageLivewaire, WithFileUploads, DownloadDocument, ClearErrorsLivewireComponent;
 
-   public $file, $failures = [], $quantity = ['processed' => 0, 'mistakes' => 0];
+   public $file, $failures = [], $quantity = ['processed' => 0, 'mistakes' => 0], $process = false;
 
    public function render()
    {
@@ -30,6 +30,7 @@ class StudentMassCreationComponent extends Component
 
    public function analyze()
    {
+      $this->proccess = true;
       $this->validate([
          'file' => 'required|mimes:application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,xlsx,xls'
       ]);
@@ -43,8 +44,9 @@ class StudentMassCreationComponent extends Component
          $this->quantity = $import->count;
 
          $this->failures = $import->failures();
-
+         $this->process = false;
       } catch (FileException | QueryException | Exception $exception) {
+         $this->proccess = false;
          dd($exception);
       }
    }

@@ -44,10 +44,10 @@ class UserTable extends LivewireDatatable
       ];
 
       if (Auth::user()->can('user_write')) {
-         array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight());
+         array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignCenter());
       }
       if (Auth::user()->can('user_destroy')){
-         array_push($columns, Column::delete()->label('Eliminar')->alignRight()->hide());
+         array_push($columns, Column::delete()->label('Eliminar')->alignCenter()->hide());
       }
 
       return $columns;

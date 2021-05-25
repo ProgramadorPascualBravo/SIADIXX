@@ -83,10 +83,12 @@ class PermissionComponent extends Component
 
    public function edit($id)
    {
-      $permission = Permission::findById($id);
+      $permission             = Permission::findById($id);
 
       $this->permission_id    = $permission->id;
       $this->name             = $permission->name;
+
+      $this->view             = 'edit';
    }
 
    public function change()

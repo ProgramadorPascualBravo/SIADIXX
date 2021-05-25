@@ -20,7 +20,7 @@ class StudentComponent extends Component
 
    public $user_id, $name, $last_name, $email, $document, $state, $block;
 
-   protected $listeners = ['edit'];
+   protected $listeners = ['edit', 'showAlert'];
 
    public function render()
    {

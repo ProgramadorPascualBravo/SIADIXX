@@ -2,6 +2,9 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+svg {
+  display: inline-block;
+}
 .btn {
   @apply py-2 px-3 rounded inline-flex items-center space-x-2 leading-4 text-xs leading-4 font-medium uppercase tracking-wider duration-75 cursor-pointer mx-2;
   width: fit-content;

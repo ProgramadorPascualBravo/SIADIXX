@@ -41,7 +41,7 @@ class StudentSearchTable extends LivewireDatatable
          DateColumn::name('created_at')->label('Fecha creación')->filterable(),
          Column::callback(['id'], function ($id){
             return view('fragments.link-to', ['route' => 'student-detail', 'params' => ['id' => $id], 'name' => 'Ver']);
-         })->label('Detalle')->alignRight(),
+         })->label('Detalle')->alignCenter(),
       ];
       return $columns;
    }
