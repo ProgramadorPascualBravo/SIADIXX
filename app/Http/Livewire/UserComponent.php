@@ -6,10 +6,12 @@ use App\Department;
 use App\Traits\ClearErrorsLivewireComponent;
 use App\Traits\FlashMessageLivewaire;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\User;
+use Str;
 
 class UserComponent extends Component
 {
@@ -42,13 +44,14 @@ class UserComponent extends Component
        try {
            $user                   = new User();
            $user->create([
-               'name'            => trim($this->name),
-               'last_name'       => trim($this->last_name),
-               'username'        => trim($this->username),
-               'document'        => trim($this->document),
-               'department_id'   => trim($this->department_id),
-               'password'        => Hash::make(trim($this->document)),
-               'state'           => trim($this->state)
+               'name'               => trim($this->name),
+               'last_name'          => trim($this->last_name),
+               'username'           => trim($this->username),
+               'document'           => trim($this->document),
+               'department_id'      => trim($this->department_id),
+               'password'           => Hash::make(trim($this->document)),
+               'confirmation_code'  => Str::random(60),
+               'state'              => trim($this->state)
            ]);
            $this->cancel();
            $this->refreshTable();

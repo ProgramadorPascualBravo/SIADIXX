@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Enrollment;
 use App\Observers\EnrollmentsObserver;
+use App\Observers\UserObserver;
+use App\User;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -26,5 +28,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Enrollment::observe(EnrollmentsObserver::class);
+        User::observe(UserObserver::class);
     }
 }

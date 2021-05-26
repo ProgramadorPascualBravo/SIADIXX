@@ -16,6 +16,11 @@ Breadcrumbs::for('users', function (BreadcrumbTrail  $trail){
    $trail->push('Usuarios', route('user-index'));
 });
 
+Breadcrumbs::for('user-detail', function (BreadcrumbTrail $trail, $user) {
+   $trail->parent('users');
+   $trail->push($user->full_name, route('user-detail', $user->id));
+});
+
 Breadcrumbs::for('students', function (BreadcrumbTrail  $trail){
    $trail->parent('dashboard');
    $trail->push('Us Moodle', route('student-index'));

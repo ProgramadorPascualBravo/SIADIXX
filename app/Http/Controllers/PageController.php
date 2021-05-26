@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -37,5 +39,18 @@ class PageController extends Controller
         Auth::logout();
         Session::flush();
         return redirect(route('login'));
+    }
+
+    public function verify($code)
+    {
+       $user = User::where('confirmation_code', $code)->first();
+       if (! is_null($user)) {
+         $user->email_verified_at = Carbon::now('America/Bogota')->toDateTimeString();
+         $user->verified = 1;
+         $user->save();
+         Auth::login($user);
+         return redirect()->intended('dashboard');
+       }
+       return view('email_verified.error');
     }
 }

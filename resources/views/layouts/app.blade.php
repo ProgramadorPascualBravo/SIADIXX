@@ -71,6 +71,7 @@
                  x-transition:leave-start="opacity-100 transform scale-100"
                  x-transition:leave-end="opacity-0 transform scale-90" @click.away="open = false" class="absolute rounded w-60 z-30 right-0 bg-gray-100 mt-2">
                 <li><a class="block text-gray-800 hover:bg-gray-700 hover:text-white py-2 px-4" href="#"><b><u>Categoria</u>:</b> {{ Auth::user()->department->name }}</a></li>
+                <li><a class="block text-gray-800 hover:bg-gray-700 hover:text-white py-2 px-4" href="{{ route('user-detail', ['id' => Auth::id()]) }}">Mi Perfil</a></li>
                 <li><a class="block text-gray-800 hover:bg-gray-700 hover:text-white py-2 px-4" href="{{ route('logout') }}">Cerrar sesión</a></li>
             </ul>
         </div>

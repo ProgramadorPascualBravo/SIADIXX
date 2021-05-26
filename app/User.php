@@ -2,12 +2,15 @@
 
 namespace App;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use Str;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasRoles;
+    use HasRoles, Notifiable;
 
     protected $table = 'users';
 
@@ -17,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'last_name', 'username', 'password', 'department_id', 'state', 'verified', 'document'
+        'name', 'last_name', 'username', 'password', 'department_id', 'state', 'confirmation_code', 'document'
     ];
 
     /**
@@ -36,12 +39,18 @@ class User extends Authenticatable
     */
     protected $casts = [
        'state' => 'boolean',
-       'verified' => 'boolean'
+       'email_verified_at' => 'datetime',
     ];
 
     public function department()
     {
         return $this->belongsTo(Department::class, 'department_id', 'id');
     }
+
+    public function getFullNameAttribute()
+    {
+      return  Str::title($this->name. ' ' .$this->last_name);
+    }
+
 
 }

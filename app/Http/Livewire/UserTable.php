@@ -30,16 +30,15 @@ class UserTable extends LivewireDatatable
    public function columns() : array
    {
       $columns = [
-         NumberColumn::callback(['id'], function ($id){
-            return $id;
-         })->label('id'),
          Column::name('name')->label('Nombres')->filterable()->searchable()->editable(),
          Column::name('last_name')->label('Apellidos')->filterable()->searchable()->editable(),
          Column::name('document')->label('Documento')->filterable()->searchable(),
          Column::name('username')->label('Email')->filterable()->searchable(),
          BooleanColumn::name('state')->label('Estado')->filterable()->hide(),
-         BooleanColumn::name('verified')->label('Verificado')->filterable()->hide(),
          Column::name('department.name')->filterable()->label('Categoria'),
+         Column::callback(['id'], function ($id){
+            return view('fragments.link-to', ['route' => 'user-detail', 'params' => ['id' => $id]]);
+         })->label('Detalle')->alignCenter(),
          DateColumn::name('created_at')->label('Fecha creación')->filterable(),
       ];
 
