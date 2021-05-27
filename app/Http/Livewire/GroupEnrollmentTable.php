@@ -45,7 +45,7 @@ class GroupEnrollmentTable extends LivewireDatatable
          Column::name('period')->label('Periodo')->filterable()->searchable(),
          DateColumn::name('created_at')->filterable()->label('Fecha creación'),
          Column::callback(['user.id'], function ($id){
-            return view('fragments.link-to', ['route' => 'student-detail', 'params' => ['id' => $id], 'name' => 'Ver', 'btn' => 'btn-blue']);
+            return view('fragments.link-to', ['route' => 'moodle-detail', 'params' => ['id' => $id], 'name' => 'Ver', 'btn' => 'btn-blue']);
          })->label('Detalle del usuario')->alignCenter(),
       ];
 

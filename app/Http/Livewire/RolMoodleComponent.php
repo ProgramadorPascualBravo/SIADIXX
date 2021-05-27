@@ -17,7 +17,7 @@ class RolMoodleComponent extends Component
 
    public $view = 'create';
 
-   public $id_rol_moodle, $name, $state;
+   public $id_rol_moodle, $name, $state, $process;
 
    protected $listeners = ['edit'];
 
@@ -35,15 +35,19 @@ class RolMoodleComponent extends Component
 
       try {
 
+         $this->process = true;
+
          $rolMoodle = new RolMoodle();
 
          $rolMoodle->create([
             'name' => trim($this->name)
          ]);
          $this->cancel();
+         $this->process    = false;
          $this->refreshTable();
          $this->showAlert('alert-success', __('messages.success.create'));
       }catch (QueryException $queryException) {
+         $this->process    = false;
          $this->showAlert('alert-error', __('messages.error.create'));
       }
 
@@ -66,15 +70,18 @@ class RolMoodleComponent extends Component
          'state'         => 'required'
       ]);
       try {
+         $this->process   = true;
          $rolMoodle = RolMoodle::findOrFail($this->department_id);
          $rolMoodle->update([
             'name'        => trim($this->name),
             'state'       => trim($this->state)
          ]);
          $this->cancel();
+         $this->process    = false;
          $this->refreshTable();
          $this->showAlert('alert-success', __('messages.success.update'));
       } catch (QueryException $queryException) {
+         $this->process    = false;
          $this->showAlert('alert-error', __('messages.error.update'));
       }
    }

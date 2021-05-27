@@ -19,9 +19,9 @@ class UserComponent extends Component
 
     public $view = 'create';
 
-    public $user_id, $name, $last_name, $username, $document, $department_id, $state;
+    public $user_id, $name, $last_name, $username, $document, $department_id, $state, $process = false;
 
-    protected $listeners = ['edit'];
+    protected $listeners = ['edit', 'showAlert'];
 
     public function render()
     {
@@ -42,7 +42,8 @@ class UserComponent extends Component
             'state'         => 'required'
         ]);
        try {
-           $user                   = new User();
+           $this->process           = true;
+           $user                    = new User();
            $user->create([
                'name'               => trim($this->name),
                'last_name'          => trim($this->last_name),
@@ -53,11 +54,13 @@ class UserComponent extends Component
                'confirmation_code'  => Str::random(60),
                'state'              => trim($this->state)
            ]);
+           $this->process            = false;
            $this->cancel();
            $this->refreshTable();
            $this->showAlert('alert-success', __('messages.success.create'));
        } catch (QueryException $queryException) {
-          $this->showAlert('alert-error', __('messages.error.create'));
+            $this->process            = false;
+            $this->showAlert('alert-error', __('messages.error.create'));
        }
 
     }
@@ -86,6 +89,7 @@ class UserComponent extends Component
         ]);
 
         try {
+           $this->process           = true;
            $user = User::findOrFail($this->user_id);
            $user->update([
                'name'          => trim($this->name),
@@ -95,11 +99,13 @@ class UserComponent extends Component
                'state'         => trim($this->state)
            ]);
            $this->cancel();
+           $this->process           = false;
            $this->refreshTable();
            $this->showAlert('alert-success', __('messages.success.update'));
 
         } catch (QueryException $queryException) {
-           $this->showAlert('alert-error', __('messages.error.update'));
+           $this->process           = false;
+           $this->showAlert('alert-error', __('messages.errors.update'));
         }
 
     }

@@ -18,11 +18,12 @@ class ProgramTable extends LivewireDatatable
 
    public $exportable = true;
 
+
    protected $listeners = ['refreshLivewireDatatable'];
 
 
-    public function columns() : array
-    {
+   public function columns() : array
+   {
         $columns =  [
            Column::name('name')->label('Nombre Programa')->editable()->filterable()->searchable(),
            Column::name('faculty')->label('Facultad')->editable()->filterable()->searchable(),
@@ -43,15 +44,15 @@ class ProgramTable extends LivewireDatatable
         }
 
         return $columns;
-    }
+   }
 
-    public function edit($id)
-    {
-       $this->emit('edit', $id);
-    }
+   public function edit($id)
+   {
+      $this->emit('edit', $id);
+   }
 
-    public function getDepartmentProperty()
-    {
-       return Department::all('name');
-    }
+   public function getDepartmentProperty()
+   {
+      return Department::all('name');
+   }
 }

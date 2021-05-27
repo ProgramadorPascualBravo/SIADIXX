@@ -17,7 +17,7 @@ class CourseComponent extends Component
 
     public $view = 'create';
 
-    public $course_id, $name, $code, $program_id, $state;
+    public $course_id, $name, $code, $program_id, $state, $process;
 
    protected $listeners = ['edit'];
 
@@ -39,7 +39,7 @@ class CourseComponent extends Component
             'state'             => 'required|numeric'
         ]);
         try {
-
+            $this->process         = true;
             $course = new Course();
 
             $course->create([
@@ -50,10 +50,12 @@ class CourseComponent extends Component
             ]);
 
            $this->cancel();
+           $this->process    = false;
            $this->refreshTable();
            $this->showAlert('alert-success', __('messages.success.create'));
 
         } catch (QueryException $queryException) {
+           $this->process    = false;
            $this->showAlert('alert-error', __('messages.error.create'));
         }
 
@@ -81,6 +83,7 @@ class CourseComponent extends Component
 
         try  {
 
+           $this->process          = true;
            $course = Course::findOrFail($this->course_id);
 
            $course->update([
@@ -91,9 +94,11 @@ class CourseComponent extends Component
            ]);
 
            $this->cancel();
+           $this->process           = false;
            $this->refreshTable();
            $this->showAlert('alert-success', __('messages.success.update'));
         } catch (QueryException $queryException) {
+           $this->process           = false;
            $this->showAlert('alert-error', __('messages.error.update'));
         }
     }

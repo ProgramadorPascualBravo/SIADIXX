@@ -20,7 +20,7 @@ class EnrollmentComponent extends Component
 
    public $view = 'create';
 
-   public $id_enrollment, $code, $rol, $email, $state, $period;
+   public $id_enrollment, $code, $rol, $email, $state, $period, $process;
    protected $listeners = ['edit'];
    public $states_badget     = [
       'Desmatriculado',
@@ -48,6 +48,7 @@ class EnrollmentComponent extends Component
       ]);
       try {
 
+         $this->process         = true;
          $enrollment = new Enrollment();
 
          $enrollment->create([
@@ -59,9 +60,11 @@ class EnrollmentComponent extends Component
          ]);
 
          $this->cancel();
+         $this->process    = false;
          $this->refreshTable();
          $this->showAlert('alert-success', __('messages.success.create'));
       } catch (QueryException $queryException) {
+         $this->process    = false;
          $this->showAlert('alert-error', __('messages.error.create'));
       }
 
@@ -91,6 +94,8 @@ class EnrollmentComponent extends Component
 
       try  {
 
+         $this->process      = true;
+
          $enrollment = Enrollment::find($this->id_enrollment);
 
          $enrollment->update([
@@ -102,9 +107,11 @@ class EnrollmentComponent extends Component
          ]);
 
          $this->cancel();
+         $this->process    = false;
          $this->refreshTable();
          $this->showAlert('alert-success', __('messages.success.update'));
       } catch (QueryException $queryException) {
+         $this->process    = false;
          $this->showAlert('alert-error', __('messages.error.update'));
       }
    }

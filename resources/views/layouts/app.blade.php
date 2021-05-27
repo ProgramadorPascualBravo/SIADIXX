@@ -30,7 +30,7 @@
                     <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('user-index') }}">Usuarios</a></li>
                 @endcan
                 @can('moodle_read')
-                    <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('student-index') }}">Usuarios Moodle</a></li>
+                    <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('moodle-index') }}">Usuarios Moodle</a></li>
                 @endcan
                 @can('role_read')
                     <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('role-index') }}">Roles</a></li>
@@ -39,7 +39,7 @@
                     <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('permission-index') }}">Permisos</a></li>
                 @endcan
                 @can('category_read')
-                    <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('department-index') }}">Categorías</a></li>
+                    <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('category-index') }}">Categorías</a></li>
                 @endcan
                 @can('program_read')
                     <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('program-index') }}">Programas</a></li>
@@ -80,7 +80,9 @@
     @yield('content')
     <script src="{{ asset('js/alpine.min.js')  }}" defer></script>
     <script nomodule src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine-ie11.min.js" defer></script>
+    @stack('custom-script')
     @livewireScripts
     <script src="{{ mix('js/app.js') }}"></script>
+
 </body>
 </html>

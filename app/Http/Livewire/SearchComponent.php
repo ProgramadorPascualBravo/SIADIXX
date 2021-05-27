@@ -13,9 +13,9 @@ class SearchComponent extends Component
 
    public $view = '';
 
-   public $search, $search_table = '';
+   public $search, $search_table = '', $process = false;
 
-   public $listeners = ['clear'];
+   public $listeners = ['clear', 'stopClear'];
 
    public function render()
    {
@@ -30,6 +30,7 @@ class SearchComponent extends Component
 
    public function search()
    {
+      $this->process      = true;
       $this->search_table = $this->search;
       $this->validate([
          'search'    => 'required'
@@ -41,5 +42,10 @@ class SearchComponent extends Component
    {
       $this->search        = '';
       $this->search_table  = '';
+   }
+
+   public function stopClear()
+   {
+      $this->process       = false;
    }
 }

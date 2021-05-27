@@ -1,6 +1,24 @@
 @extends('layouts.app')
 @section('content')
     {{ Breadcrumbs::render('dashboard') }}
-
-    <h1>Dashboard</h1>
+    <div class="grid grid-cols-5 gap-4 px-2">
+        <div class="col-span-3 @cannot('report_read') col-span-5 @endcan">
+            <h2 class="text-center font-bold text-3xl my-4">Módulos</h2>
+            <div class="flex flex-wrap justify-center">
+                @foreach(Auth::user()->getAllPermissions()->filter(function ($item) {
+                      return false !== stripos($item, 'read');
+                   }) as $permission)
+                    <x-access-module-component :permission="$permission->name" />
+                @endforeach
+            </div>
+        </div>
+        <div class="col-span-2 @cannot('report_read') hidden @endcan">
+            <h2 class="text-center font-bold text-3xl my-4">Estadisticas de Mes</h2>
+            <div class="flex flex-wrap justify-center">
+                @foreach(['user', 'moodle', 'program', 'course', 'group', 'enrollment'] as $group)
+                    <x-stats-current-month-component :type="$group"/>
+                @endforeach
+            </div>
+        </div>
+    </div>
 @endsection

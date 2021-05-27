@@ -1,5 +1,10 @@
 @extends('layouts.app')
 @section('content')
+    @if($option)
+        {{ Breadcrumbs::render('permission') }}
+    @else
+        {{ Breadcrumbs::render('role') }}
+    @endif
     <div class="grid grid-cols-1 gap-2">
         <div>
             <h1 class="font-bold text-4xl my-4 text-center">Módulo de Roles y Permisos</h1>

@@ -18,7 +18,7 @@ class GroupComponent extends Component
 
     public $view = 'create';
 
-    public $name, $code, $course_id, $state, $group_id;
+    public $name, $code, $course_id, $state, $group_id, $process;
 
    protected $listeners = ['errorNotUnique', 'edit', 'showAlert'];
 
@@ -38,18 +38,21 @@ class GroupComponent extends Component
         ]);
         try {
 
-           $course = Course::findOrFail($this->course_id);
+            $this->process = true;
+            $course = Course::findOrFail($this->course_id);
 
-           $course->groups()->create([
+            $course->groups()->create([
                'name'      => trim($this->name),
                'code'      => trim($course->code . $this->name),
                'short_name'=> trim($course->code . $this->name)
            ]);
 
            $this->cancel();
+           $this->process    = false;
            $this->refreshTable();
            $this->showAlert('alert-success', __('messages.success.create'));
         } catch (QueryException $queryException) {
+           $this->process    = false;
            $this->showAlert('alert-error', __('messages.error.create'));
         }
     }
@@ -74,7 +77,7 @@ class GroupComponent extends Component
         ]);
 
         try {
-
+           $this->process  = true;
            $group          = Group::findOrFail($this->group_id);
            $course         = Course::findOrFail($this->course_id);
            //TODO Validar si tiene matrículas
@@ -87,9 +90,11 @@ class GroupComponent extends Component
            ]);
 
            $this->cancel();
+           $this->process    = false;
            $this->refreshTable();
            $this->showAlert('alert-success', __('messages.success.update'));
         } catch (QueryException $queryException) {
+           $this->process    = false;
            $this->showAlert('alert-error', __('messages.error.update'));
         }
     }

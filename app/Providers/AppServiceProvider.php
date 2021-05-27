@@ -6,6 +6,9 @@ use App\Enrollment;
 use App\Observers\EnrollmentsObserver;
 use App\Observers\UserObserver;
 use App\User;
+use App\View\Components\AccessModuleComponent;
+use App\View\Components\StatsCurrentMonthComponent;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -29,5 +32,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Enrollment::observe(EnrollmentsObserver::class);
         User::observe(UserObserver::class);
+        Blade::component('stats-current-month', StatsCurrentMonthComponent::class);
+        Blade::component('access-module', AccessModuleComponent::class);
     }
 }

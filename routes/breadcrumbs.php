@@ -23,17 +23,17 @@ Breadcrumbs::for('user-detail', function (BreadcrumbTrail $trail, $user) {
 
 Breadcrumbs::for('students', function (BreadcrumbTrail  $trail){
    $trail->parent('dashboard');
-   $trail->push('Us Moodle', route('student-index'));
+   $trail->push('Us Moodle', route('moodle-index'));
 });
 
 Breadcrumbs::for('student-mass-creation', function (BreadcrumbTrail $trail){
    $trail->parent('students');
-   $trail->push('Creación masiva', route('student-mass-creation'));
+   $trail->push('Creación masiva', route('moodle-mass-creation'));
 });
 
 Breadcrumbs::for('students-detail', function (BreadcrumbTrail $trail, $student) {
    $trail->parent('students');
-   $trail->push($student->full_name, route('student-detail', $student->id));
+   $trail->push($student->full_name, route('moodle-detail', $student->id));
 });
 
 Breadcrumbs::for('role', function (BreadcrumbTrail  $trail){
@@ -48,7 +48,7 @@ Breadcrumbs::for('permission', function (BreadcrumbTrail  $trail){
 
 Breadcrumbs::for('category', function (BreadcrumbTrail  $trail){
    $trail->parent('dashboard');
-   $trail->push('Categorias', route('department-index'));
+   $trail->push('Categorias', route('category-index'));
 });
 
 Breadcrumbs::for('program', function (BreadcrumbTrail  $trail){

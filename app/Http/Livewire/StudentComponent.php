@@ -18,7 +18,7 @@ class StudentComponent extends Component
 
    public $view = 'create';
 
-   public $user_id, $name, $last_name, $email, $document, $state, $block;
+   public $user_id, $name, $last_name, $email, $document, $state, $block, $process = false;
 
    protected $listeners = ['edit', 'showAlert'];
 
@@ -39,7 +39,7 @@ class StudentComponent extends Component
          'state'         => 'required',
       ]);
       try {
-
+         $this->process    = true;
          $student = new Student();
 
          $student->create([
@@ -52,9 +52,11 @@ class StudentComponent extends Component
 
          ]);
          $this->cancel();
+         $this->process    = false;
          $this->refreshTable();
          $this->showAlert('alert-success', __('messages.success.create'));
       } catch (QueryException $queryException) {
+         $this->process    = false;
          $this->showAlert('alert-error', __('messages.error.create'));
       }
 
@@ -84,7 +86,7 @@ class StudentComponent extends Component
       ]);
 
       try {
-
+         $this->process     = true;
          $student = Student::findOrFail($this->user_id);
          $student->update([
             'name'          => trim($this->name),
@@ -94,9 +96,11 @@ class StudentComponent extends Component
             'state'         => trim($this->state),
          ]);
          $this->cancel();
+         $this->process    = false;
          $this->refreshTable();
          $this->showAlert('alert-success', __('messages.success.update'));
       } catch (QueryException $queryException) {
+         $this->process    = false;
          $this->showAlert('alert-error', __('messages.error.update'));
       }
 

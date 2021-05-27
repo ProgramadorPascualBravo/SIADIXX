@@ -37,7 +37,7 @@ class StudentTable extends LivewireDatatable
             BooleanColumn::name('state')->label('Estado')->filterable()->hide(),
             DateColumn::name('created_at')->label('Fecha creación')->filterable(),
             Column::callback(['id'], function ($id){
-               return view('fragments.link-to', ['route' => 'student-detail', 'params' => ['id' => $id]]);
+               return view('fragments.link-to', ['route' => 'moodle-detail', 'params' => ['id' => $id]]);
             })->label('Detalle')->alignCenter(),
             Column::callback(['id', 'name'], function ($id){
               return view('fragments.btn-action', ['action' => 'reset', 'value' => $id, 'name' => 'Reiniciar']);

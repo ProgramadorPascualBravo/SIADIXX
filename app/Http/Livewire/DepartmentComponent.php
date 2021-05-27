@@ -15,7 +15,7 @@ class DepartmentComponent extends Component
 
     public $view = 'create';
 
-    public $name, $department_id, $state;
+    public $name, $department_id, $state, $process;
 
     protected $listeners = ['edit'];
 
@@ -32,16 +32,19 @@ class DepartmentComponent extends Component
         ]);
         try  {
 
+           $this->process     = true;
            $department = new Department();
 
            $department->create([
-              'name' => $this->name
+              'name'          => $this->name
            ]);
 
            $this->cancel();
+           $this->process    = false;
            $this->refreshTable();
            $this->showAlert('alert-success', __('messages.success.create'));
         } catch (QueryException $queryException) {
+           $this->process    = false;
            $this->showAlert('alert-error', __('messages.error.create'));
         }
     }
@@ -63,6 +66,7 @@ class DepartmentComponent extends Component
             'state'         => 'required'
         ]);
        try {
+            $this->process   = true;
             $department = Department::findOrFail($this->department_id);
             $department->update([
                'name'        => $this->name,
@@ -70,10 +74,12 @@ class DepartmentComponent extends Component
             ]);
 
             $this->cancel();
+            $this->process    = false;
             $this->refreshTable();
             $this->showAlert('alert-success', __('messages.success.update'));
        } catch (QueryException $queryException) {
-           $this->showAlert('alert-error', __('messages.error.update'));
+            $this->process    = false;
+            $this->showAlert('alert-error', __('messages.error.update'));
        }
     }
 

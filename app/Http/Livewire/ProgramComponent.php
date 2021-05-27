@@ -17,7 +17,7 @@ class ProgramComponent extends Component
 
     public $view = 'create';
 
-    public $program_id, $name, $department_id, $state, $faculty;
+    public $program_id, $name, $department_id, $state, $faculty, $process;
 
     protected $listeners = ['edit'];
 
@@ -39,6 +39,8 @@ class ProgramComponent extends Component
 
         try {
 
+           $this->process          = true;
+
            $program = new Program();
 
            $program->create([
@@ -49,9 +51,11 @@ class ProgramComponent extends Component
            ]);
 
            $this->cancel();
+           $this->process    = false;
            $this->refreshTable();
            $this->showAlert('alert-success', __('messages.success.create'));
         } catch (QueryException $queryException) {
+           $this->process    = false;
            $this->showAlert('alert-error', __('messages.error.create'));
         }
     }
@@ -77,6 +81,7 @@ class ProgramComponent extends Component
         ]);
 
         try {
+           $this->process      = true;
            $program = Program::findOrFail($this->program_id);
            $program->update([
               'name'           => $this->name,
@@ -85,9 +90,11 @@ class ProgramComponent extends Component
               'state'          => $this->state,
            ]);
            $this->cancel();
+           $this->process    = false;
            $this->refreshTable();
            $this->showAlert('alert-success', __('messages.success.update'));
         } catch (QueryException $queryException) {
+           $this->process    = false;
            $this->showAlert('alert-error', __('messages.error.update'));        }
     }
 

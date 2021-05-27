@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PageController;
+use App\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,7 +25,9 @@ Route::get('/logout', [PageController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('/dashboard')->group(function(){
-        Route::view('', 'dashboard')->name('dashboard');
+        Route::get('', function (){
+           return view('dashboard');
+        })->name('dashboard');
 
         Route::view('/users', 'user.index')->name('user-index')
            ->middleware('permission:user_read');
@@ -38,17 +41,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::view('/permission', 'permission-role.index', ['option' => true])->name('permission-index');
 
-        Route::view('/students', 'student.index')->name('student-index')
+        Route::view('/students', 'student.index')->name('moodle-index')
            ->middleware('permission:moodle_read');
 
         Route::get('/students/{id}/details', function ($id){
            return view('student.details', ['student' => \App\Student::find($id)]);
-        })->name('student-detail')->middleware('permission:moodle_detail');
+        })->name('moodle-detail')->middleware('permission:moodle_detail');
 
-        Route::view('/students/mass-creation', 'student.mass-creation')->name('student-mass-creation')
+        Route::view('/students/mass-creation', 'student.mass-creation')->name('moodle-mass-creation')
            ->middleware('permission:moodle_massive');
 
-        Route::view('/category', 'department.index')->name('department-index')
+        Route::view('/category', 'department.index')->name('category-index')
            ->middleware('permission:category_read');
 
         Route::view('/program', 'program.index')->name('program-index')
@@ -88,3 +91,26 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     });
 });
+
+Route::get('test-chart', function (){
+
+
+   /*
+   $chart = new \App\Charts\EnrollmentChartMake();
+   $enrollments = $chart->getEnrollmentMonthCurrentForState();
+
+   $chart->labels($enrollments->keys());
+   /*
+   $chart->labels($chart->getMonths());
+   $chart->dataset('Matriculado', 'area', $chart->getEnrollmentsForState('Matrículado')->values());
+   $chart->dataset('Matrículas', 'line', $enrollments->values());
+   $chart->dataset('Finalizado', 'area', $chart->getEnrollmentsForState('Finalizada')->values());*/
+
+   $chart = new \App\Charts\UserMoodleChartMake();
+
+   $chart->labels(['Mayo']);
+//   $chart->labels($chart->getMonths());
+   $chart->dataset('Usuarios Totales', 'column', [$chart->getAllStudent()]);
+   $chart->dataset('Usuarios', 'column', [$chart->getEnrollmentMonthCurrent()]);
+   return view('report.index', ['chart' => $chart]);
+})->name('report-index');
