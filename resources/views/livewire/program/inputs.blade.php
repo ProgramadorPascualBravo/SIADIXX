@@ -8,6 +8,14 @@
         @enderror
     </div>
     <div class="block">
+        <span class="text-gray-700">Código</span>
+        <input type="text"
+               class="@error('code') is-invalid-input @enderror input-underline" name="code" id="code" wire:model.defer="code">
+        @error('code')
+        <span class="form-error is-visible">{{ $message }}</span>
+        @enderror
+    </div>
+    <div class="block">
         <span class="text-gray-700">Facultad</span>
         <input type="text"
                class="@error('faculty') is-invalid-input @enderror input-underline" name="faculty" id="faculty" wire:model.defer="faculty">

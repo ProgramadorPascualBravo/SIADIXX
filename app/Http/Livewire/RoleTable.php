@@ -15,8 +15,9 @@ class RoleTable extends LivewireDatatable
    public $model = Role::class;
 
    public $search = false, $user_id;
+
    public $title = "Asignar Rol";
-   public $afterTableSlot = 'livewire.permission-role.select';
+
    protected $listeners = ['refreshLivewireDatatable', 'refreshTableCustom'];
 
    public function builder()

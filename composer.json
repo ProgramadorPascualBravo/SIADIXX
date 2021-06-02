@@ -22,7 +22,7 @@
         "maatwebsite/excel": "^3.1",
         "mediconesystems/livewire-datatables": "^0.4.3",
         "spatie/laravel-permission": "^4.0",
-      "ext-gettext": "*"
+        "ext-gettext": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

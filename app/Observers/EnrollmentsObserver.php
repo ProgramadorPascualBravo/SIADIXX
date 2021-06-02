@@ -9,7 +9,6 @@ use phpDocumentor\Reflection\Types\False_;
 
 class EnrollmentsObserver
 {
-    public $afterCommit = true;
 
     /**
      * Handle the enrollment "created" event.
@@ -62,6 +61,7 @@ class EnrollmentsObserver
               $enrollment_moodle->delete();
            }
         }
+
     }
 
     /**

@@ -60,7 +60,7 @@ class UserComponent extends Component
            $this->showAlert('alert-success', __('messages.success.create'));
        } catch (QueryException $queryException) {
             $this->process            = false;
-            $this->showAlert('alert-error', __('messages.error.create'));
+            $this->showAlert('alert-error', __('messages.errors.create'));
        }
 
     }

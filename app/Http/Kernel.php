@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\Profile;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Spatie\Permission\Middlewares\PermissionMiddleware;
 use Spatie\Permission\Middlewares\RoleMiddleware;
@@ -65,6 +66,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'role' => RoleMiddleware::class,
-        'permission' => PermissionMiddleware::class
+        'permission' => PermissionMiddleware::class,
+        'profile' => Profile::class
     ];
 }

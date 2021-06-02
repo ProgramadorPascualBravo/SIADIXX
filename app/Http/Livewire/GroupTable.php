@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Course;
 use App\Enrollment;
 use App\Group;
+use App\Traits\DeleteMassive;
 use App\Traits\FlashMessageLivewaire;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
@@ -17,20 +18,28 @@ use phpDocumentor\Reflection\DocBlock\Tags\Return_;
 
 class GroupTable extends LivewireDatatable
 {
+    use DeleteMassive;
+
     public $model       = Group::class;
     public $hideable    = 'select';
     public $exportable  = true;
 
-   protected $listeners = ['refreshLivewireDatatable'];
+    public $beforeTableSlot = 'fragments.delete-massive';
 
-   public function builder()
+    public $relation     = 'group';
+
+    protected $listeners = ['refreshLivewireDatatable'];
+
+    public function builder()
     {
         return $this->model::query();
     }
 
     public function columns()
     {
+        $relation = $this->relation;
         $columns =  [
+           Column::checkbox(),
            Column::name('code')->label('Codigo')->searchable()->filterable(),
            Column::callback(['name', 'course.name'], function ($name, $course_name){
               return "Grupo: {$name} de {$course_name}";
@@ -39,7 +48,10 @@ class GroupTable extends LivewireDatatable
            Column::name('course.name')->filterable(
               $this->courses->pluck('name')
            )->label('Asignatura'),
-           DateColumn::name('created_at')->label('Fecha creación')->filterable(),
+           NumberColumn::callback(['code', 'name'], function ($code) {
+              return Enrollment::where(['code' => $code, 'state' => 'Matrículado'])->get()->count();
+           })->label('# Matrículas Activas')->filterable()->alignCenter(),
+           DateColumn::name('created_at')->label('Fecha creación')->filterable()->hide(),
            Column::callback(['id'], function ($id){
               return view('fragments.link-to', ['route' => 'group-detail', 'params' => ['id' => $id], 'name' => "Ver", 'btn' => 'btn-blue']);
            })->label('Detalle del grupo')->alignCenter(),
@@ -53,7 +65,11 @@ class GroupTable extends LivewireDatatable
 
         }
         if (Auth::user()->can('group_destroy')){
-           array_push($columns, Column::delete()->label('Eliminar')->alignCenter()->hide());
+           array_push($columns, Column::callback(['id', 'name'], function ($id) use ($relation){
+              return view('fragments.btn-action-delete', [
+                 'value' => $id, 'relation' => $relation
+              ]);
+           })->label('Eliminar')->alignCenter()->hide());
         }
 
        return $columns;

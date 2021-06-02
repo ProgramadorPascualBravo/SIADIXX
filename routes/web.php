@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('email/verify/{code}', [PageController::class, 'verify'])->name('verification.verify');
-Route::view('email/notice', 'email_verified.notice')->name('verification.notice');
+Route::get('/email/verify/{code}', [PageController::class, 'verify'])->name('verification.verify');
+Route::view('/email/notice', 'email_verified.notice')->name('verification.notice');
 
 Route::view('/', 'index')->name('login')->middleware('guest');
 Route::post('/sing-in', [PageController::class, 'singin'])->name('sing-in');
@@ -34,7 +34,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::get('/user/{id}/details', function ($id){
           return view('user.details', ['user' => \App\User::find($id)]);
-        })->name('user-detail')->middleware('permission:user_read');
+        })->name('user-detail')->middleware('profile:user_detail');
 
 
         Route::view('/role', 'permission-role.index', ['option' => false])->name('role-index');;

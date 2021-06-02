@@ -15,12 +15,13 @@ class UserDetailComponent extends Component
 {
    use FlashMessageLivewaire;
 
-   public $user, $change_password = false;
+   public $user, $change_password = false, $profile;
 
    public $password_current, $password, $password_confirmation;
 
    function mount(User $user)
    {
+      $this->profile = Auth::id() == $user->id ?? false;
       $this->user = $user;
    }
 

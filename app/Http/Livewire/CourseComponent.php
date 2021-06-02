@@ -19,7 +19,7 @@ class CourseComponent extends Component
 
     public $course_id, $name, $code, $program_id, $state, $process;
 
-   protected $listeners = ['edit'];
+   protected $listeners = ['edit', 'showAlert'];
 
    public function render()
     {

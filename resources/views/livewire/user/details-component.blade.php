@@ -12,7 +12,9 @@
                 <h2><b>Cuenta verificada :</b> {!! $user->verified == 1 ? "<span class='text-green-400 font-bold'>Verificado</span>" : "<span class='text-red-400 font-bold'>No Verificado</span>" !!}</h2>
                 <h2><b>Fecha de verificación :</b> {{ $user->verified == 1 ? \Illuminate\Support\Carbon::createFromFormat('Y-m-d H:i:s', $user->email_verified_at)->format('d-m-Y') : "No hay registro" }} </h2>
             </div>
-            <div class="col-span-1">
+            @if($profile)
+                <div class="col-span-1">
+
                 <p><button class="btn btn-blue" style="margin-left: 0" wire:click="$toggle('change_password')">Cambiar contraseña</button></p>
                 <br />
                 @if($change_password)
@@ -53,6 +55,7 @@
                         </div>
                 @endif
             </div>
+            @endif
         </div>
     </div>
 </div>

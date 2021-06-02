@@ -3,8 +3,8 @@
 
 return [
    'user'         => 'usuarios',
-   'moodle'       => 'moodle',
-   'category'     => 'categoris',
+   'moodle'       => 'usuarios plataforma campus',
+   'category'     => 'categoria',
    'program'      => 'programas',
    'course'       => 'asignaturas',
    'group'        => 'grupos',

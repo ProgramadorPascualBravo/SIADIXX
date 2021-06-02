@@ -17,7 +17,7 @@ class DepartmentComponent extends Component
 
     public $name, $department_id, $state, $process;
 
-    protected $listeners = ['edit'];
+    protected $listeners = ['edit', 'showAlert'];
 
     public function render()
     {
@@ -36,7 +36,7 @@ class DepartmentComponent extends Component
            $department = new Department();
 
            $department->create([
-              'name'          => $this->name
+              'name'          => trim($this->name)
            ]);
 
            $this->cancel();
@@ -69,7 +69,7 @@ class DepartmentComponent extends Component
             $this->process   = true;
             $department = Department::findOrFail($this->department_id);
             $department->update([
-               'name'        => $this->name,
+               'name'        => trim($this->name),
                'state'       => $this->state
             ]);
 

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\RolMoodle;
+use App\Traits\DeleteMassive;
 use Illuminate\Support\Facades\Auth;
 use Mediconesystems\LivewireDatatables\BooleanColumn;
 use Mediconesystems\LivewireDatatables\Column;
@@ -12,11 +13,19 @@ use Mediconesystems\LivewireDatatables\NumberColumn;
 
 class RolMoodleTable extends LivewireDatatable
 {
+
+   use DeleteMassive;
+
    public $model = RolMoodle::class;
    public $hideable = 'select';
    public $exportable = true;
 
+   public $relation     = 'role_moodle';
+
+
    protected $listeners = ['refreshLivewireDatatable'];
+
+   public $beforeTableSlot = 'fragments.delete-massive';
 
    public function builder()
    {
@@ -26,18 +35,16 @@ class RolMoodleTable extends LivewireDatatable
     public function columns()
     {
         $columns = [
-           NumberColumn::callback(['id'], function ($id){
-              return $id;
-           })->label('id'),
+           Column::checkbox(),
            Column::name('name')->label('Nombre')->editable()->searchable()->truncate(),
-           BooleanColumn::name('state')->label('Estado')->filterable(),
+           BooleanColumn::name('state')->label('Estado')->filterable()->alignCenter(),
            DateColumn::name('created_at')->label('Fecha creación')->filterable(),
         ];
         if (Auth::user()->can('role_moodle_write')) {
-          array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight());
+          array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignCenter());
         }
         if (Auth::user()->can('role_moodle_destroy')){
-          array_push($columns, Column::delete()->label('Eliminar')->alignRight()->hide());
+          array_push($columns, Column::delete()->label('Eliminar')->alignCenter()->hide());
         }
         return $columns;
     }

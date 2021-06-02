@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 
 
 use App\Department;
+use App\Traits\DeleteMassive;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -18,30 +19,40 @@ use Mediconesystems\LivewireDatatables\NumberColumn;
 
 class DepartmentTable extends LivewireDatatable
 {
-   public $model = Department::class;
-   public $hideable = 'select';
-   public $exportable = true;
+   use DeleteMassive;
+
+   public $model        = Department::class;
+   public $hideable     = 'select';
+   public $exportable   = true;
+
+   public $relation     = 'category';
 
    protected $listeners = ['refreshLivewireDatatable'];
+
+   public $beforeTableSlot = 'fragments.delete-massive';
 
 
    //TODO crear builder de los datos de la tabla
 
    public function columns() : array
    {
+      $relation = $this->relation;
       $columns = [
-         NumberColumn::callback(['id'], function ($id){
-            return $id;
-         })->label('id'),
+         Column::checkbox('id'),
          Column::name('name')->label('Nombre')->searchable()->truncate(),
          BooleanColumn::name('state')->label('Estado')->filterable(),
+         NumberColumn::name('programs.id:count')->label('# Programas')->filterable()->alignCenter(),
          DateColumn::name('created_at')->label('Fecha creación')->filterable(),
       ];
       if (Auth::user()->can('category_write')) {
-         array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight());
+         array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignCenter());
       }
       if (Auth::user()->can('category_destroy')){
-         array_push($columns, Column::delete()->label('Eliminar')->alignRight()->hide());
+         array_push($columns, Column::callback(['id', 'name'], function ($id) use ($relation){
+            return view('fragments.btn-action-delete', [
+               'value' => $id, 'relation' => $relation
+            ]);
+         })->label('Eliminar')->alignCenter()->hide());
       }
 
       return $columns;

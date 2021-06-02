@@ -21,7 +21,9 @@ class EnrollmentComponent extends Component
    public $view = 'create';
 
    public $id_enrollment, $code, $rol, $email, $state, $period, $process;
-   protected $listeners = ['edit'];
+
+   protected $listeners = ['edit', 'showAlert'];
+
    public $states_badget     = [
       'Desmatriculado',
       'Matrículado',
@@ -56,7 +58,7 @@ class EnrollmentComponent extends Component
             'code'              => trim($this->code),
             'rol'               => trim($this->rol),
             'state'             => $this->state,
-            'period'            => $this->period
+            'period'            => trim($this->period)
          ]);
 
          $this->cancel();
@@ -103,7 +105,7 @@ class EnrollmentComponent extends Component
             'code'           => trim($this->code),
             'rol'            => trim($this->rol),
             'state'          => $this->state,
-            'period'          => $this->period
+            'period'         => trim($this->period)
          ]);
 
          $this->cancel();

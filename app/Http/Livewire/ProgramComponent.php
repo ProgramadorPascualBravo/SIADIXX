@@ -17,9 +17,9 @@ class ProgramComponent extends Component
 
     public $view = 'create';
 
-    public $program_id, $name, $department_id, $state, $faculty, $process;
+    public $program_id, $name, $code, $department_id, $state, $faculty, $process;
 
-    protected $listeners = ['edit'];
+    protected $listeners = ['edit', 'showAlert'];
 
     public function render()
     {
@@ -32,6 +32,7 @@ class ProgramComponent extends Component
     {
         $this->validate([
             'name'              => 'required',
+            'code'              => 'required|numeric',
             'department_id'     => 'required|exists:departments,id',
             'faculty'           => 'required',
             'state'             => 'required'
@@ -44,10 +45,11 @@ class ProgramComponent extends Component
            $program = new Program();
 
            $program->create([
-               'name'              => $this->name,
-               'state'             => $this->state,
+               'name'              => trim($this->name),
+               'code'              => trim($this->code),
+               'faculty'           => trim($this->faculty),
                'department_id'     => $this->department_id,
-               'faculty'           => $this->faculty
+               'state'             => $this->state
            ]);
 
            $this->cancel();
@@ -75,7 +77,8 @@ class ProgramComponent extends Component
     {
         $this->validate([
             'name'              => 'required',
-            'department_id'     => 'required|exists:departments,id',
+            'code'              => 'required|numeric',
+           'department_id'     => 'required|exists:departments,id',
             'faculty'           => 'required',
             'state'             => 'required'
         ]);
@@ -84,9 +87,10 @@ class ProgramComponent extends Component
            $this->process      = true;
            $program = Program::findOrFail($this->program_id);
            $program->update([
-              'name'           => $this->name,
+              'name'           => trim($this->name),
+              'code'           => trim($this->code),
+              'faculty'        => trim($this->faculty),
               'department_id'  => $this->department_id,
-              'faculty'        => $this->faculty,
               'state'          => $this->state,
            ]);
            $this->cancel();

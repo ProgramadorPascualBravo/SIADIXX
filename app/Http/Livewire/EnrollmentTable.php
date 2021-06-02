@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Enrollment;
 use App\Group;
 use App\RolMoodle;
+use App\Traits\DeleteMassive;
 use Illuminate\Support\Facades\Auth;
 use Mediconesystems\LivewireDatatables\BooleanColumn;
 use Mediconesystems\LivewireDatatables\Column;
@@ -14,9 +15,13 @@ use Mediconesystems\LivewireDatatables\NumberColumn;
 
 class EnrollmentTable extends LivewireDatatable
 {
+    use DeleteMassive;
     public $model       = Enrollment::class;
     public $hideable    = 'select';
     public $exportable  = true;
+
+    public $relation     = 'enrollment';
+
     protected $state    = [
          'Desmatriculado',
          'Matrículado',
@@ -24,6 +29,8 @@ class EnrollmentTable extends LivewireDatatable
          'Finalizada',
          'Retirado'
     ];
+
+    public $beforeTableSlot = 'fragments.delete-massive';
 
     protected $listeners = ['refreshLivewireDatatable'];
 
@@ -34,10 +41,10 @@ class EnrollmentTable extends LivewireDatatable
 
     public function columns()
     {
+        $relation = $this->relation;
+
         $columns = [
-           NumberColumn::callback(['id'], function ($id){
-              return $id;
-           })->label('id'),
+           Column::checkbox('id'),
            Column::name('code')->label('Código Grupo')->filterable(
               $this->groups->pluck('code')
            )->searchable(),
@@ -55,7 +62,12 @@ class EnrollmentTable extends LivewireDatatable
           array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight());
         }
         if (Auth::user()->can('enrollment_destroy')){
-          array_push($columns, Column::delete()->label('Eliminar')->alignRight()->hide());
+           array_push($columns, Column::callback(['id', 'code'], function ($id) use ($relation){
+              return view('fragments.btn-action-delete', [
+                 'value' => $id, 'relation' => $relation
+              ]);
+           })->label('Eliminar')->alignCenter()->hide());
+
         }
 
         return $columns;

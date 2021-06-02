@@ -19,7 +19,7 @@ class RolMoodleComponent extends Component
 
    public $id_rol_moodle, $name, $state, $process;
 
-   protected $listeners = ['edit'];
+   protected $listeners = ['edit', 'showAlert'];
 
    public function render()
    {

@@ -4,7 +4,9 @@ namespace App\Providers;
 
 use App\Enrollment;
 use App\Observers\EnrollmentsObserver;
+use App\Observers\StudentObserver;
 use App\Observers\UserObserver;
+use App\Student;
 use App\User;
 use App\View\Components\AccessModuleComponent;
 use App\View\Components\StatsCurrentMonthComponent;
@@ -32,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Enrollment::observe(EnrollmentsObserver::class);
         User::observe(UserObserver::class);
+        Student::observe(StudentObserver::class);
         Blade::component('stats-current-month', StatsCurrentMonthComponent::class);
         Blade::component('access-module', AccessModuleComponent::class);
     }

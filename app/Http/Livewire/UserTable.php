@@ -2,6 +2,7 @@
 namespace App\Http\Livewire;
 
 use App\Student;
+use App\Traits\DeleteMassive;
 use App\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
@@ -10,18 +11,23 @@ use Mediconesystems\LivewireDatatables\BooleanColumn;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\DateColumn;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
-use Mediconesystems\LivewireDatatables\NumberColumn;
 
 class UserTable extends LivewireDatatable
 {
+
+   use DeleteMassive;
+
    public $model        = User::class;
 
    public $hideable     = 'select';
 
    public $exportable   = true;
 
+   public $beforeTableSlot = 'fragments.delete-massive';
+
    protected $listeners = ['refreshLivewireDatatable'];
 
+   public $relation     = 'user';
 
    public function builder()
    {
@@ -32,7 +38,9 @@ class UserTable extends LivewireDatatable
 
    public function columns() : array
    {
+      $relation = $this->relation;
       $columns = [
+         Column::checkbox('id'),
          Column::name('name')->label('Nombres')->filterable()->searchable()->editable(),
          Column::name('last_name')->label('Apellidos')->filterable()->searchable()->editable(),
          Column::name('document')->label('Documento')->filterable()->searchable(),
@@ -40,19 +48,24 @@ class UserTable extends LivewireDatatable
          BooleanColumn::name('state')->label('Estado')->filterable()->hide(),
          Column::name('department.name')->filterable()->label('Categoria'),
          DateColumn::name('created_at')->label('Fecha creación')->filterable(),
-         Column::callback(['id'], function ($id){
-            return view('fragments.link-to', ['route' => 'user-detail', 'params' => ['id' => $id]]);
-         })->label('Detalle')->alignCenter(),
          Column::callback(['id', 'name'], function ($id){
-            return view('fragments.btn-action', ['action' => 'reset', 'value' => $id, 'name' => 'Reiniciar']);
+            return view('fragments.btn-action-reset-password', ['action' => 'reset', 'value' => $id, 'name' => 'Reiniciar']);
          })->label('Reiniciar Contraseña')->alignCenter(),
       ];
-
+      if (Auth::user()->can('user_detail')) {
+         array_push($columns,  Column::callback(['id'], function ($id){
+            return view('fragments.link-to', ['route' => 'user-detail', 'params' => ['id' => $id]]);
+         })->label('Detalle')->alignCenter());
+      }
       if (Auth::user()->can('user_write')) {
          array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignCenter());
       }
       if (Auth::user()->can('user_destroy')){
-         array_push($columns, Column::delete()->label('Eliminar')->alignCenter()->hide());
+         array_push($columns, Column::callback(['id', 'document'], function ($id) use ($relation){
+            return view('fragments.btn-action-delete', [
+               'value' => $id, 'relation' => $relation
+            ]);
+         })->label('Eliminar')->alignCenter()->hide());
       }
 
       return $columns;
@@ -71,7 +84,7 @@ class UserTable extends LivewireDatatable
          if ($user->save()) {
             $this->emit('showAlert', 'alert-success', __('messages.success.update'));
          } else {
-            $this->emit('showAlert', 'alert-error', __('messages.error.update'));
+            $this->emit('showAlert', 'alert-error', __('messages.errors.update'));
          }
       } catch (QueryException $exception) {
          $this->emit('showAlert', 'alert-error', __('messages.error.update'));
