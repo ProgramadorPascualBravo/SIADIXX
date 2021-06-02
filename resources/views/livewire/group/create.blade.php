@@ -1,7 +1,7 @@
 <div class="px-5">
     <div wire:ignore.self >
         <div class="my-4">
-            <h2 class="text-2xl mb-4 text-center">Nuevo grupo</h2>
+            <h2 class="text-2xl mb-4 text-center">{{ __('modules.group.create') }}</h2>
             @include('livewire.group.inputs')
             @include('fragments.btn-create')
         </div>

@@ -40,21 +40,21 @@ class GroupTable extends LivewireDatatable
         $relation = $this->relation;
         $columns =  [
            Column::checkbox(),
-           Column::name('code')->label('Codigo')->searchable()->filterable(),
+           Column::name('code')->label(__('modules.input.code'))->searchable()->filterable(),
            Column::callback(['name', 'course.name'], function ($name, $course_name){
               return "Grupo: {$name} de {$course_name}";
-           })->label('Grupo')->searchable()->filterable(),
+           })->label(__('modules.group.name'))->searchable()->filterable(),
            BooleanColumn::name('state')->label('Estado')->filterable()->hide(),
            Column::name('course.name')->filterable(
               $this->courses->pluck('name')
-           )->label('Asignatura'),
+           )->label(__('modules.course.name')),
            NumberColumn::callback(['code', 'name'], function ($code) {
               return Enrollment::where(['code' => $code, 'state' => 'Matrículado'])->get()->count();
            })->label('# Matrículas Activas')->filterable()->alignCenter(),
-           DateColumn::name('created_at')->label('Fecha creación')->filterable()->hide(),
+           DateColumn::name('created_at')->label(__('modules.table.created'))->filterable()->hide(),
            Column::callback(['id'], function ($id){
               return view('fragments.link-to', ['route' => 'group-detail', 'params' => ['id' => $id], 'name' => "Ver", 'btn' => 'btn-blue']);
-           })->label('Detalle del grupo')->alignCenter(),
+           })->label(__('modules.table.detail'))->alignCenter(),
 
         ];
         if (Auth::user()->can('group_write')) {

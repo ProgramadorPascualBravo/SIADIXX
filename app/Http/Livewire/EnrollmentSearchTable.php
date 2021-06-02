@@ -42,18 +42,18 @@ class EnrollmentSearchTable extends LivewireDatatable
    public function columns()
    {
       $columns = [
-         Column::name('code')->label('Código Grupo')->filterable(
+         Column::name('code')->label(__('modules.input.code'))->filterable(
             $this->groups->pluck('code')
          )->searchable()->alignRight(),
-         Column::name('email')->label('Email')->filterable()->searchable(),
-         Column::name('rol')->label('Rol')->filterable(
+         Column::name('email')->label(__('modules.input.email'))->filterable()->searchable(),
+         Column::name('rol')->label('Rol matrícula')->filterable(
             $this->roles->pluck('name')
          )->searchable()->alignRight(),
-         Column::name('period')->label('Periodo')->filterable()->searchable()->alignRight(),
-         Column::name('state')->label('Estado')->filterable(
+         Column::name('period')->label(__('modules.input.period'))->filterable()->searchable()->alignRight(),
+         Column::name('state')->label(__('modules.input.state'))->filterable(
             $this->state
          )->alignRight(),
-         DateColumn::name('created_at')->label('Fecha creación')->filterable()->alignRight(),
+         DateColumn::name('created_at')->label(__('modules.table.created'))->filterable()->alignRight(),
       ];
 
       return $columns;

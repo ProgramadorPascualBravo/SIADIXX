@@ -41,21 +41,21 @@ class UserTable extends LivewireDatatable
       $relation = $this->relation;
       $columns = [
          Column::checkbox('id'),
-         Column::name('name')->label('Nombres')->filterable()->searchable()->editable(),
-         Column::name('last_name')->label('Apellidos')->filterable()->searchable()->editable(),
-         Column::name('document')->label('Documento')->filterable()->searchable(),
+         Column::name('name')->label(__('modules.input.names'))->filterable()->searchable()->editable(),
+         Column::name('last_name')->label(__('modules.input.last_name'))->filterable()->searchable()->editable(),
+         Column::name('document')->label(__('modules.input.document'))->filterable()->searchable(),
          Column::name('username')->label('Email')->filterable()->searchable(),
-         BooleanColumn::name('state')->label('Estado')->filterable()->hide(),
-         Column::name('department.name')->filterable()->label('Categoria'),
-         DateColumn::name('created_at')->label('Fecha creación')->filterable(),
+         BooleanColumn::name('state')->label(__('modules.input.state'))->filterable()->hide(),
+         Column::name('department.name')->filterable()->label(__('modules.category.name')),
+         DateColumn::name('created_at')->label(__('modules.table.created'))->filterable(),
          Column::callback(['id', 'name'], function ($id){
             return view('fragments.btn-action-reset-password', ['action' => 'reset', 'value' => $id, 'name' => 'Reiniciar']);
-         })->label('Reiniciar Contraseña')->alignCenter(),
+         })->label(__('modules.table.reset-password'))->alignCenter(),
       ];
       if (Auth::user()->can('user_detail')) {
          array_push($columns,  Column::callback(['id'], function ($id){
             return view('fragments.link-to', ['route' => 'user-detail', 'params' => ['id' => $id]]);
-         })->label('Detalle')->alignCenter());
+         })->label(__('modules.table.detail'))->alignCenter());
       }
       if (Auth::user()->can('user_write')) {
          array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignCenter());

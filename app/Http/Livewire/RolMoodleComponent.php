@@ -40,7 +40,8 @@ class RolMoodleComponent extends Component
          $rolMoodle = new RolMoodle();
 
          $rolMoodle->create([
-            'name' => trim($this->name)
+            'name' => trim($this->name),
+            'state'  => $this->state
          ]);
          $this->cancel();
          $this->process    = false;
@@ -90,6 +91,7 @@ class RolMoodleComponent extends Component
    {
       $this->id_rol_moodle    = '';
       $this->name             = '';
+      $this->state             = '';
       $this->view             = 'create';
       $this->hydrate();
    }

@@ -4,7 +4,7 @@
         <div class="grid grid-cols-4 gap-2">
             @can('enrollment_write')
                 <div class="col-span-4 text-right pr-4">
-                    <a href="{{ route('enrollment-mass-creation') }}" class="btn w-max bg-gray-800 text-white">Creacíón masivamente</a>
+                    <a href="{{ route('enrollment-mass-creation') }}" class="btn w-max bg-gray-800 text-white">{{ __('modules.massive.name') }}</a>
                 </div>
             @endcan
             <div class="@cannot('enrollment_write') col-span-4 px-4 @endcan col-span-3 pl-4">

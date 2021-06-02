@@ -34,14 +34,14 @@ class CourseSearchTable extends LivewireDatatable
    public function columns() : array
    {
       $columns = [
-         Column::name('code')->label('Código')->filterable()->searchable(),
-         Column::name('name')->label('Nombre Materia')->filterable()->searchable(),
-         BooleanColumn::name('state')->label('Estado')->filterable()->alignCenter(),
+         Column::name('code')->label(__('modules.input.code'))->filterable()->searchable(),
+         Column::name('name')->label(__('modules.course.name'))->filterable()->searchable(),
+         BooleanColumn::name('state')->label(__('modules.input.state'))->filterable()->alignCenter(),
          NumberColumn::name('groups.id:count')->label('# de Grupos')->filterable()->alignCenter(),
-         DateColumn::name('created_at')->label('Fecha creación')->filterable(),
+         DateColumn::name('created_at')->label(__('modules.table.created'))->filterable(),
          Column::callback(['id'], function ($id){
             return view('fragments.link-to', ['route' => 'course-detail', 'params' => ['id' => $id], 'name' => 'Ver', 'btn' => 'btn-blue']);
-         })->label('Detalle')->alignCenter(),
+         })->label(__('modules.table.detail'))->alignCenter(),
       ];
       return $columns;
    }

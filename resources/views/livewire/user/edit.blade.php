@@ -1,7 +1,7 @@
 <div class="px-5">
     <div wire:ignore.self >
         <div class="my-4">
-            <h3 class="text-2xl mb-4 text-center">Editar usuario</h3>
+            <h3 class="text-2xl mb-4 text-center capitalize">{{ __('modules.user.edit') }}</h3>
             @include('livewire.user.inputs')
             @include('fragments.btn-update')
         </div>

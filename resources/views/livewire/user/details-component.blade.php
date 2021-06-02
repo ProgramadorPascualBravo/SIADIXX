@@ -19,7 +19,7 @@
                 <br />
                 @if($change_password)
                         <div class="block">
-                            <span class="text-gray-700">Contraseña actual</span>
+                            <span class="text-gray-700 capitalize">{{ __('modules.user.password_current') }}</span>
                             <input type="text"
                                    class="@error('password_current') is-invalid-input @enderror input-underline"
                                    name="password_current" id="password_current" wire:model.defer="password_current" autocomplete="off">
@@ -28,7 +28,7 @@
                             @enderror
                         </div>
                         <div class="block">
-                            <span class="text-gray-700">Nueva contraseña</span>
+                            <span class="text-gray-700 capitalize">{{ __('modules.user.password_new') }}</span>
                             <input type="text"
                                    class="@error('password') is-invalid-input @enderror input-underline"
                                    name="password" id="password" wire:model.defer="password" autocomplete="off">
@@ -37,7 +37,7 @@
                             @enderror
                         </div>
                         <div class="block">
-                            <span class="text-gray-700">Confirmar contraseña</span>
+                            <span class="text-gray-700 capitalize">{{ __('modules.user.password_confirm') }}</span>
                             <input type="text"
                                    class="@error('password_confirmation') is-invalid-input @enderror input-underline"
                                    name="password_confirmation" id="password_confirmation" wire:model.defer="password_confirmation" autocomplete="off">
@@ -47,10 +47,10 @@
                         </div>
                         <div class="text-right my-4 flex flex-row-reverse">
                             <button class="btn btn-blue mr-0" wire:click="update">
-                                <span>Actualizar</span>
+                                <span>{{ __('modules.update') }}</span>
                             </button>
                             <button class="btn btn-red" wire:click="$toggle('change_password')">
-                                <span>Cancelar</span>
+                                <span>{{ __('modules.cancel') }}</span>
                             </button>
                         </div>
                 @endif

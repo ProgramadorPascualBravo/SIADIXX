@@ -39,10 +39,10 @@ class DepartmentTable extends LivewireDatatable
       $relation = $this->relation;
       $columns = [
          Column::checkbox('id'),
-         Column::name('name')->label('Nombre')->searchable()->truncate(),
-         BooleanColumn::name('state')->label('Estado')->filterable(),
+         Column::name('name')->label(__('modules.input.name'))->searchable()->truncate(),
+         BooleanColumn::name('state')->label(__('modules.input.state'))->filterable(),
          NumberColumn::name('programs.id:count')->label('# Programas')->filterable()->alignCenter(),
-         DateColumn::name('created_at')->label('Fecha creación')->filterable(),
+         DateColumn::name('created_at')->label(__('modules.table.created'))->filterable(),
       ];
       if (Auth::user()->can('category_write')) {
          array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignCenter());

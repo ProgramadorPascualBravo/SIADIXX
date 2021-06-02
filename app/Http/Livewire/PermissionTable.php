@@ -39,7 +39,7 @@ class PermissionTable extends LivewireDatatable
    public function columns()
    {
       $columns = [
-         Column::name('name')->filterable()->label('Rol'),
+         Column::name('name')->filterable()->label(__('modules.input.name')),
          Column::callback(['name'], function ($name){
             return User::permission($name)->count();
          })->label('Roles con el permiso')->filterable(),

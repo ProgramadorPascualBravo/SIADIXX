@@ -45,18 +45,18 @@ class EnrollmentTable extends LivewireDatatable
 
         $columns = [
            Column::checkbox('id'),
-           Column::name('code')->label('Código Grupo')->filterable(
+           Column::name('code')->label(__('modules.input.code'))->filterable(
               $this->groups->pluck('code')
            )->searchable(),
-           Column::name('email')->label('Email')->filterable()->searchable(),
-           Column::name('rol')->label('Rol')->filterable(
+           Column::name('email')->label(__('modules.input.email'))->filterable()->searchable(),
+           Column::name('rol')->label('Rol matrícula')->filterable(
               $this->roles->pluck('name')
            )->searchable(),
-           Column::name('period')->label('Periodo')->filterable()->searchable(),
-           Column::name('state')->label('Estado')->filterable(
+           Column::name('period')->label(__('modules.input.period'))->filterable()->searchable(),
+           Column::name('state')->label(__('modules.input.state'))->filterable(
               $this->state
            ),
-           DateColumn::name('created_at')->label('Fecha creación')->filterable(),
+           DateColumn::name('created_at')->label(__('modules.table.created'))->filterable(),
         ];
         if (Auth::user()->can('enrollment_write')) {
           array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight());

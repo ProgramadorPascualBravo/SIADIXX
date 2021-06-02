@@ -59,7 +59,7 @@
             </ul>
         </div>
         <div class="mr-6 relative" x-data="{ open : false}" >
-            <a @click="open = true" class="cursor-pointer">Módulos carga masiva</a>
+            <a @click="open = true" class="cursor-pointer">Carga masiva</a>
             <ul x-show="open"
                 x-transition:enter="transition ease-out duration-300"
                 x-transition:enter-start="opacity-0 transform scale-90"
@@ -69,10 +69,10 @@
                 x-transition:leave-end="opacity-0 transform scale-90" @click.away="open = false" class="absolute bg-gray-800 rounded w-max z-30">
 
                 @can('moodle_massive')
-                    <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('moodle-mass-creation') }}">Carga masiva de usuarios plataforma campus</a></li>
+                    <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('moodle-mass-creation') }}">Usuarios plataforma</a></li>
                 @endcan
                 @can('enrollment_massive')
-                    <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('enrollment-mass-creation') }}">Cargar masiva de matrículas</a></li>
+                    <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('enrollment-mass-creation') }}">Matrículas</a></li>
                 @endcan
             </ul>
         </div>
@@ -88,7 +88,6 @@
                  x-transition:leave="transition ease-in duration-300"
                  x-transition:leave-start="opacity-100 transform scale-100"
                  x-transition:leave-end="opacity-0 transform scale-90" @click.away="open = false" class="absolute rounded w-60 z-30 right-0 bg-gray-100 mt-2">
-                <li><a class="block text-gray-800 hover:bg-gray-700 hover:text-white py-2 px-4" href="#"><b><u>Categoria</u>:</b> {{ Auth::user()->department->name }}</a></li>
                 <li><a class="block text-gray-800 hover:bg-gray-700 hover:text-white py-2 px-4" href="{{ route('user-detail', ['id' => Auth::id()]) }}">Mi Perfil</a></li>
                 <li><a class="block text-gray-800 hover:bg-gray-700 hover:text-white py-2 px-4" href="{{ route('logout') }}">Cerrar sesión</a></li>
             </ul>

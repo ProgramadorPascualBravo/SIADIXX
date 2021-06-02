@@ -26,7 +26,7 @@ class AccessModuleComponent extends Component
        } else {
              $name = $name[0];
        }
-       $this->module = Str::title(__('modules.'.$name));
+       $this->module = Str::title(__('modules.'.$name.'.pname'));
     }
 
     /**

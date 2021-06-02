@@ -33,15 +33,15 @@ class StudentSearchTable extends LivewireDatatable
    public function columns()
    {
       $columns = [
-         Column::name('name')->label('Nombres')->filterable()->searchable(),
-         Column::name('last_name')->label('Apellidos')->filterable()->searchable()->editable(),
-         Column::name('email')->label('Email')->filterable()->searchable(),
-         Column::name('document')->label('Documento')->filterable()->searchable(),
-         BooleanColumn::name('state')->label('Estado')->filterable()->alignCenter(),
-         DateColumn::name('created_at')->label('Fecha creación')->filterable(),
+         Column::name('name')->label(__('modules.input.names'))->filterable()->searchable(),
+         Column::name('last_name')->label(__('modules.input.last_name'))->filterable()->searchable()->editable(),
+         Column::name('email')->label(__('modules.input.email'))->filterable()->searchable(),
+         Column::name('document')->label(__('modules.input.document'))->filterable()->searchable(),
+         BooleanColumn::name('state')->label(__('modules.input.state'))->filterable()->alignCenter(),
+         DateColumn::name('created_at')->label(__('modules.table.created'))->filterable(),
          Column::callback(['id'], function ($id){
             return view('fragments.link-to', ['route' => 'moodle-detail', 'params' => ['id' => $id], 'name' => 'Ver']);
-         })->label('Detalle')->alignCenter(),
+         })->label(__('modules.table.detail'))->alignCenter(),
       ];
       return $columns;
    }

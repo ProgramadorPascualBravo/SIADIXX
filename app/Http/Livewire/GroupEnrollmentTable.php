@@ -34,19 +34,19 @@ class GroupEnrollmentTable extends LivewireDatatable
    public function columns() : array
    {
       $columns = [
-         Column::name('code')->label('Código')->searchable()->filterable(),
-         Column::name('email')->label('Usuario')->searchable()->filterable(),
-         Column::name('rol')->label('Rol')->filterable(
+         Column::name('code')->label(__('modules.input.code'))->searchable()->filterable(),
+         Column::name('email')->label(__('modules.input.email'))->searchable()->filterable(),
+         Column::name('rol')->label('Rol matrícula')->filterable(
             $this->roles->pluck('name')
          )->searchable(),
-         Column::name('state')->label('Estado')->filterable(
+         Column::name('state')->label(__('modules.input.state'))->filterable(
             $this->state
          ),
-         Column::name('period')->label('Periodo')->filterable()->searchable(),
-         DateColumn::name('created_at')->filterable()->label('Fecha creación'),
+         Column::name('period')->label(__('modules.input.period'))->filterable()->searchable(),
+         DateColumn::name('created_at')->filterable()->label(__('modules.table.created')),
          Column::callback(['user.id'], function ($id){
             return view('fragments.link-to', ['route' => 'moodle-detail', 'params' => ['id' => $id], 'name' => 'Ver', 'btn' => 'btn-blue']);
-         })->label('Detalle del usuario')->alignCenter(),
+         })->label(__('modules.table.detail'))->alignCenter(),
       ];
 
       return $columns;

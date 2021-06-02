@@ -32,7 +32,7 @@ class RoleTable extends LivewireDatatable
    public function columns()
    {
       $columns = [
-         Column::name('name')->filterable()->label('Rol'),
+         Column::name('name')->filterable()->label(__('modules.role.name')),
          Column::callback(['name'], function ($name){
             return User::role($name)->count();
          })->label('Cantidad de usuarios')->filterable(),

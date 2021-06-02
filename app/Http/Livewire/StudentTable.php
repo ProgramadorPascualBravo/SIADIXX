@@ -39,19 +39,19 @@ class StudentTable extends LivewireDatatable
         $relation = $this->relation;
         $columns = [
             Column::checkbox(),
-            Column::name('name')->label('Nombres')->editable()->filterable()->searchable(),
-            Column::name('last_name')->label('Apellidos')->filterable()->searchable()->editable(),
-            Column::name('email')->label('Email')->filterable()->searchable(),
-            Column::name('document')->label('Documento')->filterable()->searchable(),
+            Column::name('name')->label(__('modules.input.names'))->editable()->filterable()->searchable(),
+            Column::name('last_name')->label(__('modules.input.last_name'))->filterable()->searchable()->editable(),
+            Column::name('email')->label(__('modules.input.email'))->filterable()->searchable(),
+            Column::name('document')->label(__('modules.input.document'))->filterable()->searchable(),
             BooleanColumn::name('state')->label('Estado')->filterable()->hide(),
             NumberColumn::name('enrollments.id:count')->label('# Matríciulas')->filterable()->alignCenter(),
-            DateColumn::name('created_at')->label('Fecha creación')->filterable(),
+            DateColumn::name('created_at')->label(__('modules.table.created'))->filterable(),
             Column::callback(['id'], function ($id){
                return view('fragments.link-to', ['route' => 'moodle-detail', 'params' => ['id' => $id]]);
-            })->label('Detalle')->alignCenter(),
+            })->label(__('modules.table.detail'))->alignCenter(),
             Column::callback(['id', 'name'], function ($id){
               return view('fragments.btn-action-reset-password', ['action' => 'reset', 'value' => $id, 'name' => 'Reiniciar']);
-            })->label('Reiniciar Contraseña')->alignCenter(),
+            })->label(__('modules.table.reset-password'))->alignCenter(),
         ];
         if (Auth::user()->can('moodle_write')) {
            array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignCenter());

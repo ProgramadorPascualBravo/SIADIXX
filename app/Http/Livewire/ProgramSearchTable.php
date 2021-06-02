@@ -32,13 +32,13 @@ class ProgramSearchTable extends LivewireDatatable
    public function columns() : array
    {
       $columns = [
-         Column::name('name')->label('Nombre Programa')->filterable()->searchable(),
-         Column::name('faculty')->label('Facultad')->filterable()->searchable(),
-         BooleanColumn::name('state')->label('Estado')->filterable(),
+         Column::name('name')->label(__('modules.program.name'))->filterable()->searchable(),
+         Column::name('faculty')->label(__('modules.input.faculty'))->filterable()->searchable(),
+         BooleanColumn::name('state')->label(__('modules.input.state'))->filterable(),
          NumberColumn::name('courses.id:count')->label('# de Asignaturas')->filterable()->alignCenter(),
          Column::callback(['id'], function ($id){
             return view('fragments.link-to', ['route' => 'program-detail', 'params' => ['id' => $id], 'name' => 'Ver', 'btn' => 'btn-blue']);
-         })->label('Detalle')->alignRight(),
+         })->label(__('modules.table.detail'))->alignRight(),
       ];
       return $columns;
    }

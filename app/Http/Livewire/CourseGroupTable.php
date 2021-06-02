@@ -29,13 +29,13 @@ class CourseGroupTable extends LivewireDatatable
    public function columns() : array
    {
       $columns = [
-         Column::name('name')->label('Nombre')->searchable()->filterable(),
-         Column::name('code')->label('Código')->searchable()->filterable(),
-         BooleanColumn::name('state')->filterable()->label('Estado'),
-         DateColumn::name('created_at')->filterable()->label('Fecha creación'),
+         Column::name('name')->label(__('modules.input.name'))->searchable()->filterable(),
+         Column::name('code')->label(__('modules.input.code'))->searchable()->filterable(),
+         BooleanColumn::name('state')->filterable()->label(__('modules.input.state')),
+         DateColumn::name('created_at')->filterable()->label(__('modules.table.created')),
          Column::callback(['id'], function ($id){
             return view('fragments.link-to', ['route' => 'group-detail', 'params' => ['id' => $id], 'name' => 'Ver', 'btn' => 'btn-blue']);
-         })->label('Detalle'),
+         })->label(__('modules.table.detail')),
       ];
 
       return $columns;

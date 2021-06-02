@@ -36,9 +36,9 @@ class RolMoodleTable extends LivewireDatatable
     {
         $columns = [
            Column::checkbox(),
-           Column::name('name')->label('Nombre')->editable()->searchable()->truncate(),
-           BooleanColumn::name('state')->label('Estado')->filterable()->alignCenter(),
-           DateColumn::name('created_at')->label('Fecha creación')->filterable(),
+           Column::name('name')->label(__('modules.input.name'))->editable()->searchable()->truncate(),
+           BooleanColumn::name('state')->label(__('modules.input.state'))->filterable()->alignCenter(),
+           DateColumn::name('created_at')->label(__('modules.table.created'))->filterable(),
         ];
         if (Auth::user()->can('role_moodle_write')) {
           array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignCenter());

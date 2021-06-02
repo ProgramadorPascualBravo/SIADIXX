@@ -33,19 +33,19 @@ class GroupSearchTable extends LivewireDatatable
    public function columns() : array
    {
       $columns = [
-         Column::name('code')->label('Codigo')->searchable()->filterable(),
+         Column::name('code')->label(__('modules.input.code'))->searchable()->filterable(),
          Column::callback(['name', 'course.name'], function ($name, $course_name){
             return "Grupo: {$name} de {$course_name}";
-         })->label('Grupo')->searchable()->filterable(),
+         })->label(__('modules.group.name'))->searchable()->filterable(),
          BooleanColumn::name('state')->label('Estado')->filterable()->hide(),
          Column::name('course.name')->filterable(
             $this->courses->pluck('name')
-         )->label('Asignatura'),
+         )->label(__('modules.course.name')),
          NumberColumn::name('enrollments.id:count')->label('# de Matrículas')->filterable()->alignCenter(),
-         DateColumn::name('created_at')->label('Fecha creación')->filterable(),
+         DateColumn::name('created_at')->label(__('modules.table.created'))->filterable(),
          Column::callback(['id'], function ($id){
             return view('fragments.link-to', ['route' => 'group-detail', 'params' => ['id' => $id], 'name' => "Ver", 'btn' => 'btn-blue']);
-         })->label('Detalle del grupo')->alignRight(),
+         })->label(__('modules.table.detail'))->alignRight(),
       ];
       return $columns;
    }

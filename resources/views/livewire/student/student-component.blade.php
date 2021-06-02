@@ -3,7 +3,7 @@
     <div class="grid grid-cols-4 gap-2">
         @can('moodle_massive')
             <div class="col-span-4 text-right pr-4">
-                <a href="{{ route('moodle-mass-creation') }}" class="btn w-max bg-gray-800 text-white">Creacíón masivamente</a>
+                <a href="{{ route('moodle-mass-creation') }}" class="btn w-max bg-gray-800 text-white">{{ __('modules.massive.name') }}</a>
             </div>
         @endcan
         <div class="@cannot('moodle_write') col-span-4 px-4 @endcan col-span-3 pl-4">

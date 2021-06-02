@@ -13,7 +13,7 @@ Breadcrumbs::for('dashboard',  function (BreadcrumbTrail  $trail) {
 
 Breadcrumbs::for('users', function (BreadcrumbTrail  $trail){
    $trail->parent('dashboard');
-   $trail->push('Usuarios', route('user-index'));
+   $trail->push('Usuarios SIADI', route('user-index'));
 });
 
 Breadcrumbs::for('user-detail', function (BreadcrumbTrail $trail, $user) {
@@ -23,7 +23,7 @@ Breadcrumbs::for('user-detail', function (BreadcrumbTrail $trail, $user) {
 
 Breadcrumbs::for('students', function (BreadcrumbTrail  $trail){
    $trail->parent('dashboard');
-   $trail->push('Us Moodle', route('moodle-index'));
+   $trail->push('Usuarios plataforma', route('moodle-index'));
 });
 
 Breadcrumbs::for('student-mass-creation', function (BreadcrumbTrail $trail){
@@ -38,7 +38,7 @@ Breadcrumbs::for('students-detail', function (BreadcrumbTrail $trail, $student) 
 
 Breadcrumbs::for('role', function (BreadcrumbTrail  $trail){
    $trail->parent('dashboard');
-   $trail->push('Roles', route('role-index'));
+   $trail->push('Roles SIADI', route('role-index'));
 });
 
 Breadcrumbs::for('permission', function (BreadcrumbTrail  $trail){
@@ -96,7 +96,7 @@ Breadcrumbs::for('group-detail', function (BreadcrumbTrail $trail, $group) {
 
 Breadcrumbs::for('role_moodle', function (BreadcrumbTrail  $trail){
    $trail->parent('dashboard');
-   $trail->push('Roles Moodle', route('role-moodle-index'));
+   $trail->push('Roles matrículas', route('role-moodle-index'));
 });
 
 Breadcrumbs::for('enrollment', function (BreadcrumbTrail  $trail){

@@ -30,17 +30,17 @@ class CourseTable extends LivewireDatatable
       $relation = $this->relation;
       $columns = [
          Column::checkbox(),
-         Column::name('code')->label('Código')->filterable()->searchable(),
-         Column::name('name')->label('Nombre Materia')->editable()->filterable()->searchable(),
-         BooleanColumn::name('state')->label('Estado')->filterable(),
+         Column::name('code')->label(__('modules.input.code'))->filterable()->searchable(),
+         Column::name('name')->label(__('modules.input.name'))->editable()->filterable()->searchable(),
+         BooleanColumn::name('state')->label(__('modules.input.state'))->filterable(),
          Column::name('program.name')->filterable(
             $this->programs->pluck('name')
          )->label('Programa'),
          NumberColumn::name('groups.id:count')->label('# Grupos')->filterable()->alignCenter(),
-         DateColumn::name('created_at')->label('Fecha creación')->filterable()->hide(),
+         DateColumn::name('created_at')->label(__('modules.table.created'))->filterable()->hide(),
          Column::callback(['id'], function ($id){
             return view('fragments.link-to', ['route' => 'course-detail', 'params' => ['id' => $id], 'name' => 'Ver', 'btn' => 'btn-blue']);
-         })->label('Detalle'),
+         })->label(__('modules.table.detail')),
       ];
       if (Auth::user()->can('course_write')) {
          array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight());
