@@ -10,12 +10,15 @@
                 @endforeach
             </div>
         </div>
-        <div class="col-span-5">
+        <div class="col-span-3 col-start-2">
             <h2 class="text-center font-bold text-3xl my-4">Módulos</h2>
             <div class="flex flex-wrap justify-center">
                 @foreach(Auth::user()->getAllPermissions()->filter(function ($item) {
                       return false !== stripos($item, 'read');
                    }) as $permission)
+                    @if($permission->name == 'report_read')
+                        @continue;
+                    @endif
                     <x-access-module-component :permission="$permission->name" />
                 @endforeach
             </div>

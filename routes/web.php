@@ -101,6 +101,3 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     });
 });
-
-Route::get('test-chart', function (){
-})->name('report-index');
