@@ -4,7 +4,7 @@ namespace App\Charts;
 
 use App\Enrollment;
 
-class EnrollmentChartMakeMake extends BaseChartMake
+class EnrollmentChartMake extends BaseChartMake
 {
     /**
      * Initializes the chart.

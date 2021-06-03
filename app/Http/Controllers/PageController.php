@@ -3,16 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Charts\CourseChartMake;
-use App\Charts\EnrollmentChartMakeMake;
+use App\Charts\EnrollmentChartMake;
 use App\Charts\StudentMoodleChartMake;
+use App\Enrollment;
+use App\Exports\reportExport;
+use App\Student;
 use App\User;
 use Carbon\Carbon;
-use ConsoleTVs\Charts\Classes\Highcharts\Dataset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
+use Maatwebsite\Excel\Facades\Excel;
 use Str;
 
 class PageController extends Controller
@@ -101,7 +102,7 @@ class PageController extends Controller
        $chart_total->dataset(Str::ucfirst('total'), 'pie', [$chart_total->getTotal()]);
 
        $chart_state = StudentMoodleChartMake::newChart();
-       $chart_state->label('Cantidad');
+       $chart_state->label('Usuarios creados');
        $chart_state->title('Usuarios creados por mes del año '. now()->year);
        $chart_state->labels($chart_state->getMonths());
        $chart_state->dataset(Str::title(__('modules.moodle.name')), 'column', $chart_state->getAllStudentForMonthForState()->values());
@@ -110,7 +111,7 @@ class PageController extends Controller
 
     public function reportEnrollment()
     {
-       $chart_total = EnrollmentChartMakeMake::newChart();
+       $chart_total = EnrollmentChartMake::newChart();
        $chart_total->title(Str::ucfirst('Total de '.__('modules.enrollment.name')));
        $chart_total->labels(["Total", "Mes"]);
        $chart_total->options(collect([
@@ -149,29 +150,29 @@ class PageController extends Controller
        $chart_total->dataset(Str::ucfirst('total'), 'pie', [$chart_total->getTotal()]);
 
 
-       $chart_state = EnrollmentChartMakeMake::newChart();
-       $chart_state->label('# Matrículas');
+       $chart_state = EnrollmentChartMake::newChart();
+       $chart_state->label('Matrículas');
+       $chart_state->title("Matrículas por mes en el año ". now()->year);
        $chart_state->labels($chart_state->getMonths());
        $chart_state->dataset(Str::title(__('modules.enrollment.name')), 'area', $chart_state->getAllEnrollmentsForYear()->values());
        foreach (['Desmatriculado', 'Matrículado', 'Cancelada', 'Finalizada', 'Retirado'] as $state) {
           $chart_state->dataset(Str::title($state), 'column', $chart_state->getEnrollmentsForState($state)->values());
        }
-       return view('report.enrollment', ['chartstate' => $chart_state, 'charttotal' => $chart_total]);
+       $chart_state->height = 600;
+       return view('report.enrollment', [
+          'chartstate' => $chart_state,
+          'charttotal' => $chart_total,
+          'states'     =>  Enrollment::all()->groupBy('state')->map(function ($item) {
+             return count($item);
+          })
+       ]);
     }
 
     public function reportCourse()
     {
-       $chart_groups = CourseChartMake::newChart();
-
-       $chart_groups->label('Cantidad');
-       $chart_groups->title(Str::ucfirst(__('Grupos por asignatura')));
-       $chart_groups->labels($chart_groups->getGroupsForCourse()->keys());
-       $chart_groups->dataset(__('modules.course.name'), 'column', $chart_groups->getGroupsForCourse()->values());
-
-       /***/
+             /***/
        $chart_total = CourseChartMake::newChart();
        $chart_total->title(Str::ucfirst('Total de '.__('modules.course.name')));
-       $chart_total->label('cantidad');
        $chart_total->labels(["Total", "Mes"]);
        $chart_total->options(collect([
           'chart' => [
@@ -212,13 +213,15 @@ class PageController extends Controller
 
        $chart_year = CourseChartMake::newChart();
        $chart_year->title( Str::ucfirst(__('modules.course.pname') .' creadas por mes del año '.now()->year));
-       $chart_year->label('Cantidad');
+       $chart_year->label('Asignaturas');
        $chart_year->labels($chart_year->getMonths());
        $chart_year->dataset(Str::ucfirst('Total'), 'area', $chart_year->getAllForYear()->values());
-
+       $chart_year->height = 500;
        /**/
 
        $chart_enrollment = CourseChartMake::newChart();
+       $chart_enrollment->label('Matrículas');
+       $chart_enrollment->height = 500;
        $chart_enrollment->title('Matrículas totales y activas por asignatura');
        $course_enrollment = $chart_enrollment->getEnrollmentsForCourse();
        $chart_enrollment->labels($course_enrollment->keys());
@@ -228,11 +231,10 @@ class PageController extends Controller
           array_push($t, $course_enrollment->get($course)[1]);
           array_push($m, $course_enrollment->get($course)[0]);
        }
-       $chart_enrollment->dataset('total', 'column', $t);
-       $chart_enrollment->dataset('matrículados', 'column', $m);
+       $chart_enrollment->dataset('Total', 'column', $t);
+       $chart_enrollment->dataset('Matrículas activas', 'column', $m);
 
        return view('report.course', [
-          'chartgroups'       => $chart_groups,
           'charttotal'        => $chart_total,
           'chartyear'         => $chart_year,
           'chartenrollment'   => $chart_enrollment

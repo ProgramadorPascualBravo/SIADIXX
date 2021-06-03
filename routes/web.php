@@ -54,7 +54,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::get('/students/report', [PageController::class, 'reportStudent'])->name('moodle-report')->middleware('permission:report_read');
 
-       Route::view('/category', 'department.index')->name('category-index')
+        Route::get('/students/report/download', [PageController::class, 'exportReportStudent'])->name('moodle-report-download')->middleware('permission:report_read');
+
+        Route::view('/category', 'department.index')->name('category-index')
            ->middleware('permission:category_read');
 
         Route::view('/program', 'program.index')->name('program-index')
