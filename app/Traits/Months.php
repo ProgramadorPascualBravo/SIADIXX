@@ -8,7 +8,7 @@ use Arr;
 
 trait Months
 {
-   public $months = [
+   static public $months = [
       '01' => 'Enero',
       '02' => 'Febrero',
       '03' => 'Marzo',
@@ -25,25 +25,29 @@ trait Months
 
    public function getMonths()
    {
-      return Arr::flatten($this->months);
+      //$m = substr(now()->month, 0);
+      
+      //dd($m[0]);
+      //if ($m[0])
+      $flatten = Arr::flatten(self::$months);
+      return array_splice($flatten, 0, now()->month);
    }
 
    protected function organizeDataByMonth($eloquent)
    {
       $data = collect();
-      foreach ($this->months as $key => $value) {
-         if ($eloquent->keys()->search($key)) {
+      foreach (self::$months as $key => $value) {
+         if ($key > now()->month) {
+            break;
+         }
+
+         if (is_int($eloquent->keys()->search($key))) {
             $data->put($value, $eloquent->get($key));
             continue;
          }
          $data->put($value, 0);
       }
       return $data;
-   }
-
-   protected function getMonth($month)
-   {
-      return $this->months[$month];
    }
 
 }

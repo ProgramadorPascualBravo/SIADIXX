@@ -2,15 +2,19 @@
 
 namespace App;
 
+use App\Traits\Months;
+use App\Traits\MonthScope;
 use Illuminate\Database\Eloquent\Model;
 use Str;
 
 class Student extends Model
 {
+    use MonthScope;
+
     protected $table = 'students';
 
     protected $fillable = [
-       'name', 'last_name', 'email', 'password', 'document'
+       'name', 'last_name', 'email', 'password', 'document', 'state'
     ];
 
     public function enrollments()

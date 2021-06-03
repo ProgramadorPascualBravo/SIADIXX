@@ -25,7 +25,7 @@ return [
     |
     */
 
-    'view' => 'breadcrumbs::tailwind',
+    'view' => 'fragments.breadcrumbs',
 
     /*
     |--------------------------------------------------------------------------

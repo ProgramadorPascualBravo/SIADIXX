@@ -2,13 +2,16 @@
 
 namespace App;
 
+use App\Traits\MonthScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Course extends Model
 {
-    protected $table = 'courses';
+   use MonthScope;
+
+   protected $table = 'courses';
 
     protected $fillable = [
       'code', 'name', 'program_id', 'state'

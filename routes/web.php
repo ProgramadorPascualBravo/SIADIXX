@@ -29,13 +29,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
            return view('dashboard');
         })->name('dashboard');
 
-        Route::view('/users', 'user.index')->name('user-index')
+        Route::view('/user', 'user.index')->name('user-index')
            ->middleware('permission:user_read');
 
         Route::get('/user/{id}/details', function ($id){
           return view('user.details', ['user' => \App\User::find($id)]);
         })->name('user-detail')->middleware('profile:user_detail');
 
+        //Route::get('/user/report', [PageController::class, 'reportUser'])->name('user-report')->middleware('profile:report_read');
 
         Route::view('/role', 'permission-role.index', ['option' => false])->name('role-index');;
 
@@ -51,7 +52,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::view('/students/mass-creation', 'student.mass-creation')->name('moodle-mass-creation')
            ->middleware('permission:moodle_massive');
 
-        Route::view('/category', 'department.index')->name('category-index')
+        Route::get('/students/report', [PageController::class, 'reportStudent'])->name('moodle-report')->middleware('profile:report_read');
+
+       Route::view('/category', 'department.index')->name('category-index')
            ->middleware('permission:category_read');
 
         Route::view('/program', 'program.index')->name('program-index')
@@ -68,22 +71,27 @@ Route::middleware(['auth', 'verified'])->group(function () {
           return view('course.details', ['course' => \App\Course::find($id)]);
         })->name('course-detail')->middleware('permission:course_detail');
 
-        Route::view('/group', 'group.index')->name('group-index')
+       Route::get('/course/report', [PageController::class, 'reportCourse'])->name('course-report')->middleware('profile:report_read');
+
+       Route::view('/group', 'group.index')->name('group-index')
            ->middleware('permission:group_read');
 
         Route::get('/group/{id}/detail', function ($id) {
           return view('group.details', ['group' => \App\Group::find($id)]);
         })->name('group-detail')->middleware('permission:group_detail');
 
+       Route::get('/group/report', [PageController::class, 'reportUser'])->name('group-report')->middleware('profile:report_read');
 
-        Route::view('/role-moodle', 'rol_moodle.index')->name('role-moodle-index')
+       Route::view('/role-moodle', 'rol_moodle.index')->name('role-moodle-index')
            ->middleware('permission:role_read');
         Route::view('/enrollment', 'enrollment.index')->name('enrollment-index')
            ->middleware('permission:enrollment_read');
         Route::view('/enrollment/mass-creation', 'enrollment.mass-creation')->name('enrollment-mass-creation')
            ->middleware('permission:enrollment_massive');
 
-        Route::any('/search', function ()
+       Route::get('/enrollment/report', [PageController::class, 'reportEnrollment'])->name('enrollment-report')->middleware('profile:report_read');
+
+       Route::any('/search', function ()
         {
            return view('search.index');
         })->name('search-index')
@@ -93,24 +101,4 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::get('test-chart', function (){
-
-
-   /*
-   $chart = new \App\Charts\EnrollmentChartMake();
-   $enrollments = $chart->getEnrollmentMonthCurrentForState();
-
-   $chart->labels($enrollments->keys());
-   /*
-   $chart->labels($chart->getMonths());
-   $chart->dataset('Matriculado', 'area', $chart->getEnrollmentsForState('Matrículado')->values());
-   $chart->dataset('Matrículas', 'line', $enrollments->values());
-   $chart->dataset('Finalizado', 'area', $chart->getEnrollmentsForState('Finalizada')->values());*/
-
-   $chart = new \App\Charts\UserMoodleChartMake();
-
-   $chart->labels(['Mayo']);
-//   $chart->labels($chart->getMonths());
-   $chart->dataset('Usuarios Totales', 'column', [$chart->getAllStudent()]);
-   $chart->dataset('Usuarios', 'column', [$chart->getEnrollmentMonthCurrent()]);
-   return view('report.index', ['chart' => $chart]);
 })->name('report-index');

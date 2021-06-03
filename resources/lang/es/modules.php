@@ -20,7 +20,7 @@ return [
          'create'    => 'Nuevo usuario plataforma',
          'edit'      => 'Editar usuario plataforma',
          'massive'   => 'Módulo de carga masiva de usuarios plataforma',
-         'detail'    => 'Perfil de usuario plataforma'
+         'detail'    => 'Perfil de usuario plataforma',
    ],
    'category'        => [
          'title'     => 'Módulo categorias',
@@ -56,9 +56,9 @@ return [
          'pname'     => 'reportes',
    ],
    'role-moodle'        => [
-         'title'     => 'Módulo roles plataforma',
-         'name'      => 'rol plataforma',
-         'pname'     => 'roles plataforma',
+         'title'     => 'Módulo roles matrícula',
+         'name'      => 'rol matrícula',
+         'pname'     => 'roles matricula',
          'create'    => 'Nuevo rol matrícula',
          'edit'      => 'Editar rol matrícula'
    ],
@@ -109,5 +109,7 @@ return [
    'save'         => 'guardar',
    'saving'       => 'guardando',
    'update'       => 'actualizar',
-   'updating'     => 'actualizando'
+   'updating'     => 'actualizando',
+   'stats'     => 'Módulo de estadisticas'
+
 ];

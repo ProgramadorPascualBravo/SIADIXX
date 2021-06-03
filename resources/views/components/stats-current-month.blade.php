@@ -1,13 +1,13 @@
 <div class="m-4">
-    <a href="#" class="rounded-full hover:bg-blue-200 h-32 w-32 bg-white text-blue-700 border-4 border-blue-700 font-bold inline-flex justify-center text-center p-5 flex-col">
+    <a href="{{ route($route) }}" class="hover:bg-blue-200 h-28 w-48 bg-white text-blue-700 border-2 border-blue-700 inline-flex justify-center text-center p-5 flex-col">
         <h3 class="text-3xl">
-            {{ $eloquent::query()->count() }}
+            {{ $eloquent::month()->get()->count() }}
         </h3>
         <p class="text-sm">
             {{ $title }}
         </p>
         <p>
-            {{ $months[now()->format('m')] }}
+            {{  \App\View\Components\StatsCurrentMonthComponent::getMonth(now()->format('m')) }}
         </p>
     </a>
 </div>

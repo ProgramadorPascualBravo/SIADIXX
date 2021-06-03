@@ -36,6 +36,11 @@ Breadcrumbs::for('students-detail', function (BreadcrumbTrail $trail, $student) 
    $trail->push($student->full_name, route('moodle-detail', $student->id));
 });
 
+Breadcrumbs::for('students-report', function (BreadcrumbTrail $trail) {
+   $trail->parent('students');
+   $trail->push("Estadísticas", route('moodle-report'));
+});
+
 Breadcrumbs::for('role', function (BreadcrumbTrail  $trail){
    $trail->parent('dashboard');
    $trail->push('Roles SIADI', route('role-index'));
@@ -77,6 +82,11 @@ Breadcrumbs::for('course-detail', function (BreadcrumbTrail $trail, $course) {
    $trail->push($course->name, route('course-detail', $course->id));
 });
 
+Breadcrumbs::for('course-report', function (BreadcrumbTrail $trail) {
+   $trail->parent('course');
+   $trail->push("Estadísticas", route('course-report'));
+});
+
 Breadcrumbs::for('group', function (BreadcrumbTrail  $trail){
    $trail->parent('dashboard');
    $trail->push('Grupos', route('group-index'));
@@ -102,6 +112,11 @@ Breadcrumbs::for('role_moodle', function (BreadcrumbTrail  $trail){
 Breadcrumbs::for('enrollment', function (BreadcrumbTrail  $trail){
    $trail->parent('dashboard');
    $trail->push('Matrículas', route('enrollment-index'));
+});
+
+Breadcrumbs::for('enrollment-report', function (BreadcrumbTrail $trail) {
+   $trail->parent('enrollment');
+   $trail->push("Estadísticas", route('enrollment-report'));
 });
 
 Breadcrumbs::for('search', function (BreadcrumbTrail  $trail){

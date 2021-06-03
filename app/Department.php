@@ -2,12 +2,15 @@
 
 namespace App;
 
+use App\Traits\MonthScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Department extends Model
 {
-    protected $table = 'departments';
+   use MonthScope;
+
+   protected $table = 'departments';
 
     protected $fillable = [
         'name', 'state'

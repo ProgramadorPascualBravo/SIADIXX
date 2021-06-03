@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Traits\Months;
+use App\Traits\MonthScope;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -10,7 +12,7 @@ use Str;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasRoles, Notifiable;
+    use HasRoles, Notifiable, MonthScope;
 
     protected $table = 'users';
 

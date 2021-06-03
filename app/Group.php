@@ -3,6 +3,7 @@
 namespace App;
 
 use App\GroupDBMoodle;
+use App\Traits\MonthScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -10,7 +11,9 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Group extends Model
 {
-    protected $table = 'groups';
+   use MonthScope;
+
+      protected $table = 'groups';
 
     protected $fillable = [
       'name', 'code', 'course_id', 'state', 'period', 'short_name'

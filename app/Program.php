@@ -2,11 +2,14 @@
 
 namespace App;
 
+use App\Traits\MonthScope;
 use Illuminate\Database\Eloquent\Model;
 
 class Program extends Model
 {
-    protected $table = 'programs';
+   use MonthScope;
+
+   protected $table = 'programs';
 
     protected $fillable = [
         'name', 'state', 'department_id', 'state', 'faculty', 'code'

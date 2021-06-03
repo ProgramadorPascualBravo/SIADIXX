@@ -9,39 +9,39 @@ use App\Program;
 use App\Student;
 use App\Traits\Months;
 use App\User;
+use Illuminate\Support\Str;
 use Illuminate\View\Component;
 
 class StatsCurrentMonthComponent extends Component
 {
     use Months;
 
+   /**
+    * @var string[]
+    */
     public $title;
 
     public $eloquent;
 
+    public $route;
+
     protected $data = [
        'user' => [
-         'title' => 'Usuario monitor',
          'class' => User::class
        ],
        'moodle' => [
-          'title' => 'Usuario moodle',
           'class' => Student::class
        ],
        'program' => [
-          'title' => 'Programas',
           'class' => Program::class
        ],
        'course' => [
-          'title' => 'Asignaturas',
           'class' => Course::class
        ],
        'group' => [
-          'title' => 'Grupos',
           'class' => Group::class
        ],
        'enrollment' => [
-          'title' => 'Matrículas',
           'class' => Enrollment::class
        ],
     ];
@@ -53,7 +53,8 @@ class StatsCurrentMonthComponent extends Component
      */
     public function __construct($type)
     {
-        $this->title       = $this->data[$type]['title'];
+        $this->route       = $type. '-report';
+        $this->title       = Str::title(__('modules.'.$type.'.name'));
         $this->eloquent    = $this->data[$type]['class'];
     }
     /**
@@ -66,4 +67,8 @@ class StatsCurrentMonthComponent extends Component
         return view('components.stats-current-month');
     }
 
+    static function getMonth($month)
+    {
+       return self::$months['06'];
+    }
 }
