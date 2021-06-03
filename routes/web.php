@@ -52,7 +52,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::view('/students/mass-creation', 'student.mass-creation')->name('moodle-mass-creation')
            ->middleware('permission:moodle_massive');
 
-        Route::get('/students/report', [PageController::class, 'reportStudent'])->name('moodle-report')->middleware('profile:report_read');
+        Route::get('/students/report', [PageController::class, 'reportStudent'])->name('moodle-report')->middleware('permission:report_read');
 
        Route::view('/category', 'department.index')->name('category-index')
            ->middleware('permission:category_read');
