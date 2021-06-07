@@ -10,7 +10,7 @@
     <div class="block">
         <span class="text-gray-700 capitalize">{{ __('modules.input.code') }}</span>
         <input type="text"
-               class="@error('code') is-invalid-input @enderror input-underline" name="code" id="code" wire:model.defer="code">
+               class="@error('code') is-invalid-input @enderror input-underline" name="code" id="code" wire:model.defer="code" {{ $group > 0 ? 'readonly' : '' }} >
         @error('code')
             <span class="form-error is-visible">{{ $message }}</span>
         @enderror

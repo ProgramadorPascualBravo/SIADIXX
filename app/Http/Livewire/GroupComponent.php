@@ -18,14 +18,14 @@ class GroupComponent extends Component
 
     public $view = 'create';
 
-    public $name, $code, $course_id, $state, $group_id, $process;
+    public $name, $code, $course_id, $state, $group_id, $process, $enrollment = 0;
 
    protected $listeners = ['errorNotUnique', 'edit', 'showAlert'];
 
    public function render()
     {
         return view('livewire.group.group-component', [
-            'courses'   => Course::all()
+            'courses'   => Course::where('state', 1)->get()
         ]);
     }
 
@@ -66,6 +66,7 @@ class GroupComponent extends Component
         $this->name         = $group->name;
         $this->course_id    = $group->course_id;
         $this->state        = $group->state;
+        $this->enrollment   = $group->enrollments->count();
         $this->view         = 'edit';
 
     }

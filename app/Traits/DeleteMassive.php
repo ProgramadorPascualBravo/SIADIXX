@@ -30,8 +30,9 @@ trait DeleteMassive
                   $u = $this->model::find($id);
                   if ($u->enrollments->isEmpty()) {
                      $u->delete();
+                  } else {
+                     $restrictions++;
                   }
-                  $restrictions++;
                }
                break;
             case 'category'   :
@@ -39,8 +40,9 @@ trait DeleteMassive
                   $u = $this->model::find($id);
                   if ($u->programs->isEmpty()) {
                      $u->delete();
+                  } else {
+                     $restrictions++;
                   }
-                  $restrictions++;
                }
                break;
             case 'program'    :
@@ -48,8 +50,9 @@ trait DeleteMassive
                   $u = $this->model::find($id);
                   if ($u->courses->isEmpty()) {
                      $u->delete();
+                  } else {
+                     $restrictions++;
                   }
-                  $restrictions++;
                }
                break;
             case 'course'     :
@@ -57,8 +60,9 @@ trait DeleteMassive
                   $u = $this->model::find($id);
                   if ($u->groups->isEmpty()) {
                      $u->delete();
+                  } else {
+                     $restrictions++;
                   }
-                  $restrictions++;
                }
                break;
             default           :

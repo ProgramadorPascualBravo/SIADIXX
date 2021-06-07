@@ -18,7 +18,7 @@
     <div class="block">
         <span class="text-gray-700 capitalize">{{ __('modules.input.email') }}</span>
         <input type="text"
-               class="@error('email') is-invalid-input @enderror input-underline" name="email" id="email" wire:model.defer="email" autocomplete="off">
+               class="@error('email') is-invalid-input @enderror input-underline" name="email" id="email" wire:model.defer="email" autocomplete="off" {{ $enrollment > 0 ? 'readonly' : '' }}>
         @error('username')
             <span class="form-error is-visible">{{ $message }}</span>
         @enderror

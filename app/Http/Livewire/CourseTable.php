@@ -15,6 +15,7 @@ use Mediconesystems\LivewireDatatables\NumberColumn;
 class CourseTable extends LivewireDatatable
 {
    use DeleteMassive;
+
    public $model        = Course::class;
    public $hideable     = 'select';
    public $exportable   = true;

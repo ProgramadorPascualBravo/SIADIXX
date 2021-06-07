@@ -8,6 +8,7 @@
         <div class="col-span-1 pl-2">
             <div>
                 <table class="mb-3 w-full">
+                    <caption>Matrículas por estado</caption>
                     <thead>
                         <tr class="border-2 bg-blue-300 border-gray-900">
                             <th class="text-left p-3">Estado</th>

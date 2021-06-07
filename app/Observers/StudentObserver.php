@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Enrollment;
 use App\Student;
+use App\StudentDBMoodle;
 
 class StudentObserver
 {
@@ -29,14 +30,18 @@ class StudentObserver
      */
     public function updated(Student $student)
     {
+       /**
         if ($student->isDirty('email')) {
            Enrollment::where('email', $student->getOriginal('email'))->update(
              [
                 'email' => $student->email
              ]
            );
+       }
+        **/
+        if ($student->isDirty('state')) {
+            StudentDBMoodle::where('username', $student->email)->update(['suspended' => !$student->state]);
         }
-
     }
 
     /**

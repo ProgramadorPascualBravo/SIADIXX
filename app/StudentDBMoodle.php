@@ -13,6 +13,9 @@ class StudentDBMoodle extends Model
 
    protected $connection = 'mysql_moodle';
 
+   protected $fillable = ['username', 'suspended'];
+
+   public $timestamps = false;
 
    public function getFirstEntryAttribute()
    {

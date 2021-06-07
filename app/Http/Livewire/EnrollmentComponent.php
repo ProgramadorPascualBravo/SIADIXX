@@ -35,15 +35,15 @@ class EnrollmentComponent extends Component
    public function render()
    {
       return view('livewire.enrollment.enrollment-component', [
-         'groups' => Group::all(),
-         'roles' => RolMoodle::all(['name'])
+         'groups' => Group::where('state', 1)->get(),
+         'roles' => RolMoodle::where('state', 1)->select('name')->get()
       ]);
    }
    public function store()
    {
       $this->validate([
          'code'              => 'required|exists:groups,code|unique_with:enrollments,email,period',
-         'email'             => 'required|exists:students,email',
+         'email'             => 'required|exists:students,email,state,1',
          'rol'               => 'required|exists:roles_moodle,name',
          'state'             => 'required',
          'period'            => 'required'

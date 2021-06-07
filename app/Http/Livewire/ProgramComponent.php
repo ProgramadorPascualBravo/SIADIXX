@@ -24,7 +24,7 @@ class ProgramComponent extends Component
     public function render()
     {
         return view('livewire.program.program-component', [
-            'departments'   => Department::all()
+            'departments'   => Department::where('state', 1)->get()
         ]);
     }
 
@@ -40,8 +40,6 @@ class ProgramComponent extends Component
 
         try {
 
-           $this->process          = true;
-
            $program = new Program();
 
            $program->create([
@@ -53,7 +51,6 @@ class ProgramComponent extends Component
            ]);
 
            $this->cancel();
-           $this->process    = false;
            $this->refreshTable();
            $this->showAlert('alert-success', __('messages.success.create'));
         } catch (QueryException $queryException) {

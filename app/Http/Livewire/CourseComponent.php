@@ -17,7 +17,7 @@ class CourseComponent extends Component
 
     public $view = 'create';
 
-    public $course_id, $name, $code, $program_id, $state, $process;
+    public $course_id, $name, $code, $program_id, $state, $process, $group = 0;
 
    protected $listeners = ['edit', 'showAlert'];
 
@@ -25,7 +25,7 @@ class CourseComponent extends Component
     {
         return view('livewire.course.course-component',
             [
-                'programs'   => Program::all()
+                'programs'   => Program::where('state', 1)->get()
             ]
         );
     }
@@ -69,6 +69,7 @@ class CourseComponent extends Component
         $this->code         = $course->code;
         $this->program_id   = $course->program_id;
         $this->state        = $course->state;
+        $this->group        = $course->groups->count();
         $this->view         = 'edit';
     }
 
