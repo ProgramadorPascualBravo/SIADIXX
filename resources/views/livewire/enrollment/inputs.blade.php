@@ -35,7 +35,7 @@
         @enderror
     </label>
     <label class="block">
-        <span class="text-gray-700">Rol matrícula</span>
+        <span class="text-gray-700 capitalize">{{ __('modules.role-moodle.name') }}</span>
         <select class="@error('rol') is-invalid-input @enderror input-underline" name="rol" id="rol" wire:model.defer="rol">
             <option value="">Seleccione una opción</option>
             @foreach($roles as $rol)
@@ -47,11 +47,11 @@
         @enderror
     </label>
     <label class="block">
-        <span class="text-gray-700 capitalize">{{ __('modules.input.state') }}</span>
+        <span class="text-gray-700 capitalize">{{ __('modules.state-enrollment.name') }}</span>
         <select class="@error('state') is-invalid-input @enderror input-underline" name="state" id="state" wire:model.defer="state">
             <option value="">Seleccione una opción</option>
-            @foreach($states_badget as $state_badet)
-                <option value="{{ $state_badet }}">{{ $state_badet }}</option>
+            @foreach($states as $state)
+                <option value="{{ $state->id }}">{{ $state->name }}</option>
             @endforeach
         </select>
         @error('state')

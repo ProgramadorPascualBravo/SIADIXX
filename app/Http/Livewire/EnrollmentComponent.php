@@ -8,6 +8,7 @@ use App\Course;
 use App\Enrollment;
 use App\Group;
 use App\RolMoodle;
+use App\StateEnrollment;
 use App\Traits\ClearErrorsLivewireComponent;
 use App\Traits\FlashMessageLivewaire;
 use Illuminate\Database\QueryException;
@@ -20,23 +21,17 @@ class EnrollmentComponent extends Component
 
    public $view = 'create';
 
-   public $id_enrollment, $code, $rol, $email, $state, $period, $process;
+   public $id_enrollment, $code, $rol, $email, $state, $period;
 
    protected $listeners = ['edit', 'showAlert'];
 
-   public $states_badget     = [
-      'Desmatriculado',
-      'Matrículado',
-      'Cancelada',
-      'Finalizada',
-      'Retirado'
-   ];
 
    public function render()
    {
       return view('livewire.enrollment.enrollment-component', [
          'groups' => Group::where('state', 1)->get(),
-         'roles' => RolMoodle::where('state', 1)->select('name')->get()
+         'roles'  => RolMoodle::where('state', 1)->select('name')->get(),
+         'states'  => StateEnrollment::where('state', 1)->select(['name', 'id'])->get()
       ]);
    }
    public function store()
@@ -45,12 +40,11 @@ class EnrollmentComponent extends Component
          'code'              => 'required|exists:groups,code|unique_with:enrollments,email,period',
          'email'             => 'required|exists:students,email,state,1',
          'rol'               => 'required|exists:roles_moodle,name',
-         'state'             => 'required',
+         'state'             => 'required|exists:state_enrollments,id',
          'period'            => 'required'
       ]);
       try {
 
-         $this->process         = true;
          $enrollment = new Enrollment();
 
          $enrollment->create([
@@ -62,12 +56,10 @@ class EnrollmentComponent extends Component
          ]);
 
          $this->cancel();
-         $this->process    = false;
          $this->refreshTable();
          $this->showAlert('alert-success', __('messages.success.create'));
       } catch (QueryException $queryException) {
-         $this->process    = false;
-         $this->showAlert('alert-error', __('messages.error.create'));
+         $this->showAlert('alert-error', __('messages.errors.create'));
       }
 
    }
@@ -90,13 +82,11 @@ class EnrollmentComponent extends Component
          'code'              => 'required|exists:groups,code',
          'email'             => 'required|exists:students,email',
          'rol'               => 'required|exists:roles_moodle,name',
-         'state'             => 'required',
+         'state'             => 'required|exists:state_enrollments,id',
          'period'            => 'required'
       ]);
 
       try  {
-
-         $this->process      = true;
 
          $enrollment = Enrollment::find($this->id_enrollment);
 
@@ -113,8 +103,7 @@ class EnrollmentComponent extends Component
          $this->refreshTable();
          $this->showAlert('alert-success', __('messages.success.update'));
       } catch (QueryException $queryException) {
-         $this->process    = false;
-         $this->showAlert('alert-error', __('messages.error.update'));
+         $this->showAlert('alert-error', __('messages.errors.update'));
       }
    }
 

@@ -42,7 +42,7 @@
             @error('file') <span class="error">{{ $message }}</span> @enderror
         </div>
         <div class="flex justify-center">
-            <button class="btn btn-blue" type="submit">
+            <button class="btn btn-blue" type="submit" wire:loading.attr="disabled">
                 Procesar archivo cargado
             </button>
         </div>

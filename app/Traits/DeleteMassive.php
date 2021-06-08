@@ -24,8 +24,9 @@ trait DeleteMassive
             case 'user'       :
                $this->model::destroy($this->selected);
                break;
-            case 'group'      :
-            case 'student'    :
+            case 'group'            :
+            case 'state_enrollment' :
+            case 'student'          :
                foreach ($this->selected as $id) {
                   $u = $this->model::find($id);
                   if ($u->enrollments->isEmpty()) {
@@ -89,13 +90,14 @@ trait DeleteMassive
                $u = $this->model::find($id);
                $flag = $u->delete();
                break;
-            case 'group'      :
-            case 'student'    :
+            case 'group'            :
+            case 'state_enrollment' :
+            case 'student'          :
                $u = $this->model::find($id);
                if ($u->enrollments->isEmpty()) {
                   $flag = $u->delete();
                }
-               $message = "El usuario tiene matrículas asociadas.";
+               $message = "El registro tiene matrículas asociadas.";
                break;
             case 'category'   :
                $u = $this->model::find($id);

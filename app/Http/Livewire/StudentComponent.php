@@ -99,9 +99,8 @@ class StudentComponent extends Component
          $this->refreshTable();
          $this->showAlert('alert-success', __('messages.success.update'));
       } catch (QueryException $queryException) {
-         //$this->showAlert('alert-error', __('messages.errors.update'));
+         $this->showAlert('alert-error', __('messages.errors.update'));
          //$this->showAlert('alert-error', $queryException->getMessage());
-         dd($queryException->getMessage());
       }
 
    }

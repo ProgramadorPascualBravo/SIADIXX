@@ -86,6 +86,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
        Route::view('/role-moodle', 'rol_moodle.index')->name('role-moodle-index')
            ->middleware('permission:role_read');
+
+       Route::view('/state-enrollment', 'state_enrollment.index')->name('state-enrollment-index')
+          ->middleware('permission:state_enrollment_read');
+
         Route::view('/enrollment', 'enrollment.index')->name('enrollment-index')
            ->middleware('permission:enrollment_read');
         Route::view('/enrollment/mass-creation', 'enrollment.mass-creation')->name('enrollment-mass-creation')

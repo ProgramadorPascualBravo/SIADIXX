@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Enrollment;
 use App\EnrollmentMoodle;
+use App\StateEnrollment;
 use Illuminate\Database\Eloquent\Model;
 use phpDocumentor\Reflection\Types\False_;
 
@@ -18,16 +19,13 @@ class EnrollmentsObserver
      */
     public function created(Enrollment $enrollment)
     {
-        if ($enrollment->state === 'Matrículado' ) {
-             $enrollment_moodle = new EnrollmentMoodle();
-             $enrollment_moodle->create([
-                 'email'             => $enrollment->email,
-                 'code'              => $enrollment->code,
-                 'rol'               => $enrollment->rol,
-                 'enrollment_id'     => $enrollment->id
-             ]);
+       if (!StateEnrollment::find($enrollment->state)->delete_moodle) {
+          $enrollment->enrollment_moodle()->create([
+             'email'             => $enrollment->email,
+             'code'              => $enrollment->code,
+             'rol'               => $enrollment->rol,
+          ]);
        }
-
     }
 
     /**
@@ -38,29 +36,18 @@ class EnrollmentsObserver
      */
     public function updated(Enrollment $enrollment)
     {
-        if ($enrollment->state === 'Matrículado') {
-           $enrollment_moodle = EnrollmentMoodle::where('enrollment_id', $enrollment->id)->first();
-           if (is_null($enrollment_moodle)) {
-              $enrollment_moodle = new EnrollmentMoodle();
-              $enrollment_moodle->create([
-                 'email'             => $enrollment->email,
-                 'code'              => $enrollment->code,
-                 'rol'               => $enrollment->rol,
-                 'enrollment_id'     => $enrollment->id
-              ]);
-           } else {
-              $enrollment_moodle->update([
-                 'email'             => $enrollment->email,
-                 'code'              => $enrollment->code,
-                 'rol'               => $enrollment->rol
-              ]);
-           }
-        } else {
-           $enrollment_moodle = EnrollmentMoodle::where('enrollment_id', $enrollment->id)->first();
-           if (!is_null($enrollment_moodle)) {
-              $enrollment_moodle->delete();
-           }
-        }
+       if ($enrollment->isDirty('state')) {
+          if (StateEnrollment::find($enrollment->state)->delete_moodle) {
+             $enrollment->enrollment_moodle()->delete();
+          } else {
+             EnrollmentMoodle::firstOrCreate([
+                'email'             => $enrollment->email,
+                'code'              => $enrollment->code,
+                'rol'               => $enrollment->rol,
+                'enrollment_id'     => $enrollment->id
+             ]);
+          }
+       }
 
     }
 

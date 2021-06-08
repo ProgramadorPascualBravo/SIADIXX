@@ -5,13 +5,13 @@ namespace App\Http\Livewire;
 use App\Enrollment;
 use App\Group;
 use App\RolMoodle;
+use App\StateEnrollment;
 use App\Traits\DeleteMassive;
 use Illuminate\Support\Facades\Auth;
-use Mediconesystems\LivewireDatatables\BooleanColumn;
+use Illuminate\Support\Str;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\DateColumn;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
-use Mediconesystems\LivewireDatatables\NumberColumn;
 
 class EnrollmentTable extends LivewireDatatable
 {
@@ -21,14 +21,6 @@ class EnrollmentTable extends LivewireDatatable
     public $exportable  = true;
 
     public $relation     = 'enrollment';
-
-    protected $state    = [
-         'Desmatriculado',
-         'Matrículado',
-         'Cancelada',
-         'Finalizada',
-         'Retirado'
-    ];
 
     public $beforeTableSlot = 'fragments.delete-massive';
 
@@ -44,17 +36,19 @@ class EnrollmentTable extends LivewireDatatable
         $relation = $this->relation;
 
         $columns = [
-           Column::checkbox('id'),
+           Column::checkbox(),
            Column::name('code')->label(__('modules.input.code'))->filterable(
               $this->groups->pluck('code')
            )->searchable(),
            Column::name('email')->label(__('modules.input.email'))->filterable()->searchable(),
-           Column::name('rol')->label('Rol matrícula')->filterable(
+           Column::name('rol')->label(__('modules.role-moodle.name'))->filterable(
               $this->roles->pluck('name')
            )->searchable(),
            Column::name('period')->label(__('modules.input.period'))->filterable()->searchable(),
-           Column::name('state')->label(__('modules.input.state'))->filterable(
-              $this->state
+           Column::callback(['state_enrollemnt.name'], function($name) {
+              return Str::title($name);
+           })->label(__('modules.input.state'))->filterable(
+              $this->states->pluck('name')
            ),
            DateColumn::name('created_at')->label(__('modules.table.created'))->filterable(),
         ];
@@ -75,12 +69,17 @@ class EnrollmentTable extends LivewireDatatable
 
    public function getGroupsProperty()
    {
-      return Group::all('code');
+      return Group::select('code')->where('state', 1)->get();
    }
 
    public function getRolesProperty()
    {
-      return RolMoodle::all('name');
+      return RolMoodle::select('name')->where('state', 1)->get();
+   }
+
+   public function getStatesProperty()
+   {
+      return StateEnrollment::select(['id', 'name'])->where('state', 1)->get();
    }
 
    public function edit($id)

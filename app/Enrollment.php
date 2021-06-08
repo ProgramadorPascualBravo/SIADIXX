@@ -25,5 +25,14 @@ class Enrollment extends Model
        return $this->belongsTo(Student::class, 'email', 'email');
     }
 
+    public function state_enrollemnt()
+    {
+       return $this->belongsTo(StateEnrollment::class, 'state', 'id');
+    }
+
+    public function enrollment_moodle()
+    {
+       return $this->hasOne(EnrollmentMoodle::class, 'enrollment_id', 'id');
+    }
 
 }

@@ -59,7 +59,7 @@ class CourseTable extends LivewireDatatable
 
    public function getProgramsProperty()
    {
-      return Program::all('name');
+      return Program::select('name')->where('state', 1)->get();
    }
 
    public function edit($id)

@@ -49,7 +49,7 @@ class RolMoodleComponent extends Component
          $this->showAlert('alert-success', __('messages.success.create'));
       }catch (QueryException $queryException) {
          $this->process    = false;
-         $this->showAlert('alert-error', __('messages.error.create'));
+         $this->showAlert('alert-error', __('messages.errors.create'));
       }
 
    }
@@ -83,7 +83,7 @@ class RolMoodleComponent extends Component
          $this->showAlert('alert-success', __('messages.success.update'));
       } catch (QueryException $queryException) {
          $this->process    = false;
-         $this->showAlert('alert-error', __('messages.error.update'));
+         $this->showAlert('alert-error', __('messages.errors.update'));
       }
    }
 
@@ -91,7 +91,7 @@ class RolMoodleComponent extends Component
    {
       $this->id_rol_moodle    = '';
       $this->name             = '';
-      $this->state             = '';
+      $this->state            = '';
       $this->view             = 'create';
       $this->hydrate();
    }
