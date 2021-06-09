@@ -14,6 +14,11 @@ use Mediconesystems\LivewireDatatables\DateColumn;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 use Mediconesystems\LivewireDatatables\NumberColumn;
 
+/**
+ * Libreria https://github.com/mediconesystems/livewire-datatables
+ * Class CourseGroupTable
+ * @package App\Http\Livewire
+ */
 class CourseGroupTable extends LivewireDatatable
 {
    public $model = Group::class;

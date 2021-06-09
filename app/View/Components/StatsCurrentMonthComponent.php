@@ -12,6 +12,11 @@ use App\User;
 use Illuminate\Support\Str;
 use Illuminate\View\Component;
 
+/**
+ * Componente https://laravel.com/docs/7.x/blade#components
+ * Class StatsCurrentMonthComponent
+ * @package App\View\Components
+ */
 class StatsCurrentMonthComponent extends Component
 {
     use Months;

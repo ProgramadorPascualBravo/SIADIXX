@@ -3,13 +3,19 @@
 namespace App\Http\Livewire;
 
 use App\Department;
+use App\Interfaces\ModuleComponent;
 use App\Traits\ClearErrorsLivewireComponent;
 use App\Traits\FlashMessageLivewaire;
 use Illuminate\Database\QueryException;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class DepartmentComponent extends Component
+/**
+ * Libreria https://laravel-livewire.com/docs/2.x/quickstart
+ * Class DepartmentComponent
+ * @package App\Http\Livewire
+ */
+class DepartmentComponent extends Component implements ModuleComponent
 {
     use ClearErrorsLivewireComponent, WithPagination, FlashMessageLivewaire;
 
@@ -88,6 +94,7 @@ class DepartmentComponent extends Component
         $this->department_id    = '';
         $this->name             = '';
         $this->view             = 'create';
+        $this->state            = '';
         $this->hydrate();
     }
 

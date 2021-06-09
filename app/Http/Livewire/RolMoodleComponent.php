@@ -4,6 +4,7 @@
 namespace App\Http\Livewire;
 
 
+use App\Interfaces\ModuleComponent;
 use App\RolMoodle;
 use App\Traits\ClearErrorsLivewireComponent;
 use App\Traits\FlashMessageLivewaire;
@@ -11,7 +12,12 @@ use Illuminate\Database\QueryException;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class RolMoodleComponent extends Component
+/**
+ * Libreria https://laravel-livewire.com/docs/2.x/quickstart
+ * Class RolMoodleComponent
+ * @package App\Http\Livewire
+ */
+class RolMoodleComponent extends Component implements ModuleComponent
 {
    use ClearErrorsLivewireComponent, WithPagination, FlashMessageLivewaire;
 

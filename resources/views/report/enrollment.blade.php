@@ -7,19 +7,19 @@
         </div>
         <div class="col-span-1 pl-2">
             <div>
-                <table class="mb-3 w-full">
+                <table class="table-view">
                     <caption>Matrículas por estado</caption>
                     <thead>
-                        <tr class="border-2 bg-blue-300 border-gray-900">
+                        <tr>
                             <th class="text-left p-3">Estado</th>
-                            <th>Valor</th>
+                            <th class="text-center">Valor</th>
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach($states as $state => $value)
-                        <tr class="border-2 hover:bg-blue-100 border-gray-900">
-                            <td class="px-4 py-2">{{ $state }}</td>
-                            <td class="px-4 py-2 text-center font-bold">{{ $value }}</td>
+                    @foreach($states as $state)
+                        <tr>
+                            <td>{{ $state->name }}</td>
+                            <td class="text-center font-bold">{{ $state->enrollments->count() }}</td>
                         </tr>
                     @endforeach
                     </tbody>

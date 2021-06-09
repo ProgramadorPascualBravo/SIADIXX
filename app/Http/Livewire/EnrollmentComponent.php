@@ -7,6 +7,7 @@ namespace App\Http\Livewire;
 use App\Course;
 use App\Enrollment;
 use App\Group;
+use App\Interfaces\ModuleComponent;
 use App\RolMoodle;
 use App\StateEnrollment;
 use App\Traits\ClearErrorsLivewireComponent;
@@ -15,7 +16,12 @@ use Illuminate\Database\QueryException;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class EnrollmentComponent extends Component
+/**
+ * Libreria https://laravel-livewire.com/docs/2.x/quickstart
+ * Class EnrollmentComponent
+ * @package App\Http\Livewire
+ */
+class EnrollmentComponent extends Component implements ModuleComponent
 {
    use ClearErrorsLivewireComponent, WithPagination, FlashMessageLivewaire;
 

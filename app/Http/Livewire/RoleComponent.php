@@ -4,6 +4,7 @@
 namespace App\Http\Livewire;
 
 
+use App\Interfaces\ModuleComponent;
 use App\Traits\ClearErrorsLivewireComponent;
 use App\Traits\FlashMessageLivewaire;
 use App\User;
@@ -13,7 +14,12 @@ use Livewire\WithPagination;
 use Mockery\Exception;
 use Spatie\Permission\Models\Role;
 
-class RoleComponent extends Component
+/**
+ * Libreria https://laravel-livewire.com/docs/2.x/quickstart
+ * Class RoleComponent
+ * @package App\Http\Livewire
+ */
+class RoleComponent extends Component implements ModuleComponent
 {
    use FlashMessageLivewaire, WithPagination, ClearErrorsLivewireComponent;
 

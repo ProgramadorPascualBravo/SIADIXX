@@ -4,6 +4,11 @@ namespace App\Charts;
 
 use App\Enrollment;
 
+/**
+ * Libreria https://v6.charts.erik.cat/getting_started.html
+ * Class EnrollmentChartMake
+ * @package App\Charts
+ */
 class EnrollmentChartMake extends BaseChartMake
 {
     /**

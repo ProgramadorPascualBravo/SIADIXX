@@ -6,16 +6,20 @@ use App\Course;
 use App\Enrollment;
 use App\Group;
 use App\Traits\DeleteMassive;
-use App\Traits\FlashMessageLivewaire;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Mediconesystems\LivewireDatatables\BooleanColumn;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\DateColumn;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 use Mediconesystems\LivewireDatatables\NumberColumn;
-use phpDocumentor\Reflection\DocBlock\Tags\Return_;
 
+/**
+ * Libreria https://github.com/mediconesystems/livewire-datatables
+ * Class GroupTable
+ * @package App\Http\Livewire
+ */
 class GroupTable extends LivewireDatatable
 {
     use DeleteMassive;
@@ -40,21 +44,21 @@ class GroupTable extends LivewireDatatable
         $relation = $this->relation;
         $columns =  [
            Column::checkbox(),
-           Column::name('code')->label(__('modules.input.code'))->searchable()->filterable(),
+           Column::name('code')->label(Str::title(__('modules.input.code')))->searchable()->filterable(),
            Column::callback(['name', 'course.name'], function ($name, $course_name){
               return "Grupo: {$name} de {$course_name}";
-           })->label(__('modules.group.name'))->searchable()->filterable(),
+           })->label(Str::title(__('modules.group.name')))->searchable()->filterable(),
            BooleanColumn::name('state')->label('Estado')->filterable()->hide(),
            Column::name('course.name')->filterable(
               $this->courses->pluck('name')
-           )->label(__('modules.course.name')),
+           )->label(Str::title(__('modules.course.name'))),
            NumberColumn::callback(['code', 'name'], function ($code) {
               return Enrollment::where(['code' => $code, 'state' => 'Matrículado'])->get()->count();
            })->label('# Matrículas Activas')->filterable()->alignCenter(),
-           DateColumn::name('created_at')->label(__('modules.table.created'))->filterable()->hide(),
+           DateColumn::name('created_at')->label(Str::title(__('modules.table.created')))->filterable()->hide(),
            Column::callback(['id'], function ($id){
               return view('fragments.link-to', ['route' => 'group-detail', 'params' => ['id' => $id], 'name' => "Ver", 'btn' => 'btn-blue']);
-           })->label(__('modules.table.detail'))->alignCenter(),
+           })->label(Str::title(__('modules.table.detail')))->alignCenter(),
 
         ];
         if (Auth::user()->can('group_write')) {

@@ -8,6 +8,11 @@ use App\StateEnrollment;
 use Illuminate\Database\Eloquent\Model;
 use phpDocumentor\Reflection\Types\False_;
 
+/**
+ * Componente https://laravel.com/docs/7.x/eloquent#observers
+ * Class EnrollmentsObserver
+ * @package App\Observers
+ */
 class EnrollmentsObserver
 {
 

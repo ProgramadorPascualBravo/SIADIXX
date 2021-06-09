@@ -6,6 +6,11 @@ use App\Enrollment;
 use App\Student;
 use App\StudentDBMoodle;
 
+/**
+ * Componente https://laravel.com/docs/7.x/eloquent#observers
+ * Class StudentObserver
+ * @package App\Observers
+ */
 class StudentObserver
 {
 

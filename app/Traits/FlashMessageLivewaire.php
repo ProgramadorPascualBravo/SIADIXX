@@ -1,6 +1,10 @@
 <?php
 namespace App\Traits;
 
+/**
+ * Trait FlashMessageLivewaire
+ * @package App\Traits
+ */
 trait FlashMessageLivewaire
 {
    public $message;

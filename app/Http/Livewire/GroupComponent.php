@@ -4,13 +4,19 @@ namespace App\Http\Livewire;
 
 use App\Course;
 use App\Group;
+use App\Interfaces\ModuleComponent;
 use App\Traits\ClearErrorsLivewireComponent;
 use App\Traits\FlashMessageLivewaire;
 use Illuminate\Database\QueryException;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class GroupComponent extends Component
+/**
+ * Libreria https://laravel-livewire.com/docs/2.x/quickstart
+ * Class GroupComponent
+ * @package App\Http\Livewire
+ */
+class GroupComponent extends Component implements ModuleComponent
 {
 
     use WithPagination, ClearErrorsLivewireComponent, FlashMessageLivewaire;

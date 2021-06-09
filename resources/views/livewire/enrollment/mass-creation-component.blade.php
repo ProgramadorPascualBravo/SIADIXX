@@ -1,4 +1,4 @@
-<div class="grid px-5 grid-cols-5 gap-4">
+<div class="grid px-5 grid-cols-5 gap-4" x-data="{ open: false }">
     @include("sessions.session-input")
     <div class="col-span-5 flex flex-row-reverse">
         <button class="btn btn-red w-auto" wire:click="cancel">
@@ -44,10 +44,10 @@
                 Reiniciar
             </button>
         </p>
+
     </div>
    <livewire:enrollment-form-file-component />
-
-    <div class="col-span-1 pl-2">
+    <div class="col-span-2">
         @if(!is_null($quantity))
             <h2 class="font-bold text-2xl mb-4">Resultados</h2>
             <p>
@@ -80,6 +80,95 @@
                     Todos los registros fueron existosos
                 </div>
             @endif
+        @else
+            <h2 class="font-bold text-2xl mb-4">Información</h2>
+            <h2 class="font-bold text-xl mb-2">Plantillas</h2>
+            <p>
+                <b>Plantilla básica:</b> Se utiliza para cargar matrículas.
+            </p>
+            <br>
+            <p>
+                <b>Plantilla extendida:</b> Se utiliza para cargar matrículas y usuarios plataformas que no existan.
+            </p>
+            <br>
+            <a x-on:click="open = true" class="btn btn-blue" style="margin-left: 0">Ver descripción de los campos
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            </a>
+            <div x-show="open" x-cloak class="cursor-pointer">
+                <div class="fixed bottom-0 inset-x-0 px-4 pb-4 sm:inset-0 sm:flex sm:items-center sm:justify-center" style="z-index:9999">
+                    <div class="fixed inset-0 transition-opacity">
+                        <div class="absolute inset-0 bg-gray-700 opacity-75" x-on:click="open = false"></div>
+                    </div>
+                    <div class="bg-bg-white overflow-hidden shadow-xl transform transition-all">
+                        <table class="table-view">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tipo</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Descripción</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Obligatorio Básica</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Obligatorio Extendida</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-6 py-2">{{ Str::ucfirst(__('modules.input.code')) }} (code)</td>
+                                    <td class="px-6 py-2">Código generado en el <a target="_blank" href="{{ route('group-index') }}" class="text-underline text-blue-500">módulo de grupos.</a></td>
+                                    <td class="text-center px-6 py-2">Sí</td>
+                                    <td class="text-center px-6 py-2">Sí</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-2">{{ Str::ucfirst(__('modules.input.email')) }} (email)</td>
+                                    <td class="px-6 py-2 ">Correo institucional del alumno.</td>
+                                    <td class="text-center px-6 py-2 ">Sí</td>
+                                    <td class="text-center px-6 py-2 ">Sí</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-2 ">{{ Str::ucfirst(__('modules.role-moodle.name')) }} (rol)</td>
+                                    <td class="px-6 py-2 ">
+                                        Rol de la matrícula,
+                                        puedes ver los roles disponibles en <a target="_blank" href="{{ route('role-moodle-index') }}" class="text-underline text-blue-500">módulo de roles matrículas.</a>
+                                    </td>
+                                    <td class="text-center px-6 py-2 ">Sí</td>
+                                    <td class="text-center px-6 py-2 ">Sí</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-2 ">{{ Str::ucfirst(__('modules.state-enrollment.name')) }} (state)</td>
+                                    <td class="px-6 py-2 ">Estado de la matrícula, puedes ver los estados disponibles en <a target="_blank" href="{{ route('state-enrollment-index') }}" class="text-underline text-blue-500">módulo de estados matrícula.</a></td>
+                                    <td class="text-center px-6 py-2 ">Sí</td>
+                                    <td class="text-center px-6 py-2 ">Sí</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-2 ">{{ Str::ucfirst(__('modules.input.period')) }} (period)</td>
+                                    <td class="px-6 py-2 ">Periodo que se consigue colocando el año + el periodo que puede ser entre 1 al 6. Ejem 20213</td>
+                                    <td class="text-center px-6 py-2 ">Sí</td>
+                                    <td class="text-center px-6 py-2 ">Sí</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-2 ">{{ Str::ucfirst(__('modules.input.names')) }} (name)</td>
+                                    <td class="px-6 py-2 ">Nombres del usuario.</td>
+                                    <td class="text-center px-6 py-2 ">No</td>
+                                    <td class="text-center px-6 py-2 ">Sí</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-2 ">{{ Str::ucfirst(__('modules.input.last_name')) }} (last_name)</td>
+                                    <td class="px-6 py-2 ">Apellidos del usuario.</td>
+                                    <td class="text-center px-6 py-2 ">No</td>
+                                    <td class="text-center px-6 py-2 ">Sí</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-2 ">{{ Str::ucfirst(__('modules.input.document')) }} (document)</td>
+                                    <td class="px-6 py-2 ">Doocumento de identidad del usuario.</td>
+                                    <td class="text-center px-6 py-2 ">No</td>
+                                    <td class="text-center px-6 py-2 ">Sí</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         @endif
     </div>
+
 </div>

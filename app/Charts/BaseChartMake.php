@@ -4,7 +4,11 @@ use App\Traits\Months;
 use Carbon\Carbon;
 use ConsoleTVs\Charts\Classes\Highcharts\Chart;
 
-
+/**
+ * Libreria https://v6.charts.erik.cat/getting_started.html
+ * Class BaseChartMake
+ * @package App\Charts
+ */
 class BaseChartMake extends Chart
 {
    use Months;

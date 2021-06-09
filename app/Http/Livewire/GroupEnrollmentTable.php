@@ -11,6 +11,11 @@ use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\DateColumn;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 
+/**
+ * Libreria https://github.com/mediconesystems/livewire-datatables
+ * Class GroupEnrollmentTable
+ * @package App\Http\Livewire
+ */
 class GroupEnrollmentTable extends LivewireDatatable
 {
    public $model = Enrollment::class;

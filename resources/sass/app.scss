@@ -24,8 +24,28 @@ svg {
 .is-invalid-input {
    @apply border-red-200 text-red-500;
 }
-
+.table-view {
+    @apply min-w-max w-full table-auto;
+    thead {
+        @apply bg-gray-50;
+        th {
+            @apply px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider;
+        }
+    }
+    tbody {
+        @apply text-gray-600 text-sm font-light;
+        tr {
+            @apply border-b border-gray-200 hover:bg-gray-100;
+        }
+        td {
+            @apply px-6 py-2 text-sm;
+        }
+    }
+}
 .table-cell .btn {
   display: inline-block;
   margin: 0;
+}
+.is-visible {
+  @apply text-red-500 text-sm m-1 block
 }

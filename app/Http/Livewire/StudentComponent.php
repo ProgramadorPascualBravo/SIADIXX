@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 
 
 use App\Department;
+use App\Interfaces\ModuleComponent;
 use App\Student;
 use App\Traits\ClearErrorsLivewireComponent;
 use App\Traits\FlashMessageLivewaire;
@@ -12,7 +13,12 @@ use Illuminate\Database\QueryException;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class StudentComponent extends Component
+/**
+ * Libreria https://laravel-livewire.com/docs/2.x/quickstart
+ * Class StudentComponent
+ * @package App\Http\Livewire
+ */
+class StudentComponent extends Component implements ModuleComponent
 {
    use WithPagination, ClearErrorsLivewireComponent, FlashMessageLivewaire;
 
@@ -112,6 +118,7 @@ class StudentComponent extends Component
       $this->last_name     = '';
       $this->email         = '';
       $this->document      = '';
+      $this->state         = '';
       $this->view          = 'create';
       $this->hydrate();
    }

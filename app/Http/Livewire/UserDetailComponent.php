@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 
+/**
+ * Libreria https://laravel-livewire.com/docs/2.x/quickstart
+ * Class UserDetailComponent
+ * @package App\Http\Livewire
+ */
 class UserDetailComponent extends Component
 {
    use FlashMessageLivewaire;

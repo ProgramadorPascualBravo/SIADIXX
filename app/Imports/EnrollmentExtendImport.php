@@ -20,6 +20,11 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Row;
 
+/**
+ * Libreria https://docs.laravel-excel.com/3.1/imports/
+ * Class EnrollmentExtendImport
+ * @package App\Imports
+ */
 class EnrollmentExtendImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnError, SkipsOnFailure
 {
     use FailuresImport, Importable;

@@ -9,7 +9,7 @@
     </div>
 
     <label class="block">
-        <span class="text-gray-700 capitalize">{{ __('modules.input.delete_moodle') }}</span>
+        <span class="text-gray-700">{{ Str::ucfirst(__('modules.input.delete_moodle')) }}</span>
         <select class="@error('delete_moodle') is-invalid-input @enderror input-underline" name="delete_moodle" id="delete_moodle" wire:model.defer="delete_moodle">
             <option selected value="">Seleccione una opción</option>
             <option value="1">Sí</option>
@@ -21,7 +21,7 @@
     </label>
 
     <label class="block">
-        <span class="text-gray-700 capitalize">{{ __('modules.input.state') }}</span>
+        <span class="text-gray-700 capitalize">{{ Str::title(__('modules.input.state')) }}</span>
         <select class="@error('state') is-invalid-input @enderror input-underline" name="state" id="state" wire:model.defer="state">
             <option selected value="">Seleccione una opción</option>
             <option value="1">Activo</option>

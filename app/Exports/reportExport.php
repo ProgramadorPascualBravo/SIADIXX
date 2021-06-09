@@ -8,6 +8,11 @@ use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
+/**
+ * Libreria https://docs.laravel-excel.com/3.1/exports/
+ * Class reportExport
+ * @package App\Exports
+ */
 class reportExport implements FromArray
 {
    protected $collection;

@@ -13,6 +13,11 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithProgressBar;
 use Maatwebsite\Excel\Concerns\WithValidation;
 
+/**
+ * Libreria https://docs.laravel-excel.com/3.1/imports/
+ * Class StudentsImport
+ * @package App\Imports
+ */
 class StudentsImport implements ToModel, WithHeadingRow, SkipsOnFailure, WithValidation, WithProgressBar
 {
 

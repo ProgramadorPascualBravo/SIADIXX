@@ -11,6 +11,12 @@ use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
+/**
+ * Libreria https://github.com/mediconesystems/livewire-datatables
+ * Class PermissionTable
+ * @package App\Http\Livewire
+ */
+
 class PermissionTable extends LivewireDatatable
 {
    public $model = Permission::class;

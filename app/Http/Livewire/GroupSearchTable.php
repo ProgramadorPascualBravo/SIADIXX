@@ -13,6 +13,11 @@ use Mediconesystems\LivewireDatatables\DateColumn;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 use Mediconesystems\LivewireDatatables\NumberColumn;
 
+/**
+ * Libreria https://github.com/mediconesystems/livewire-datatables
+ * Class GroupSearchTable
+ * @package App\Http\Livewire
+ */
 class GroupSearchTable extends LivewireDatatable
 {
    use SetParamsTable;

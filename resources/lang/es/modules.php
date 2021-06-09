@@ -103,7 +103,7 @@ return [
          'document'      => 'documento de identidad',
          'name'          => 'nombre',
          'faculty'       => 'facultad',
-         'delete_moodle' => 'eleminar de matriculas moodle'
+         'delete_moodle' => 'eliminar de matrículas moodle'
    ],
    'table'        => [
          'reset-password'  => 'reinciar contraseña',

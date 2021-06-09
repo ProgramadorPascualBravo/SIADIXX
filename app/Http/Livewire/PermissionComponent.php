@@ -11,6 +11,11 @@ use PHPUnit\Exception;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
+/**
+ * Libreria https://laravel-livewire.com/docs/2.x/quickstart
+ * Class PermissionComponent
+ * @package App\Http\Livewire
+ */
 class PermissionComponent extends Component
 {
    use WithPagination, FlashMessageLivewaire, ClearErrorsLivewireComponent;

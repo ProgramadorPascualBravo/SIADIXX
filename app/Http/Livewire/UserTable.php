@@ -7,10 +7,17 @@ use App\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Mediconesystems\LivewireDatatables\BooleanColumn;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\DateColumn;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
+
+/**
+ * Libreria https://github.com/mediconesystems/livewire-datatables
+ * Class UserTable
+ * @package App\Http\Livewire
+ */
 
 class UserTable extends LivewireDatatable
 {
@@ -41,21 +48,21 @@ class UserTable extends LivewireDatatable
       $relation = $this->relation;
       $columns = [
          Column::checkbox('id'),
-         Column::name('name')->label(__('modules.input.names'))->filterable()->searchable()->editable(),
-         Column::name('last_name')->label(__('modules.input.last_name'))->filterable()->searchable()->editable(),
-         Column::name('document')->label(__('modules.input.document'))->filterable()->searchable(),
+         Column::name('name')->label(Str::title(__('modules.input.names')))->filterable()->searchable()->editable(),
+         Column::name('last_name')->label(Str::title(__('modules.input.last_name')))->filterable()->searchable()->editable(),
+         Column::name('document')->label(Str::title(__('modules.input.document')))->filterable()->searchable(),
          Column::name('username')->label('Email')->filterable()->searchable(),
-         BooleanColumn::name('state')->label(__('modules.input.state'))->filterable()->hide(),
-         Column::name('department.name')->filterable()->label(__('modules.category.name')),
-         DateColumn::name('created_at')->label(__('modules.table.created'))->filterable(),
+         BooleanColumn::name('state')->label(Str::title(__('modules.input.state')))->filterable()->hide(),
+         Column::name('department.name')->filterable()->label(Str::title(__('modules.category.name'))),
+         DateColumn::name('created_at')->label(Str::title(__('modules.table.created')))->filterable(),
          Column::callback(['id', 'name'], function ($id){
             return view('fragments.btn-action-reset-password', ['action' => 'reset', 'value' => $id, 'name' => 'Reiniciar']);
-         })->label(__('modules.table.reset-password'))->alignCenter(),
+         })->label(Str::title(__('modules.table.reset-password')))->alignCenter(),
       ];
       if (Auth::user()->can('user_detail')) {
          array_push($columns,  Column::callback(['id'], function ($id){
             return view('fragments.link-to', ['route' => 'user-detail', 'params' => ['id' => $id]]);
-         })->label(__('modules.table.detail'))->alignCenter());
+         })->label(Str::title(__('modules.table.detail')))->alignCenter());
       }
       if (Auth::user()->can('user_write')) {
          array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignCenter());

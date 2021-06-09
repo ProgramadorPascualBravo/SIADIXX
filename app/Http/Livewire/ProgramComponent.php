@@ -10,6 +10,11 @@ use Illuminate\Database\QueryException;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+/**
+ * Libreria https://laravel-livewire.com/docs/2.x/quickstart
+ * Class ProgramComponent
+ * @package App\Http\Livewire
+ */
 class ProgramComponent extends Component
 {
 

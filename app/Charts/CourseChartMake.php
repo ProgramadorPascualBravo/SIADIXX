@@ -6,6 +6,11 @@ namespace App\Charts;
 
 use App\Course;
 
+/**
+ * Libreria https://v6.charts.erik.cat/getting_started.html
+ * Class CourseChartMake
+ * @package App\Charts
+ */
 class CourseChartMake extends BaseChartMake
 {
    protected $model        = Course::class;

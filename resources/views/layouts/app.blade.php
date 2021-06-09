@@ -62,7 +62,7 @@
             </ul>
         </div>
         <div class="mr-6 relative" x-data="{ open : false}" >
-            <a @click="open = true" class="cursor-pointer">Carga masiva</a>
+            <a @click="open = true" class="cursor-pointer">Carga Masiva</a>
             <ul x-show="open"
                 x-transition:enter="transition ease-out duration-300"
                 x-transition:enter-start="opacity-0 transform scale-90"

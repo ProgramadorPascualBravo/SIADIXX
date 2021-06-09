@@ -6,12 +6,18 @@ use App\Course;
 use App\Program;
 use App\Traits\DeleteMassive;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Mediconesystems\LivewireDatatables\BooleanColumn;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\DateColumn;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 use Mediconesystems\LivewireDatatables\NumberColumn;
 
+/**
+ * Libreria https://github.com/mediconesystems/livewire-datatables
+ * Class CourseTable
+ * @package App\Http\Livewire
+ */
 class CourseTable extends LivewireDatatable
 {
    use DeleteMassive;
@@ -31,17 +37,17 @@ class CourseTable extends LivewireDatatable
       $relation = $this->relation;
       $columns = [
          Column::checkbox(),
-         Column::name('code')->label(__('modules.input.code'))->filterable()->searchable(),
-         Column::name('name')->label(__('modules.input.name'))->editable()->filterable()->searchable(),
-         BooleanColumn::name('state')->label(__('modules.input.state'))->filterable(),
+         Column::name('code')->label(Str::title(__('modules.input.code')))->filterable()->searchable(),
+         Column::name('name')->label(Str::title(__('modules.input.name')))->editable()->filterable()->searchable(),
+         BooleanColumn::name('state')->label(Str::title(__('modules.input.state')))->filterable(),
          Column::name('program.name')->filterable(
             $this->programs->pluck('name')
          )->label('Programa'),
          NumberColumn::name('groups.id:count')->label('# Grupos')->filterable()->alignCenter(),
-         DateColumn::name('created_at')->label(__('modules.table.created'))->filterable()->hide(),
+         DateColumn::name('created_at')->label(Str::title(__('modules.table.created')))->filterable()->hide(),
          Column::callback(['id'], function ($id){
             return view('fragments.link-to', ['route' => 'course-detail', 'params' => ['id' => $id], 'name' => 'Ver', 'btn' => 'btn-blue']);
-         })->label(__('modules.table.detail')),
+         })->label(Str::title(__('modules.table.detail'))),
       ];
       if (Auth::user()->can('course_write')) {
          array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight());

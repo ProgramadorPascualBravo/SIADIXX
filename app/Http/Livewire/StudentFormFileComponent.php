@@ -16,6 +16,12 @@ use Maatwebsite\Excel\Facades\Excel;
 use Storage;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
+/**
+ * Libreria https://laravel-livewire.com/docs/2.x/quickstart
+
+ * Class StudentFormFileComponent
+ * @package App\Http\Livewire
+ */
 class StudentFormFileComponent extends Component
 {
    use WithFileUploads, DownloadDocument, ClearErrorsLivewireComponent;

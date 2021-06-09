@@ -8,6 +8,10 @@ use App\User;
 use Illuminate\Database\QueryException;
 use Mockery\Exception;
 
+/**
+ * Trait DeleteMassive
+ * @package App\Traits
+ */
 trait DeleteMassive
 {
    public function deleteMassive($relation)

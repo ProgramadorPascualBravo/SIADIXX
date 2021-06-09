@@ -3,7 +3,10 @@
 
 namespace App\Traits;
 
-
+/**
+ * Trait DownloadDocument
+ * @package App\Traits
+ */
 trait DownloadDocument
 {
    public function download(string $basePath) {

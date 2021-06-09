@@ -7,6 +7,10 @@ namespace App\Traits;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Validators\Failure;
 
+/**
+ * Trait FailuresImport
+ * @package App\Traits
+ */
 trait FailuresImport
 {
    protected $failures;

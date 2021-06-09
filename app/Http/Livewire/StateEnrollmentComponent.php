@@ -13,6 +13,13 @@ use Illuminate\Database\QueryException;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+/**
+ * Libreria https://laravel-livewire.com/docs/2.x/quickstart
+
+ * Class StateEnrollmentComponent
+ * @package App\Http\Livewire
+ *
+ */
 class StateEnrollmentComponent extends Component
 {
    use ClearErrorsLivewireComponent, WithPagination, FlashMessageLivewaire;

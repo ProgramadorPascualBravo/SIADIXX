@@ -7,6 +7,7 @@ use App\Charts\EnrollmentChartMake;
 use App\Charts\StudentMoodleChartMake;
 use App\Enrollment;
 use App\Exports\reportExport;
+use App\StateEnrollment;
 use App\Student;
 use App\User;
 use Carbon\Carbon;
@@ -155,16 +156,14 @@ class PageController extends Controller
        $chart_state->title("Matrículas por mes en el año ". now()->year);
        $chart_state->labels($chart_state->getMonths());
        $chart_state->dataset(Str::title(__('modules.enrollment.name')), 'area', $chart_state->getAllEnrollmentsForYear()->values());
-       foreach (['Desmatriculado', 'Matrículado', 'Cancelada', 'Finalizada', 'Retirado'] as $state) {
-          $chart_state->dataset(Str::title($state), 'column', $chart_state->getEnrollmentsForState($state)->values());
+       foreach (StateEnrollment::all(['id', 'name']) as $state) {
+          $chart_state->dataset(Str::title($state->name), 'column', $chart_state->getEnrollmentsForState($state->id)->values());
        }
        $chart_state->height = 600;
        return view('report.enrollment', [
           'chartstate' => $chart_state,
           'charttotal' => $chart_total,
-          'states'     =>  Enrollment::all()->groupBy('state')->map(function ($item) {
-             return count($item);
-          })
+          'states'     =>  StateEnrollment::all()
        ]);
     }
 

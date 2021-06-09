@@ -10,6 +10,12 @@ use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 use Spatie\Permission\Models\Role;
 
+/**
+ * Libreria https://github.com/mediconesystems/livewire-datatables
+ * Class RoleTable
+ * @package App\Http\Livewire
+ */
+
 class RoleTable extends LivewireDatatable
 {
    public $model = Role::class;

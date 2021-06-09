@@ -16,6 +16,11 @@ use Livewire\WithFileUploads;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
+/**
+ * Libreria https://laravel-livewire.com/docs/2.x/quickstart
+ * Class EnrollmentFormFileComponent
+ * @package App\Http\Livewire
+ */
 class EnrollmentFormFileComponent extends Component
 {
    use WithFileUploads, DownloadDocument, ClearErrorsLivewireComponent;

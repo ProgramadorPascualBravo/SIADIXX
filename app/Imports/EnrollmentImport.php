@@ -15,6 +15,12 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 
+/**
+ * Libreria https://docs.laravel-excel.com/3.1/imports/
+ * Class EnrollmentImport
+ * @package App\Imports
+ */
+
 class EnrollmentImport implements ToModel, WithHeadingRow, SkipsOnFailure, WithValidation, SkipsOnError
 {
    use Importable, FailuresImport;

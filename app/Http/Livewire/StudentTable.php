@@ -6,12 +6,19 @@ use App\Student;
 use App\Traits\DeleteMassive;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Mediconesystems\LivewireDatatables\BooleanColumn;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\DateColumn;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 use Mediconesystems\LivewireDatatables\NumberColumn;
 
+
+/**
+ *  Libreria https://github.com/mediconesystems/livewire-datatables
+ * Class StudentTable
+ * @package App\Http\Livewire
+ */
 class StudentTable extends LivewireDatatable
 {
 
@@ -34,24 +41,25 @@ class StudentTable extends LivewireDatatable
         return $this->model::query();
     }
 
+
     public function columns()
     {
         $relation = $this->relation;
         $columns = [
             Column::checkbox(),
-            Column::name('name')->label(__('modules.input.names'))->editable()->filterable()->searchable(),
-            Column::name('last_name')->label(__('modules.input.last_name'))->filterable()->searchable()->editable(),
-            Column::name('email')->label(__('modules.input.email'))->filterable()->searchable(),
-            Column::name('document')->label(__('modules.input.document'))->filterable()->searchable(),
+            Column::name('name')->label(Str::title(__('modules.input.names')))->editable()->filterable()->searchable(),
+            Column::name('last_name')->label(Str::title(__('modules.input.last_name')))->filterable()->searchable()->editable(),
+            Column::name('email')->label(Str::title(__('modules.input.email')))->filterable()->searchable(),
+            Column::name('document')->label(Str::title(__('modules.input.document')))->filterable()->searchable(),
             BooleanColumn::name('state')->label('Estado')->filterable()->hide(),
             NumberColumn::name('enrollments.id:count')->label('# Matríciulas')->filterable()->alignCenter(),
-            DateColumn::name('created_at')->label(__('modules.table.created'))->filterable(),
+            DateColumn::name('created_at')->label(Str::title(__('modules.table.created')))->filterable(),
             Column::callback(['id'], function ($id){
                return view('fragments.link-to', ['route' => 'moodle-detail', 'params' => ['id' => $id]]);
-            })->label(__('modules.table.detail'))->alignCenter(),
+            })->label(Str::title(__('modules.table.detail')))->alignCenter(),
             Column::callback(['id', 'name'], function ($id){
               return view('fragments.btn-action-reset-password', ['action' => 'reset', 'value' => $id, 'name' => 'Reiniciar']);
-            })->label(__('modules.table.reset-password'))->alignCenter(),
+            })->label(Str::title(__('modules.table.reset-password')))->alignCenter(),
         ];
         if (Auth::user()->can('moodle_write')) {
            array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignCenter());

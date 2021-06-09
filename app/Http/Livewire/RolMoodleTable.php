@@ -5,12 +5,18 @@ namespace App\Http\Livewire;
 use App\RolMoodle;
 use App\Traits\DeleteMassive;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Mediconesystems\LivewireDatatables\BooleanColumn;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\DateColumn;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 use Mediconesystems\LivewireDatatables\NumberColumn;
 
+/**
+ * Libreria https://github.com/mediconesystems/livewire-datatables
+ * Class RolMoodleTable
+ * @package App\Http\Livewire
+ */
 class RolMoodleTable extends LivewireDatatable
 {
 
@@ -36,9 +42,9 @@ class RolMoodleTable extends LivewireDatatable
     {
         $columns = [
            Column::checkbox(),
-           Column::name('name')->label(__('modules.input.name'))->editable()->searchable()->truncate(),
-           BooleanColumn::name('state')->label(__('modules.input.state'))->filterable()->alignCenter(),
-           DateColumn::name('created_at')->label(__('modules.table.created'))->filterable(),
+           Column::name('name')->label(Str::title(__('modules.input.name')))->editable()->searchable()->truncate(),
+           BooleanColumn::name('state')->label(Str::title(__('modules.input.state')))->filterable()->alignCenter(),
+           DateColumn::name('created_at')->label(Str::title(__('modules.table.created')))->filterable(),
         ];
         if (Auth::user()->can('role_moodle_write')) {
           array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignCenter());

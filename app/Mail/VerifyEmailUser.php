@@ -8,6 +8,11 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
+/**
+ * Componente https://laravel.com/docs/7.x/mail
+ * Class VerifyEmailUser
+ * @package App\Mail
+ */
 class VerifyEmailUser extends Mailable
 {
     use Queueable, SerializesModels;

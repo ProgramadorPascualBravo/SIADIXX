@@ -12,6 +12,11 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Excel;
 
+/**
+ * Libreria https://docs.laravel-excel.com/3.1/exports/
+ * Class FailuresExport
+ * @package App\Exports
+ */
 class FailuresExport implements FromView
 {
    use Exportable;

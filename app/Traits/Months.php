@@ -6,6 +6,10 @@ namespace App\Traits;
 
 use Arr;
 
+/**
+ * Trait Months
+ * @package App\Traits
+ */
 trait Months
 {
    static public $months = [

@@ -5,6 +5,11 @@ namespace App\View\Components;
 use Illuminate\Support\Str;
 use Illuminate\View\Component;
 
+/**
+ * Componente https://laravel.com/docs/7.x/blade#components
+ * Class AccessModuleComponent
+ * @package App\View\Components
+ */
 class AccessModuleComponent extends Component
 {
 

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Course;
+use App\Interfaces\ModuleComponent;
 use App\Program;
 use App\Traits\ClearErrorsLivewireComponent;
 use App\Traits\FlashMessageLivewaire;
@@ -11,7 +12,12 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class CourseComponent extends Component
+/**
+ * Libreria https://laravel-livewire.com/docs/2.x/quickstart
+ * Class CourseComponent
+ * @package App\Http\Livewire
+ */
+class CourseComponent extends Component implements ModuleComponent
 {
     use WithPagination, ClearErrorsLivewireComponent, FlashMessageLivewaire;
 

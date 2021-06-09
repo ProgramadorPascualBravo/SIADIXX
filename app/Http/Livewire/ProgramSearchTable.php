@@ -12,6 +12,12 @@ use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 use Mediconesystems\LivewireDatatables\NumberColumn;
 
+/**
+ * Libreria https://github.com/mediconesystems/livewire-datatables
+ * Class ProgramSearchTable
+ * @package App\Http\Livewire
+ *
+ */
 class ProgramSearchTable extends LivewireDatatable
 {
    use SetParamsTable;

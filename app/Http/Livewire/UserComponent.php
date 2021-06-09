@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Department;
+use App\Interfaces\ModuleComponent;
 use App\Traits\ClearErrorsLivewireComponent;
 use App\Traits\FlashMessageLivewaire;
 use Illuminate\Database\QueryException;
@@ -13,7 +14,12 @@ use Livewire\WithPagination;
 use App\User;
 use Str;
 
-class UserComponent extends Component
+/**
+ * Libreria https://laravel-livewire.com/docs/2.x/quickstart
+ * Class UserComponent
+ * @package App\Http\Livewire
+ */
+class UserComponent extends Component implements ModuleComponent
 {
     use WithPagination, ClearErrorsLivewireComponent, FlashMessageLivewaire;
 

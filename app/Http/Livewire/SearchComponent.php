@@ -7,6 +7,12 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+/**
+ * Libreria https://laravel-livewire.com/docs/2.x/quickstart
+ * Class SearchComponent
+ * @package App\Http\Livewire
+ *
+ */
 class SearchComponent extends Component
 {
    use WithPagination;

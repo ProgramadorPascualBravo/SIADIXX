@@ -109,6 +109,12 @@ Breadcrumbs::for('role_moodle', function (BreadcrumbTrail  $trail){
    $trail->push('Roles matrículas', route('role-moodle-index'));
 });
 
+Breadcrumbs::for('state_enrollment', function (BreadcrumbTrail  $trail){
+   $trail->parent('dashboard');
+   $trail->push('Estados de matrículas', route('state-enrollment-index'));
+});
+
+
 Breadcrumbs::for('enrollment', function (BreadcrumbTrail  $trail){
    $trail->parent('dashboard');
    $trail->push('Matrículas', route('enrollment-index'));

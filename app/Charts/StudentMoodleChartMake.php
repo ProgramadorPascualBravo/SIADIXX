@@ -6,6 +6,11 @@ use App\Student;
 use App\Traits\Months;
 use Carbon\Carbon;
 
+/**
+ * Libreria https://v6.charts.erik.cat/getting_started.html
+ * Class StudentMoodleChartMake
+ * @package App\Charts
+ */
 class StudentMoodleChartMake extends BaseChartMake
 {
 

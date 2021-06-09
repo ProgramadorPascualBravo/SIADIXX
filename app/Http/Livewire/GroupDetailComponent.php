@@ -6,6 +6,11 @@ namespace App\Http\Livewire;
 use App\Group;
 use Livewire\Component;
 
+/**
+ * Libreria https://laravel-livewire.com/docs/2.x/quickstart
+ * Class GroupDetailComponent
+ * @package App\Http\Livewire
+ */
 class GroupDetailComponent extends Component
 {
    public $group;

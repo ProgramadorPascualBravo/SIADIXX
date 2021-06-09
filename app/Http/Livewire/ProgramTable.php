@@ -6,11 +6,17 @@ use App\Department;
 use App\Program;
 use App\Traits\DeleteMassive;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Mediconesystems\LivewireDatatables\BooleanColumn;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 use Mediconesystems\LivewireDatatables\NumberColumn;
 
+/**
+ * Libreria https://github.com/mediconesystems/livewire-datatables
+ * Class ProgramTable
+ * @package App\Http\Livewire
+ */
 class ProgramTable extends LivewireDatatable
 {
 
@@ -33,18 +39,18 @@ class ProgramTable extends LivewireDatatable
     {
         $relation = $this->relation;
         $columns =  [
-           Column::checkbox('id'),
-           Column::name('name')->label(__('modules.program.name'))->editable()->filterable()->searchable(),
-           Column::name('code')->label(__('modules.input.code'))->editable()->filterable()->searchable(),
-           Column::name('faculty')->label(__('modules.input.faculty'))->editable()->filterable()->searchable(),
-           BooleanColumn::name('state')->label(__('modules.input.state'))->filterable()->hide(),
+           Column::checkbox(),
+           Column::name('name')->label(Str::title(__('modules.program.name')))->editable()->filterable()->searchable(),
+           Column::name('code')->label(Str::title(__('modules.input.code')))->editable()->filterable()->searchable(),
+           Column::name('faculty')->label(Str::title(__('modules.input.faculty')))->editable()->filterable()->searchable(),
+           BooleanColumn::name('state')->label(Str::title(__('modules.input.state')))->filterable()->hide(),
            Column::name('department.name')->filterable(
               $this->department->pluck('name')
-           )->label(__('modules.category.name')),
+           )->label(Str::title(__('modules.category.name'))),
            NumberColumn::name('courses.id:count')->label('# Asignaturas')->filterable()->alignCenter(),
            Column::callback(['id'], function ($id){
               return view('fragments.link-to', ['route' => 'program-detail', 'params' => ['id' => $id], 'name' => 'Ver', 'btn' => 'btn-blue']);
-           })->label(__('modules.table.detail'))->alignCenter(),
+           })->label(Str::title(__('modules.table.detail')))->alignCenter(),
         ];
 
         if (Auth::user()->can('program_write')) {
