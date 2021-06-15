@@ -22,6 +22,7 @@ use Mediconesystems\LivewireDatatables\NumberColumn;
 class CourseGroupTable extends LivewireDatatable
 {
    public $model = Group::class;
+
    public $hideable     = 'select';
 
    public $exportable   = true;

@@ -27,6 +27,8 @@ class CourseSearchTable extends LivewireDatatable
 
    public $exportable      = true;
 
+   public $hideable        = 'select';
+
    protected $listeners    = ['setNewDate'];
 
    public function builder()

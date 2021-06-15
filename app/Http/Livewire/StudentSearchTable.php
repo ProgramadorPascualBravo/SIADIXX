@@ -24,6 +24,8 @@ class StudentSearchTable extends LivewireDatatable
 
    public $exportable = true;
 
+   public $hideable    = 'select';
+
    protected $listeners = ['refreshLivewireDatatable', 'setNewDate'];
 
    public function builder()

@@ -28,6 +28,8 @@ class GroupSearchTable extends LivewireDatatable
 
    protected $listeners = ['setNewDate'];
 
+   public $hideable    = 'select';
+
    public function builder()
    {
       return $this->model::query()

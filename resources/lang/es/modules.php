@@ -59,8 +59,8 @@ return [
          'title'     => 'Módulo roles matrícula',
          'name'      => 'rol matrícula',
          'pname'     => 'roles matricula',
-         'create'    => 'Nuevo rol matrícula',
-         'edit'      => 'Editar rol matrícula'
+         'create'    => 'Nuevo rol de matrícula',
+         'edit'      => 'Editar rol de matrícula'
    ],
    'role'        => [
          'title'     => 'Módulo roles SIADI',
@@ -71,8 +71,8 @@ return [
       'title'     => 'Módulo estados de matrículas',
       'name'      => 'estados matrícula',
       'pname'     => 'estados matrículas',
-      'create'    => 'Crear estado',
-      'edit'      => 'Editar estado',
+      'create'    => 'Nuevo estado de matrícula',
+      'edit'      => 'Editar estado de matrícula',
    ],
    'permission'        => [
          'title'     => 'Módulo permisos SIADI',
