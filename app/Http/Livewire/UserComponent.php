@@ -6,10 +6,14 @@ use App\Department;
 use App\Interfaces\ModuleComponent;
 use App\Traits\ClearErrorsLivewireComponent;
 use App\Traits\FlashMessageLivewaire;
+use App\Traits\LogsTrail;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
+use Livewire\Request;
 use Livewire\WithPagination;
 use App\User;
 use Str;
@@ -21,7 +25,7 @@ use Str;
  */
 class UserComponent extends Component implements ModuleComponent
 {
-    use WithPagination, ClearErrorsLivewireComponent, FlashMessageLivewaire;
+    use WithPagination, ClearErrorsLivewireComponent, FlashMessageLivewaire, LogsTrail;
 
     public $view = 'create';
 
@@ -31,6 +35,7 @@ class UserComponent extends Component implements ModuleComponent
 
     public function render()
     {
+        $this->setLog('info', __('modules.enter'), 'render', __('modules.user.title'));
         return view('livewire.user.user-component', [
             'departments'   => Department::all()
         ]);
@@ -60,13 +65,18 @@ class UserComponent extends Component implements ModuleComponent
                'confirmation_code'  => Str::random(60),
                'state'              => trim($this->state)
            ]);
-           $this->process            = false;
            $this->cancel();
            $this->refreshTable();
            $this->showAlert('alert-success', __('messages.success.create'));
+           $this->setLog('info', __('messages.success.create'), 'store', __('modules.user.title'), [
+                 'create' => $user
+           ]);
        } catch (QueryException $queryException) {
-            $this->process            = false;
-            $this->showAlert('alert-error', __('messages.errors.create'));
+           $this->showAlert('alert-error', __('messages.errors.create'));
+           $this->setLog('error', __('messages.errors.create'), 'store', __('modules.user.title'), [
+                 'exception' => $queryException->getMessage()
+              ]);
+
        }
 
     }
@@ -82,6 +92,7 @@ class UserComponent extends Component implements ModuleComponent
         $this->department_id    = $user->department_id;
         $this->state            = $user->state;
         $this->view             = 'edit';
+
     }
 
     public function update()
@@ -95,7 +106,6 @@ class UserComponent extends Component implements ModuleComponent
         ]);
 
         try {
-           $this->process           = true;
            $user = User::findOrFail($this->user_id);
            $user->update([
                'name'          => trim($this->name),
@@ -105,13 +115,16 @@ class UserComponent extends Component implements ModuleComponent
                'state'         => trim($this->state)
            ]);
            $this->cancel();
-           $this->process           = false;
            $this->refreshTable();
            $this->showAlert('alert-success', __('messages.success.update'));
-
+           $this->setLog('info', __('messages.success.update'), 'update', __('modules.user.title'), [
+              'update' => $user
+           ]);
         } catch (QueryException $queryException) {
-           $this->process           = false;
            $this->showAlert('alert-error', __('messages.errors.update'));
+           $this->setLog('info', __('messages.errors.update'), 'update', __('modules.user.title'), [
+              'exception' => $queryException->getMessage()
+           ]);
         }
 
     }

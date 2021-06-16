@@ -7,6 +7,7 @@ use App\Group;
 use App\Interfaces\ModuleComponent;
 use App\Traits\ClearErrorsLivewireComponent;
 use App\Traits\FlashMessageLivewaire;
+use App\Traits\LogsTrail;
 use Illuminate\Database\QueryException;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -19,7 +20,7 @@ use Livewire\WithPagination;
 class GroupComponent extends Component implements ModuleComponent
 {
 
-    use WithPagination, ClearErrorsLivewireComponent, FlashMessageLivewaire;
+    use WithPagination, ClearErrorsLivewireComponent, FlashMessageLivewaire, LogsTrail;
 
 
     public $view = 'create';
@@ -30,7 +31,8 @@ class GroupComponent extends Component implements ModuleComponent
 
    public function render()
     {
-        return view('livewire.group.group-component', [
+       $this->setLog('info', __('modules.enter'), 'render', __('modules.course.title'));
+       return view('livewire.group.group-component', [
             'courses'   => Course::where('state', 1)->get()
         ]);
     }
@@ -44,7 +46,6 @@ class GroupComponent extends Component implements ModuleComponent
         ]);
         try {
 
-            $this->process = true;
             $course = Course::findOrFail($this->course_id);
 
             $course->groups()->create([
@@ -55,12 +56,17 @@ class GroupComponent extends Component implements ModuleComponent
             ]);
 
            $this->cancel();
-           $this->process    = false;
            $this->refreshTable();
            $this->showAlert('alert-success', __('messages.success.create'));
+           $this->setLog('info', __('messages.success.create'), 'store', __('modules.course.title'), [
+               'create' => $course
+           ]);
         } catch (QueryException $queryException) {
-           $this->process    = false;
-           $this->showAlert('alert-error', __('messages.error.create'));
+           $this->showAlert('alert-error', __('messages.errors.create'));
+           $this->setLog('error', __('messages.errors.create'), 'store', __('modules.course.title'), [
+               'exception' => $queryException->getMessage()
+           ]);
+
         }
     }
 
@@ -99,12 +105,17 @@ class GroupComponent extends Component implements ModuleComponent
            ]);
 
            $this->cancel();
-           $this->process    = false;
            $this->refreshTable();
            $this->showAlert('alert-success', __('messages.success.update'));
+           $this->setLog('info', __('messages.success.update'), 'update', __('modules.course.title'), [
+               'update'  => $group
+           ]);
+
         } catch (QueryException $queryException) {
-           $this->process    = false;
            $this->showAlert('alert-error', __('messages.error.update'));
+           $this->setLog('error', __('messages.errors.update'), 'update', __('modules.course.title'), [
+               'exception' => $queryException->getMessage()
+           ]);
         }
     }
 

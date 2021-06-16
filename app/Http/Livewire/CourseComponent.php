@@ -7,6 +7,7 @@ use App\Interfaces\ModuleComponent;
 use App\Program;
 use App\Traits\ClearErrorsLivewireComponent;
 use App\Traits\FlashMessageLivewaire;
+use App\Traits\LogsTrail;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -19,7 +20,7 @@ use Livewire\WithPagination;
  */
 class CourseComponent extends Component implements ModuleComponent
 {
-    use WithPagination, ClearErrorsLivewireComponent, FlashMessageLivewaire;
+    use WithPagination, ClearErrorsLivewireComponent, FlashMessageLivewaire, LogsTrail;
 
     public $view = 'create';
 
@@ -29,7 +30,8 @@ class CourseComponent extends Component implements ModuleComponent
 
    public function render()
     {
-        return view('livewire.course.course-component',
+       $this->setLog('info', __('modules.enter'), 'render', __('modules.course.title'));
+       return view('livewire.course.course-component',
             [
                 'programs'   => Program::where('state', 1)->get()
             ]
@@ -45,7 +47,6 @@ class CourseComponent extends Component implements ModuleComponent
             'state'             => 'required|numeric'
         ]);
         try {
-            $this->process         = true;
             $course = new Course();
 
             $course->create([
@@ -56,13 +57,17 @@ class CourseComponent extends Component implements ModuleComponent
             ]);
 
            $this->cancel();
-           $this->process    = false;
            $this->refreshTable();
            $this->showAlert('alert-success', __('messages.success.create'));
+           $this->setLog('info', __('messages.success.create'), 'store', __('modules.course.title'), [
+              'create' => $course
+           ]);
 
         } catch (QueryException $queryException) {
-           $this->process    = false;
-           $this->showAlert('alert-error', __('messages.error.create'));
+           $this->showAlert('alert-error', __('messages.errors.create'));
+           $this->setLog('error', __('messages.errors.create'), 'store', __('modules.course.title'), [
+              'exception' => $queryException->getMessage()
+           ]);
         }
 
     }
@@ -90,7 +95,6 @@ class CourseComponent extends Component implements ModuleComponent
 
         try  {
 
-           $this->process          = true;
            $course = Course::findOrFail($this->course_id);
 
            $course->update([
@@ -101,12 +105,16 @@ class CourseComponent extends Component implements ModuleComponent
            ]);
 
            $this->cancel();
-           $this->process           = false;
            $this->refreshTable();
            $this->showAlert('alert-success', __('messages.success.update'));
+           $this->setLog('info', __('messages.success.update'), 'update', __('modules.course.title'), [
+              'update' => $course
+           ]);
         } catch (QueryException $queryException) {
-           $this->process           = false;
            $this->showAlert('alert-error', __('messages.error.update'));
+           $this->setLog('error', __('messages.errors.update'), 'store', __('modules.course.title'), [
+              'exception' => $queryException->getMessage()
+           ]);
         }
     }
 

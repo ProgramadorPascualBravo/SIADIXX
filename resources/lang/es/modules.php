@@ -28,6 +28,7 @@ return [
          'pname'     => 'categorías',
          'create'    => 'Nueva categoría',
          'edit'      => 'Editar categoría',
+         'detail'    => 'Detalle categoría'
    ],
    'program'        => [
          'title'     => 'Módulo programas',
@@ -35,13 +36,15 @@ return [
          'pname'     => 'programas',
          'create'    => 'Nuevo programa',
          'edit'      => 'Editar programa',
+         'detail'    => 'Detalle programa'
    ],
    'course'        => [
          'title'     => 'Módulo asignaturas',
          'name'      => 'asignatura',
          'pname'     => 'asignaturas',
          'create'    => 'Nueva asignatura',
-         'edit'      => 'eEitar asignatura',
+         'edit'      => 'Editar asignatura',
+         'detail'    => 'Detalle asignatura'
    ],
    'group'        => [
          'title'     => 'Módulo grupos',
@@ -49,6 +52,7 @@ return [
          'pname'     => 'grupos',
          'create'    => 'Nuevo grupo',
          'edit'      => 'Editar grupo',
+         'detail'    => 'Detalle grupo'
    ],
    'report'        => [
          'title'     => 'Módulo reportes',
@@ -86,6 +90,7 @@ return [
          'pname'     => 'matrículas',
          'create'    => 'Crear matrícula',
          'edit'      => 'Editar matrícula',
+         'massive'   => 'Módulo de carga masiva de matrículas',
    ],
    'search'        => [
          'title'     => 'Módulo búsquedas',
@@ -118,6 +123,6 @@ return [
    'saving'       => 'guardando',
    'update'       => 'actualizar',
    'updating'     => 'actualizando',
-   'stats'     => 'Módulo de estadisticas'
-
+   'stats'        => 'Módulo de estadisticas',
+   'enter'        => 'Ingreso al módulo'
 ];

@@ -6,6 +6,8 @@ namespace App\Http\Livewire;
 
 use App\Enrollment;
 use App\RolMoodle;
+use App\StateEnrollment;
+use Illuminate\Support\Str;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\DateColumn;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
@@ -24,13 +26,6 @@ class StudentEnrollmentTable extends LivewireDatatable
    public $exportable   = true;
 
    protected $listeners = ['refreshLivewireDatatable'];
-   protected $state    = [
-      'Desmatriculado',
-      'Matrículado',
-      'Cancelada',
-      'Finalizada',
-      'Retirado'
-   ];
 
    public function builder()
    {
@@ -49,9 +44,11 @@ class StudentEnrollmentTable extends LivewireDatatable
          Column::name('rol')->filterable(
             $this->roles->pluck('name')
          )->label('Rol matrícula'),
-         Column::name('state')->filterable(
-            $this->state
-         )->label(__('modules.input.state')),
+         Column::callback(['state_enrollemnt.name'], function($name) {
+            return Str::title($name);
+         })->label(Str::title(__('modules.input.state')))->filterable(
+            $this->states->pluck('name')
+         )->alignRight(),
          DateColumn::name('created_at')->filterable()->label(__('modules.table.created')),
       ];
 
@@ -63,5 +60,9 @@ class StudentEnrollmentTable extends LivewireDatatable
       return RolMoodle::all('name');
    }
 
+   public function getStatesProperty()
+   {
+      return StateEnrollment::select(['id', 'name'])->where('state', 1)->get();
+   }
 
 }

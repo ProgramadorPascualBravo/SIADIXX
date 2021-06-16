@@ -5,7 +5,9 @@ namespace App\Http\Livewire;
 use App\Course;
 use App\Enrollment;
 use App\Group;
+use App\StateEnrollment;
 use App\Traits\DeleteMassive;
+use App\Traits\LogsTrail;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -22,11 +24,13 @@ use Mediconesystems\LivewireDatatables\NumberColumn;
  */
 class GroupTable extends LivewireDatatable
 {
-    use DeleteMassive;
+    use DeleteMassive, LogsTrail;
 
     public $model       = Group::class;
     public $hideable    = 'select';
     public $exportable  = true;
+    public const MATRICULADO = 1;
+    public const FINALIZADA = 4;
 
     public $beforeTableSlot = 'fragments.delete-massive';
 
@@ -92,13 +96,19 @@ class GroupTable extends LivewireDatatable
    {
       try {
          Enrollment::where('code', $code)
-                  ->where('state', 'Matrículado')
+                  ->where('state', self::MATRICULADO)
                   ->update([
-                     'state' => 'Finalizada'
+                     'state' => self::FINALIZADA
                   ]);
          $this->emit('showAlert', 'alert-success', 'Operación realizada!');
+         $this->setLog('info', 'Cerrar matriculas', 'close', __('modules.group.detail'), [
+             'code' => $code
+         ]);
       } catch (QueryException $queryException) {
          $this->emit('showAlert', ['alert-error', $queryException->getMessage()]);;
+         $this->setLog('error', 'Cerrar matriculas', 'close', __('modules.group.detail'), [
+            'exception' => $queryException->getMessage()
+         ]);
       }
    }
 }

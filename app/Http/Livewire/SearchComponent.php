@@ -25,6 +25,7 @@ class SearchComponent extends Component
 
    public function render()
    {
+      $this->setLog('info', __('modules.enter'), 'render', __('modules.search.title'));
       return view('livewire.search.search-component');
    }
 

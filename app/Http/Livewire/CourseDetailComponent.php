@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 
 
 use App\Course;
+use App\Traits\LogsTrail;
 use Livewire\Component;
 
 /**
@@ -14,6 +15,8 @@ use Livewire\Component;
  */
 class CourseDetailComponent extends Component
 {
+   use LogsTrail;
+
    public $course;
 
    public function mount($course)
@@ -23,6 +26,7 @@ class CourseDetailComponent extends Component
 
    public function render()
    {
+      $this->setLog('info', __('modules.enter'), 'render', __('modules.course.detail'));
       return view('livewire.course.details-component');
    }
 }

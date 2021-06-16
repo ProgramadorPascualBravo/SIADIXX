@@ -6,6 +6,7 @@ namespace App\Http\Livewire;
 
 use App\Student;
 use App\StudentDBMoodle;
+use App\Traits\LogsTrail;
 use Livewire\Component;
 
 /**
@@ -15,6 +16,8 @@ use Livewire\Component;
  */
 class StudentDetailComponent extends Component
 {
+   use LogsTrail;
+
    public $enrollments, $student;
 
    function mount(Student $student)
@@ -25,6 +28,9 @@ class StudentDetailComponent extends Component
 
    function render()
    {
+      $this->setLog('info', __('modules.enter'), 'render', __('modules.moodle.detail'), [
+         'user' => $this->student
+      ]);
       return view('livewire.student.details-component');
    }
 }

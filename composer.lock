@@ -4,8 +4,56 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d5169e80142ef2c1b55e8c42135e413a",
+    "content-hash": "799303ddd7fb077d27b20749639616fe",
     "packages": [
+        {
+            "name": "arukompas/better-log-viewer",
+            "version": "0.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/arukompas/better-log-viewer.git",
+                "reference": "3d6fb67a10492fdd822d5b68d56715f34e3c9a21"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/arukompas/better-log-viewer/zipball/3d6fb67a10492fdd822d5b68d56715f34e3c9a21",
+                "reference": "3d6fb67a10492fdd822d5b68d56715f34e3c9a21",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "5.x || 6.x || 7.x || 8.x",
+                "php": ">=5.6"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Arukompas\\BetterLogViewer\\BetterLogViewerProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Arukompas\\BetterLogViewer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Arunas Skirius",
+                    "email": "arukomp@gmail.com"
+                }
+            ],
+            "description": "A speedy and clean Laravel Log viewer with pagination and search",
+            "support": {
+                "issues": "https://github.com/arukompas/better-log-viewer/issues",
+                "source": "https://github.com/arukompas/better-log-viewer/tree/0.7.0"
+            },
+            "time": "2021-06-03T16:21:29+00:00"
+        },
         {
             "name": "asm89/stack-cors",
             "version": "1.3.0",
@@ -3294,6 +3342,69 @@
                 }
             ],
             "time": "2020-08-18T17:17:46+00:00"
+        },
+        {
+            "name": "rap2hpoutre/laravel-log-viewer",
+            "version": "v1.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rap2hpoutre/laravel-log-viewer.git",
+                "reference": "27392d29234b6ff38a456454558f4bcc40cc837a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rap2hpoutre/laravel-log-viewer/zipball/27392d29234b6ff38a456454558f4bcc40cc837a",
+                "reference": "27392d29234b6ff38a456454558f4bcc40cc837a",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "4.2.*|5.*|^6.0|^7.0|^8.0",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "3.7.*",
+                "phpunit/phpunit": "^7"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Rap2hpoutre\\LaravelLogViewer\\LaravelLogViewerServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "src/controllers"
+                ],
+                "psr-0": {
+                    "Rap2hpoutre\\LaravelLogViewer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "rap2hpoutre",
+                    "email": "raphaelht@gmail.com"
+                }
+            ],
+            "description": "A Laravel log reader",
+            "keywords": [
+                "laravel",
+                "log",
+                "log-reader",
+                "log-viewer",
+                "logging",
+                "lumen"
+            ],
+            "support": {
+                "issues": "https://github.com/rap2hpoutre/laravel-log-viewer/issues",
+                "source": "https://github.com/rap2hpoutre/laravel-log-viewer/tree/master"
+            },
+            "time": "2020-09-08T12:21:27+00:00"
         },
         {
             "name": "spatie/laravel-permission",
@@ -8005,7 +8116,8 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.2.5"
+        "php": "^7.2.5",
+        "ext-gettext": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.0.0"

@@ -13,6 +13,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
 use Str;
@@ -36,13 +37,22 @@ class PageController extends Controller
         $credentials = $request->only('username', 'password');
 
         if (Auth::attempt($credentials)) {
+            Log::channel('trail')->info(
+               'El usuario ingreso al sistema SIADI', ['usuario' => Auth::user()->username]
+            );
             return redirect()->intended('dashboard');
         }
+       Log::channel('trail')->info(
+          'El usuario no pudo iniciar sesión', ['usuario' => $request->get('username')]
+       );
         return redirect(route('login'))->withErrors(['failed' => 'Estas credenciales no coinciden con nuestros registros. ']);
     }
 
     public function logout ()
     {
+        Log::channel('trail')->info(
+            'El usuario salio del sistema SIADI', ['usuario' => Auth::user()->username]
+        );
         Auth::logout();
         Session::flush();
         return redirect(route('login'));
@@ -56,14 +66,22 @@ class PageController extends Controller
          $user->verified = 1;
          $user->save();
          Auth::login($user);
+         Log::channel('trail')->info(
+             'El usuario verifico el correo en el sistema SIADI', ['usuario' => Auth::user()->username]
+         );
          return redirect()->intended('dashboard');
        }
+       Log::channel('trail')->warning(
+          'El usuario no pudo verifico el correo en el sistema SIADI, No código valido', ['usuario' => Auth::user()->username]
+       );
        return view('email_verified.error');
     }
 
     public function reportStudent()
     {
-
+       Log::channel('trail')->info(
+          'El usuario ingreso al módulo de estadisticas de usuarios plataforma en el sistema SIADI', ['usuario' => Auth::user()->username]
+       );
        $chart_total = StudentMoodleChartMake::newChart();
        $chart_total->title(Str::ucfirst('Total de '.__('modules.moodle.name')));
        $chart_total->labels(["Total", "Mes"]);
@@ -112,6 +130,9 @@ class PageController extends Controller
 
     public function reportEnrollment()
     {
+       Log::channel('trail')->info(
+          'El usuario ingreso al módulo de estadisticas de matriculas en el sistema SIADI', ['usuario' => Auth::user()->username]
+       );
        $chart_total = EnrollmentChartMake::newChart();
        $chart_total->title(Str::ucfirst('Total de '.__('modules.enrollment.name')));
        $chart_total->labels(["Total", "Mes"]);
@@ -169,6 +190,10 @@ class PageController extends Controller
 
     public function reportCourse()
     {
+       Log::channel('trail')->info(
+          'El usuario ingreso al módulo de estadisticas de asignaturas en el sistema SIADI', ['usuario' => Auth::user()->username]
+       );
+
              /***/
        $chart_total = CourseChartMake::newChart();
        $chart_total->title(Str::ucfirst('Total de '.__('modules.course.name')));

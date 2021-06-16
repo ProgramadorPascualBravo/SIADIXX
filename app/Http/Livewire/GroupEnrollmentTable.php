@@ -6,6 +6,8 @@ namespace App\Http\Livewire;
 
 use App\Enrollment;
 use App\RolMoodle;
+use App\StateEnrollment;
+use Illuminate\Support\Str;
 use Mediconesystems\LivewireDatatables\BooleanColumn;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\DateColumn;
@@ -44,8 +46,10 @@ class GroupEnrollmentTable extends LivewireDatatable
          Column::name('rol')->label('Rol matrícula')->filterable(
             $this->roles->pluck('name')
          )->searchable(),
-         Column::name('state')->label(__('modules.input.state'))->filterable(
-            $this->state
+         Column::callback(['state_enrollemnt.name'], function($name) {
+            return Str::title($name);
+         })->label(Str::title(__('modules.input.state')))->filterable(
+            $this->states->pluck('name')
          ),
          Column::name('period')->label(__('modules.input.period'))->filterable()->searchable(),
          DateColumn::name('created_at')->filterable()->label(__('modules.table.created')),
@@ -60,5 +64,10 @@ class GroupEnrollmentTable extends LivewireDatatable
    public function getRolesProperty()
    {
       return RolMoodle::all('name');
+   }
+
+   public function getStatesProperty()
+   {
+      return StateEnrollment::select(['id', 'name'])->where('state', 1)->get();
    }
 }

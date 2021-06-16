@@ -6,9 +6,11 @@ namespace App\Http\Livewire;
 use App\Student;
 use App\StudentDBMoodle;
 use App\Traits\FlashMessageLivewaire;
+use App\Traits\LogsTrail;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 /**
@@ -18,7 +20,7 @@ use Livewire\Component;
  */
 class UserDetailComponent extends Component
 {
-   use FlashMessageLivewaire;
+   use FlashMessageLivewaire, LogsTrail;
 
    public $user, $change_password = false, $profile;
 
@@ -32,6 +34,9 @@ class UserDetailComponent extends Component
 
    function render()
    {
+      $this->setLog('info', __('modules.enter'), 'render', __('modules.user.detail'), [
+         'profile' => $this->user
+      ]);
       return view('livewire.user.details-component');
    }
 
@@ -46,9 +51,15 @@ class UserDetailComponent extends Component
          Auth::user()->setAttribute('password', Hash::make(trim($this->password)))->save();
          $this->showAlert('alert-success', __('messages.success.update'));
          $this->cancel();
+         $this->setLog('info', __('messages.success.update'), 'update', __('modules.user.detail'), [
+            'info' => 'Password update'
+         ]);
          return;
       }
-      $this->showAlert('alert-success', __('messages.error.update'));
+      $this->showAlert('alert-success', __('messages.errors.update'));
+      $this->setLog('error', __('messages.errors.update'), 'update', __('modules.user.detail'), [
+         'info' => 'Not password update'
+      ]);
    }
 
    private function cancel()

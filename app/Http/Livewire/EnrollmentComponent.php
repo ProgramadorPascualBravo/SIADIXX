@@ -12,6 +12,7 @@ use App\RolMoodle;
 use App\StateEnrollment;
 use App\Traits\ClearErrorsLivewireComponent;
 use App\Traits\FlashMessageLivewaire;
+use App\Traits\LogsTrail;
 use Illuminate\Database\QueryException;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -23,7 +24,7 @@ use Livewire\WithPagination;
  */
 class EnrollmentComponent extends Component implements ModuleComponent
 {
-   use ClearErrorsLivewireComponent, WithPagination, FlashMessageLivewaire;
+   use ClearErrorsLivewireComponent, WithPagination, FlashMessageLivewaire, LogsTrail;
 
    public $view = 'create';
 
@@ -34,6 +35,7 @@ class EnrollmentComponent extends Component implements ModuleComponent
 
    public function render()
    {
+      $this->setLog('info', __('modules.enter'), 'render', __('modules.enrollment.title'));
       return view('livewire.enrollment.enrollment-component', [
          'groups' => Group::where('state', 1)->get(),
          'roles'  => RolMoodle::where('state', 1)->select('name')->get(),
@@ -64,8 +66,15 @@ class EnrollmentComponent extends Component implements ModuleComponent
          $this->cancel();
          $this->refreshTable();
          $this->showAlert('alert-success', __('messages.success.create'));
+         $this->setLog('info', __('messages.success.create'), 'store', __('modules.enrollment.title'), [
+            'create' => $enrollment
+         ]);
+
       } catch (QueryException $queryException) {
          $this->showAlert('alert-error', __('messages.errors.create'));
+         $this->setLog('error', __('messages.errors.create'), 'store', __('modules.enrollment.title'), [
+            'exception' => $queryException->getMessage()
+         ]);
       }
 
    }
@@ -105,11 +114,17 @@ class EnrollmentComponent extends Component implements ModuleComponent
          ]);
 
          $this->cancel();
-         $this->process    = false;
          $this->refreshTable();
          $this->showAlert('alert-success', __('messages.success.update'));
+         $this->setLog('info', __('messages.success.update'), 'update', __('modules.enrollment.title'), [
+            'update' => $enrollment
+         ]);
+
       } catch (QueryException $queryException) {
          $this->showAlert('alert-error', __('messages.errors.update'));
+         $this->setLog('error', __('messages.errors.update'), 'update', __('modules.enrollment.title'), [
+            'exception' => $queryException->getMessage()
+         ]);
       }
    }
 

@@ -43,13 +43,18 @@ return [
 
         'single' => [
             'driver' => 'single',
-            'path' => storage_path('logs/laravel.log'),
+            'path' => storage_path('logs/siadi.log'),
             'level' => 'debug',
+        ],
+        'trail' => [
+           'driver' => 'single',
+           'path' => storage_path('logs/trail.log'),
+           'level' => 'debug',
         ],
 
         'daily' => [
             'driver' => 'daily',
-            'path' => storage_path('logs/laravel.log'),
+            'path' => storage_path('logs/siadi.log'),
             'level' => 'debug',
             'days' => 14,
         ],
@@ -97,7 +102,7 @@ return [
         ],
 
         'emergency' => [
-            'path' => storage_path('logs/laravel.log'),
+            'path' => storage_path('logs/siadi.log'),
         ],
     ],
 

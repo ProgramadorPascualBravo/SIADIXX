@@ -8,6 +8,7 @@ use App\RolMoodle;
 use App\StateEnrollment;
 use App\Traits\ClearErrorsLivewireComponent;
 use App\Traits\FlashMessageLivewaire;
+use App\Traits\LogsTrail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 use Livewire\Component;
@@ -22,7 +23,7 @@ use Livewire\WithPagination;
  */
 class StateEnrollmentComponent extends Component
 {
-   use ClearErrorsLivewireComponent, WithPagination, FlashMessageLivewaire;
+   use ClearErrorsLivewireComponent, WithPagination, FlashMessageLivewaire, LogsTrail;
 
    public $view = 'create';
 
@@ -32,6 +33,7 @@ class StateEnrollmentComponent extends Component
 
    public function render()
    {
+      $this->setLog('info', __('modules.enter'), 'render', __('modules.state-enrollment.title'));
       return view('livewire.state-enrollment.state-enrollment-component');
    }
 
@@ -56,8 +58,14 @@ class StateEnrollmentComponent extends Component
          $this->cancel();
          $this->refreshTable();
          $this->showAlert('alert-success', __('messages.success.create'));
+         $this->setLog('info', __('messages.success.create'), 'store', __('modules.role-moodle.title'), [
+             'create' => $state_enrollment
+         ]);
       }catch (QueryException $queryException) {
          $this->showAlert('alert-error', __('messages.errors.create'));
+         $this->setLog('error', __('messages.errors.create'), 'store', __('modules.role-moodle.title'), [
+            'exception' => $queryException->getMessage()
+         ]);
       }
 
    }
@@ -92,8 +100,14 @@ class StateEnrollmentComponent extends Component
          $this->cancel();
          $this->refreshTable();
          $this->showAlert('alert-success', __('messages.success.update'));
+         $this->setLog('info', __('messages.success.create'), 'update', __('modules.role-moodle.title'), [
+            'update' => $state_enrollment
+         ]);
       } catch (QueryException $queryException) {
          $this->showAlert('alert-error', __('messages.errors.update'));
+         $this->setLog('error', __('messages.errors.create'), 'update', __('modules.role-moodle.title'), [
+            'exception' => $queryException->getMessage()
+         ]);
       }
    }
 

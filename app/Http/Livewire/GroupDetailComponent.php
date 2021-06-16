@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 
 use App\Group;
+use App\Traits\LogsTrail;
 use Livewire\Component;
 
 /**
@@ -11,8 +12,11 @@ use Livewire\Component;
  * Class GroupDetailComponent
  * @package App\Http\Livewire
  */
+
 class GroupDetailComponent extends Component
 {
+   use LogsTrail;
+
    public $group;
 
    public function mount($group)
@@ -22,6 +26,7 @@ class GroupDetailComponent extends Component
 
    public function render()
    {
+      $this->setLog('info', __('modules.enter'), 'render', __('modules.group.detail'));
       return view ('livewire.group.details-component');
    }
 }

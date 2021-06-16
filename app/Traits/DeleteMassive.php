@@ -14,12 +14,20 @@ use Mockery\Exception;
  */
 trait DeleteMassive
 {
+   use LogsTrail;
+
    public function deleteMassive($relation)
    {
       $restrictions = 0;
+      $this->setLog('info', 'Eliminar masivamente', 'deleteMassive', "module {$relation}", [
+         'selected' => $this->selected
+      ]);
       if (empty($this->selected)) {
          $this->emit('showAlert', 'alert-error', "Debes tener minimo un elemento seleccionado");
          $this->selected = [];
+         $this->setLog('error', 'Debes tener minimo un elemento seleccionado', 'deleteMassive', "module {$relation}", [
+            'selected' => $this->selected
+         ]);
          return;
       }
       try {
@@ -74,19 +82,33 @@ trait DeleteMassive
                dd("Not Found relation.");
          }
          if ($restrictions > 0) {
-            $this->emit('showAlert', 'alert-info', "Algunos registros no se eliminaron porque tienen restricciones. Total:{$restrictions}");
+            $this->emit('showAlert', 'alert-info', "Algunos registros no se eliminaron porque tienen restricciones. \n Total elementos que no fueron eliminados:{$restrictions}");
+            $this->setLog('warning', "Algunos registros no se eliminaron porque tienen restricciones. Total elementos que no fueron eliminados:{$restrictions}", 'deleteMassive', "type {$relation}", [
+               'selected' => $this->selected,
+               'restrictions' => $restrictions
+            ]);
+
          } else {
             $this->emit('showAlert', 'alert-success', __('messages.success.delete'));
+            $this->setLog('info', __('messages.success.delete'), 'deleteMassive', "Type {$relation}", [
+               'selected' => $this->selected,
+            ]);
          }
          $this->selected = [];
       } catch (QueryException $queryException) {
          $this->emit('showAlert', 'alert-error', __('messages.errors.delete'));
+         $this->setLog('error', __('messages.errors.delete'), 'deleteMassive', "Type {$relation}", [
+            'exception' => $queryException->getMessage(),
+         ]);
       }
    }
 
    public function deleted($relation, $id)
    {
       $flag = false;
+      $this->setLog('info', 'Acción eliminar', 'deleted', "type {$relation}", [
+         'selected' => $this->selected
+      ]);
       try {
          switch ($relation) {
             case 'user'       :
@@ -129,11 +151,20 @@ trait DeleteMassive
          }
          if ($flag) {
             $this->emit('showAlert', 'alert-success', __('messages.success.delete'));
+            $this->setLog('info', __('messages.success.delete'), 'deleted', "type {$relation}", [
+               'id' => $id, 'model' => $u
+            ]);
          } else {
             $this->emit('showAlert', 'alert-info', $message);
+            $this->setLog('warning', $message, 'deleted', "type {$relation}", [
+               'id' => $id, 'model' => $u
+            ]);
          }
       } catch (QueryException $queryException) {
          $this->emit('showAlert', 'alert-error', __('messages.errors.delete'));
+         $this->setLog('error', $message, 'deleted', "type {$relation}", [
+            'id' => $id, 'exception' => $queryException->getMessage()
+         ]);
       }
    }
 }

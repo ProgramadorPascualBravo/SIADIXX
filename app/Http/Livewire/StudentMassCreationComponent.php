@@ -9,6 +9,7 @@ use App\Imports\StudentsImport;
 use App\Traits\ClearErrorsLivewireComponent;
 use App\Traits\DownloadDocument;
 use App\Traits\FlashMessageLivewaire;
+use App\Traits\LogsTrail;
 use Illuminate\Database\QueryException;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -22,14 +23,15 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
  */
 class StudentMassCreationComponent extends Component
 {
-   use FlashMessageLivewaire, WithFileUploads, DownloadDocument, ClearErrorsLivewireComponent;
+   use FlashMessageLivewaire, WithFileUploads, DownloadDocument, ClearErrorsLivewireComponent, LogsTrail;
 
-   public $quantity = null, $anexo_user = 0;
+   public $quantity = null;
 
    protected $listeners = ['setQuantity'];
 
    public function render()
    {
+      $this->setLog('error', __('modules.enter'), 'render', __('modules.moodle.massive'));
       return view('livewire.student.mass-creation-component');
    }
 

@@ -87,11 +87,21 @@ class StudentTable extends LivewireDatatable
          $student->password   = md5($student->document);
          if ($student->save()) {
             $this->emit('showAlert', 'alert-success', __('messages.success.update'));
+            $this->setLog('info', __('messages.success.update'), 'reset_password', __('modules.moodle.title'), [
+               'info' => 'Password reset', 'user' => $student
+            ]);
+
          } else {
             $this->emit('showAlert', 'alert-error', __('messages.error.update'));
+            $this->setLog('error', __('messages.errors.update'), 'reset_password', __('modules.moodle.title'), [
+               'info' => 'Not password reset', 'user' => $student
+            ]);
          }
       } catch (QueryException $exception) {
          $this->emit('showAlert', 'alert-error', __('messages.error.update'));
+         $this->setLog('error', __('messages.errors.update'), 'reset_password', __('modules.moodle.title'), [
+            'exception' => $exception->getMessage()
+         ]);
       }
    }
 

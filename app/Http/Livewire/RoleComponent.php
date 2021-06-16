@@ -7,6 +7,7 @@ namespace App\Http\Livewire;
 use App\Interfaces\ModuleComponent;
 use App\Traits\ClearErrorsLivewireComponent;
 use App\Traits\FlashMessageLivewaire;
+use App\Traits\LogsTrail;
 use App\User;
 use Illuminate\Database\QueryException;
 use Livewire\Component;
@@ -21,7 +22,7 @@ use Spatie\Permission\Models\Role;
  */
 class RoleComponent extends Component implements ModuleComponent
 {
-   use FlashMessageLivewaire, WithPagination, ClearErrorsLivewireComponent;
+   use FlashMessageLivewaire, WithPagination, ClearErrorsLivewireComponent, LogsTrail;
 
    public $role_id, $name, $rol, $user_id;
 
@@ -31,6 +32,7 @@ class RoleComponent extends Component implements ModuleComponent
 
    public function render()
    {
+      $this->setLog('info', __('modules.enter'), 'render', __('modules.role.title'));
       return view('livewire.permission-role.role-component', [
          'roles' => Role::all(),
          'users' => User::all()
@@ -43,13 +45,19 @@ class RoleComponent extends Component implements ModuleComponent
          'name' => 'required'
       ]);
       try {
-         Role::create([
+         $role = Role::create([
             'name' => $this->name
          ]);
          $this->refreshTable();
          $this->showAlert('alert-success', __('messages.success.create'));
+         $this->setLog('info', __('messages.success.create'), 'store', __('modules.role.title'), [
+            'create' => $role
+         ]);
       } catch (QueryException $queryException) {
          $this->showAlert('alert-success', __('messages.errors.create'));
+         $this->setLog('error', __('messages.errors.create'), 'store', __('modules.role.title'), [
+             'exception' => $queryException->getMessage()
+         ]);
       }
    }
 
@@ -75,9 +83,15 @@ class RoleComponent extends Component implements ModuleComponent
          ]);
          $this->refreshTable();
          $this->cancel();
+         $this->setLog('info', __('messages.success.update'), 'update', __('modules.role.title'), [
+             'update' => $role
+         ]);
          $this->showAlert('alert-success', __('messages.success.update'));
       } catch (QueryException $queryException) {
          $this->showAlert('alert-error', __('messages.errors.update'));
+         $this->setLog('error', __('messages.errors.update'), 'update', __('modules.role.title'), [
+             'exception' => $queryException->getMessage()
+         ]);
       }
    }
 
@@ -90,9 +104,14 @@ class RoleComponent extends Component implements ModuleComponent
          $user = User::find($this->user_id);
          $user->syncRoles($roles);
          $this->showAlert('alert-success', __('messages.success.update'));
+         $this->setLog('info', __('messages.success.update'), 'assign', __('modules.role.title'), [
+               'update' => $user, 'roles' => $roles
+            ]);
       }catch (QueryException | Exception $exception) {
          $this->showAlert('alert-error', __('messages.errors.update'));
-
+         $this->setLog('error', __('messages.errors.update'), 'assign', __('modules.role.title'), [
+             'exception' => $exception->getMessage()
+         ]);
       }
    }
 

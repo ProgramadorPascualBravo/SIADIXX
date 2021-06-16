@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5",
+        "ext-gettext": "*",
         "consoletvs/charts": "6.*",
         "diglactic/laravel-breadcrumbs": "^7.0",
         "felixkiss/uniquewith-validator": "^3.4",
@@ -21,8 +22,8 @@
         "livewire/livewire": "^2.3",
         "maatwebsite/excel": "^3.1",
         "mediconesystems/livewire-datatables": "^0.4.3",
-        "spatie/laravel-permission": "^4.0",
-        "ext-gettext": "*"
+        "rap2hpoutre/laravel-log-viewer": "^1.7",
+        "spatie/laravel-permission": "^4.0"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

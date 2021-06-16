@@ -6,6 +6,7 @@ use App\Department;
 use App\Program;
 use App\Traits\ClearErrorsLivewireComponent;
 use App\Traits\FlashMessageLivewaire;
+use App\Traits\LogsTrail;
 use Illuminate\Database\QueryException;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -18,17 +19,18 @@ use Livewire\WithPagination;
 class ProgramComponent extends Component
 {
 
-    use WithPagination, ClearErrorsLivewireComponent, FlashMessageLivewaire;
+    use WithPagination, ClearErrorsLivewireComponent, FlashMessageLivewaire, LogsTrail;
 
     public $view = 'create';
 
-    public $program_id, $name, $code, $department_id, $state, $faculty, $process;
+    public $program_id, $name, $code, $department_id, $state, $faculty;
 
     protected $listeners = ['edit', 'showAlert'];
 
     public function render()
     {
-        return view('livewire.program.program-component', [
+       $this->setLog('info', __('modules.enter'), 'render', __('modules.program.title'));
+       return view('livewire.program.program-component', [
             'departments'   => Department::where('state', 1)->get()
         ]);
     }
@@ -58,9 +60,15 @@ class ProgramComponent extends Component
            $this->cancel();
            $this->refreshTable();
            $this->showAlert('alert-success', __('messages.success.create'));
+           $this->setLog('info', __('messages.success.create'), 'store', __('modules.program.title'), [
+               'create' => $program
+           ]);
         } catch (QueryException $queryException) {
-           $this->process    = false;
-           $this->showAlert('alert-error', __('messages.error.create'));
+           $this->showAlert('alert-error', __('messages.errors.create'));
+           $this->setLog('info', __('messages.errors.create'), 'store', __('modules.program.title'), [
+               'exception' => $queryException->getMessage()
+           ]);
+
         }
     }
 

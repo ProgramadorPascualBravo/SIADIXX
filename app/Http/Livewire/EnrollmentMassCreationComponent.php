@@ -30,6 +30,7 @@ class EnrollmentMassCreationComponent extends Component
 
    public function render()
    {
+      $this->setLog('info', __('modules.enter'), 'render', __('modules.enrollment.massive'));
       return view('livewire.enrollment.mass-creation-component');
    }
 

@@ -9,7 +9,9 @@
     <link rel="stylesheet" href="{{ asset('css/foundation-icons/foundation-icons.css') }}">
     <!--<link href="{{ asset('css/app.scss') }}" rel="stylesheet">-->
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
+    @stack('custom-css')
     @livewireStyles
+
 </head>
 <body>
 <header>

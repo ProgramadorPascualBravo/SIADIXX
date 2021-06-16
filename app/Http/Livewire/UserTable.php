@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Mediconesystems\LivewireDatatables\BooleanColumn;
 use Mediconesystems\LivewireDatatables\Column;
@@ -90,11 +91,21 @@ class UserTable extends LivewireDatatable
          $user->password   = Hash::make($user->document);
          if ($user->save()) {
             $this->emit('showAlert', 'alert-success', __('messages.success.update'));
+            $this->setLog('info', __('messages.success.update'), 'update', __('modules.user.title'), [
+               'info' => 'Password reset', 'user' => $user
+            ]);
          } else {
             $this->emit('showAlert', 'alert-error', __('messages.errors.update'));
+            $this->setLog('error', __('messages.errors.update'), 'update', __('modules.user.title'), [
+               'info' => 'Not password reset', 'user' => $user
+            ]);
          }
+
       } catch (QueryException $exception) {
-         $this->emit('showAlert', 'alert-error', __('messages.error.update'));
+         $this->emit('showAlert', 'alert-error', __('messages.errors.update'));
+         $this->setLog('error', __('messages.errors.update'), 'update', __('modules.user.title'), [
+            'info' => 'Not password reset'
+         ]);
       }
    }
 

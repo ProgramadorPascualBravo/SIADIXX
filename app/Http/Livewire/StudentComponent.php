@@ -9,7 +9,11 @@ use App\Interfaces\ModuleComponent;
 use App\Student;
 use App\Traits\ClearErrorsLivewireComponent;
 use App\Traits\FlashMessageLivewaire;
+use App\Traits\LogsTrail;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -20,7 +24,7 @@ use Livewire\WithPagination;
  */
 class StudentComponent extends Component implements ModuleComponent
 {
-   use WithPagination, ClearErrorsLivewireComponent, FlashMessageLivewaire;
+   use WithPagination, ClearErrorsLivewireComponent, FlashMessageLivewaire, LogsTrail;
 
    public $view = 'create';
 
@@ -30,6 +34,7 @@ class StudentComponent extends Component implements ModuleComponent
 
    public function render()
    {
+      $this->setLog('info', __('modules.enter'), 'render', __('modules.moodle.title'));
       return view('livewire.student.student-component', [
          'departments'   => Department::all()
       ]);
@@ -45,7 +50,6 @@ class StudentComponent extends Component implements ModuleComponent
          'state'         => 'required',
       ]);
       try {
-         $this->process    = true;
          $student = new Student();
 
          $student->create([
@@ -58,12 +62,16 @@ class StudentComponent extends Component implements ModuleComponent
 
          ]);
          $this->cancel();
-         $this->process    = false;
          $this->refreshTable();
          $this->showAlert('alert-success', __('messages.success.create'));
+         $this->setLog('info', __('messages.success.create'), 'store', __('modules.moodle.title'), [
+            'create' => $student
+         ]);
       } catch (QueryException $queryException) {
-         $this->process    = false;
-         $this->showAlert('alert-error', __('messages.error.create'));
+         $this->showAlert('alert-error', __('messages.errors.create'));
+         $this->setLog('error', __('messages.errors.create'), 'store', __('modules.moodle.title'), [
+            'exception' => $queryException->getMessage()
+         ]);
       }
 
    }
@@ -104,10 +112,14 @@ class StudentComponent extends Component implements ModuleComponent
          $this->cancel();
          $this->refreshTable();
          $this->showAlert('alert-success', __('messages.success.update'));
+         $this->setLog('info', __('messages.success.update'), 'update', __('modules.moodle.title'), [
+            'update' => $student
+         ]);
       } catch (QueryException $queryException) {
          $this->showAlert('alert-error', __('messages.errors.update'));
-         //$this->showAlert('alert-error', $queryException->getMessage());
-      }
+         $this->setLog('error', __('messages.errors.update'), 'update', __('modules.moodle.title'), [
+            'exception' => $queryException->getMessage()
+         ]);      }
 
    }
 

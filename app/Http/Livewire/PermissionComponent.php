@@ -28,6 +28,7 @@ class PermissionComponent extends Component
 
    public function render()
    {;
+      $this->setLog('info', __('modules.enter'), 'render', __('modules.permission.title'));
       return view('livewire.permission-role.permission-component', [
          'roles' => Role::all(),
          'permissions' => Permission::all()
@@ -40,13 +41,19 @@ class PermissionComponent extends Component
          'name' => 'required'
       ]);
       try {
-         Permission::create([
+         $permission = Permission::create([
             'name' => $this->name
          ]);
          $this->refreshTable();
          $this->showAlert('alert-success', __('messages.success.create'));
+         $this->setLog('info', __('messages.success.create'), 'store', __('modules.permission.title'), [
+             'create' => $permission
+         ]);
       } catch (QueryException $exception) {
          $this->showAlert('alert-success', __('messages.errors.create'));
+         $this->setLog('error', __('messages.errors.create'), 'store', __('modules.permission.title'), [
+             'exception' => $exception->getMessage()
+         ]);
       }
    }
    public function update()
@@ -64,8 +71,15 @@ class PermissionComponent extends Component
          $this->refreshTable();
          $this->cancel();
          $this->showAlert('alert-success', __('messages.success.update'));
+         $this->setLog('info', __('messages.success.update'), 'update', __('modules.permission.title'), [
+            'update' => $permission
+         ]);
       } catch (QueryException $queryException) {
          $this->showAlert('alert-error', __('messages.errors.update'));
+         $this->setLog('error', __('messages.errors.update'), 'update', __('modules.permission.title'), [
+             'exception' => $queryException->getMessage()
+         ]);
+
       }
    }
 
@@ -80,8 +94,14 @@ class PermissionComponent extends Component
          $rol  = Role::find($this->rol_id);
          $rol->syncPermissions($permissions);
          $this->showAlert('alert-success', __('messages.success.update'));
+         $this->setLog('info', __('messages.success.update'), 'assign', __('modules.permission.title'), [
+            'update' => $rol
+         ]);
       } catch (Exception $exception) {
          $this->showAlert('alert-success', __('messages.errors.update'));
+         $this->setLog('error', __('messages.errors.update'), 'assign', __('modules.permission.title'), [
+             'exception' => $exception->getMessage()
+         ]);
       }
 
    }

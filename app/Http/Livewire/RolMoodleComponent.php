@@ -8,6 +8,7 @@ use App\Interfaces\ModuleComponent;
 use App\RolMoodle;
 use App\Traits\ClearErrorsLivewireComponent;
 use App\Traits\FlashMessageLivewaire;
+use App\Traits\LogsTrail;
 use Illuminate\Database\QueryException;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -19,16 +20,17 @@ use Livewire\WithPagination;
  */
 class RolMoodleComponent extends Component implements ModuleComponent
 {
-   use ClearErrorsLivewireComponent, WithPagination, FlashMessageLivewaire;
+   use ClearErrorsLivewireComponent, WithPagination, FlashMessageLivewaire, LogsTrail;
 
    public $view = 'create';
 
-   public $id_rol_moodle, $name, $state, $process;
+   public $id_rol_moodle, $name, $state;
 
    protected $listeners = ['edit', 'showAlert'];
 
    public function render()
    {
+      $this->setLog('info', __('modules.enter'), 'render', __('modules.role-moodle.title'));
       return view('livewire.rol_moodle.rol-moodle-component');
    }
 
@@ -41,7 +43,6 @@ class RolMoodleComponent extends Component implements ModuleComponent
 
       try {
 
-         $this->process = true;
 
          $rolMoodle = new RolMoodle();
 
@@ -50,12 +51,16 @@ class RolMoodleComponent extends Component implements ModuleComponent
             'state'  => $this->state
          ]);
          $this->cancel();
-         $this->process    = false;
          $this->refreshTable();
          $this->showAlert('alert-success', __('messages.success.create'));
+         $this->setLog('info', __('messages.success.create'), 'store', __('modules.role-moodle.title'), [
+             'create' => $rolMoodle
+         ]);
       }catch (QueryException $queryException) {
-         $this->process    = false;
          $this->showAlert('alert-error', __('messages.errors.create'));
+         $this->setLog('error', __('messages.errors.create'), 'store', __('modules.role-moodle.title'), [
+            'exception' => $queryException->getMessage()
+         ]);
       }
 
    }
@@ -84,12 +89,16 @@ class RolMoodleComponent extends Component implements ModuleComponent
             'state'       => trim($this->state)
          ]);
          $this->cancel();
-         $this->process    = false;
          $this->refreshTable();
          $this->showAlert('alert-success', __('messages.success.update'));
+         $this->setLog('info', __('messages.success.update'), 'update', __('modules.role-moodle.title'), [
+             'update' => $rolMoodle
+         ]);
       } catch (QueryException $queryException) {
-         $this->process    = false;
          $this->showAlert('alert-error', __('messages.errors.update'));
+         $this->setLog('info', __('messages.errors.update'), 'update', __('modules.role-moodle.title'), [
+             'exception' => $queryException->getMessage()
+         ]);
       }
    }
 

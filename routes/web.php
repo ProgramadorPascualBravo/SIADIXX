@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
 Route::get('/email/verify/{code}', [PageController::class, 'verify'])->name('verification.verify');
 Route::view('/email/notice', 'email_verified.notice')->name('verification.notice');

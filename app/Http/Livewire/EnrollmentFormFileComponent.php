@@ -50,12 +50,20 @@ class EnrollmentFormFileComponent extends Component
          $import->import($this->file);
          $this->emit('setQuantity', $import->count);
          if ($import->failures()->count() > 0) {
+            $this->setLog('info', 'processing', 'analyze', __('modules.enrollment.massive'), [
+               'quantity' => $import->count, 'file' => $this->file
+            ]);
             return Excel::download(new FailuresExport($import->failures(),
                $this->type == 1 ? 'exports.export-enrollment' : 'exports.export-enrollment-extends'),
                'Errores_Matriculas.xlsx');
          }
+         $this->setLog('info', 'processing', 'analyze', __('modules.enrollment.massive'), [
+            'quantity' => $import->count, 'file' => $this->file
+         ]);
       } catch (FileException | QueryException | \Exception $exception) {
-         dd($exception->getMessage());
+         $this->setLog('error', 'processing', 'analyze', __('modules.enrollment.massive'), [
+            'exception' => $exception->getMessage()
+         ]);
       }
    }
 
