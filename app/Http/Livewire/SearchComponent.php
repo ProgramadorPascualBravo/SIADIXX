@@ -4,6 +4,7 @@
 namespace App\Http\Livewire;
 
 
+use App\Traits\LogsTrail;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -15,7 +16,7 @@ use Livewire\WithPagination;
  */
 class SearchComponent extends Component
 {
-   use WithPagination;
+   use WithPagination, LogsTrail;
 
    public $view = '';
 

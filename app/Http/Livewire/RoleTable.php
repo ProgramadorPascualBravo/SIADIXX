@@ -26,6 +26,8 @@ class RoleTable extends LivewireDatatable
 
    protected $listeners = ['refreshLivewireDatatable', 'refreshTableCustom'];
 
+   public $afterTableSlot = 'livewire.permission-role.select';
+
    public function builder()
    {
       if (!is_null($this->user_id) and !empty($this->user_id)) {
