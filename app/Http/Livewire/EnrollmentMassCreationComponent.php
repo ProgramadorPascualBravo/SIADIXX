@@ -9,6 +9,7 @@ use App\Imports\EnrollmentImport;
 use App\Traits\ClearErrorsLivewireComponent;
 use App\Traits\DownloadDocument;
 use App\Traits\FlashMessageLivewaire;
+use App\Traits\LogsTrail;
 use Illuminate\Database\QueryException;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -22,7 +23,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
  */
 class EnrollmentMassCreationComponent extends Component
 {
-   use FlashMessageLivewaire, WithFileUploads, DownloadDocument, ClearErrorsLivewireComponent;
+   use FlashMessageLivewaire, WithFileUploads, DownloadDocument, ClearErrorsLivewireComponent, LogsTrail;
 
    public $quantity = null;
 

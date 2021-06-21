@@ -6,6 +6,7 @@ namespace App\Http\Livewire;
 
 use App\Department;
 use App\Program;
+use App\Traits\LogsTrail;
 use App\Traits\SetParamsTable;
 use Mediconesystems\LivewireDatatables\BooleanColumn;
 use Mediconesystems\LivewireDatatables\Column;
@@ -20,7 +21,7 @@ use Mediconesystems\LivewireDatatables\NumberColumn;
  */
 class ProgramSearchTable extends LivewireDatatable
 {
-   use SetParamsTable;
+   use SetParamsTable, LogsTrail;
 
    public $model        = Program::class;
 

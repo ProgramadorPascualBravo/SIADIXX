@@ -79,6 +79,7 @@ class ProgramComponent extends Component
         $this->department_id    = $program->department_id;
         $this->faculty          = $program->faculty;
         $this->name             = $program->name;
+        $this->code             = $program->code;
         $this->state            = $program->state;
         $this->view             = 'edit';
     }
@@ -88,7 +89,7 @@ class ProgramComponent extends Component
         $this->validate([
             'name'              => 'required',
             'code'              => 'required|numeric',
-           'department_id'     => 'required|exists:departments,id',
+            'department_id'     => 'required|exists:departments,id',
             'faculty'           => 'required',
             'state'             => 'required'
         ]);
@@ -119,6 +120,7 @@ class ProgramComponent extends Component
         $this->state            = '';
         $this->faculty          = '';
         $this->department_id    = '';
+        $this->code    = '';
         $this->view             = 'create';
         $this->hydrate();
     }

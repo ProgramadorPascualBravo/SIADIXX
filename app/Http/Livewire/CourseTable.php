@@ -42,7 +42,7 @@ class CourseTable extends LivewireDatatable
          BooleanColumn::name('state')->label(Str::title(__('modules.input.state')))->filterable(),
          Column::name('program.name')->filterable(
             $this->programs->pluck('name')
-         )->label('Programa'),
+         )->label(__('modules.program.name'))->searchable(),
          NumberColumn::name('groups.id:count')->label('# Grupos')->filterable()->alignCenter(),
          DateColumn::name('created_at')->label(Str::title(__('modules.table.created')))->filterable()->hide(),
          Column::callback(['id'], function ($id){
