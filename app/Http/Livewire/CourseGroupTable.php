@@ -35,7 +35,7 @@ class CourseGroupTable extends LivewireDatatable
    public function columns() : array
    {
       $columns = [
-         Column::name('name')->label(__('modules.input.name'))->searchable()->filterable(),
+         Column::name('name')->label(__('modules.group.name'))->searchable()->filterable(),
          Column::name('code')->label(__('modules.input.code'))->searchable()->filterable(),
          BooleanColumn::name('state')->filterable()->label(__('modules.input.state')),
          DateColumn::name('created_at')->filterable()->label(__('modules.table.created')),

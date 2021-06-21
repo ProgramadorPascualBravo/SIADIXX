@@ -23,7 +23,6 @@ class AccessModuleComponent extends Component
      */
     public function __construct($permission)
     {
-
        $this->route = str_replace('_', '-', str_replace('_read', '-index', $permission));
        //$this->module = Str::title('modulo de '.);
        $name = explode('_', $permission);

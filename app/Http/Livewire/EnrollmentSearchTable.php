@@ -8,6 +8,7 @@ use App\Enrollment;
 use App\Group;
 use App\RolMoodle;
 use App\StateEnrollment;
+use App\Traits\LogsTrail;
 use App\Traits\SetParamsTable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -23,7 +24,7 @@ use Mediconesystems\LivewireDatatables\NumberColumn;
  */
 class EnrollmentSearchTable extends LivewireDatatable
 {
-   use SetParamsTable;
+   use SetParamsTable, LogsTrail;
 
    public $model       = Enrollment::class;
 

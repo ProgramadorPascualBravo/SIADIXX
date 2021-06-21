@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
 Route::get('/email/verify/{code}', [PageController::class, 'verify'])->name('verification.verify');
 Route::view('/email/notice', 'email_verified.notice')->name('verification.notice');
@@ -29,8 +28,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('', function (){
            return view('dashboard');
         })->name('dashboard');
-
-        Route::view('/user', 'user.index')->name('user-index')
+       Route::get('/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->name('log-index');
+       Route::view('/user', 'user.index')->name('user-index')
            ->middleware('permission:user_read');
 
         Route::get('/user/{id}/details', function ($id){

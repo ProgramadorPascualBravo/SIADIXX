@@ -5,7 +5,6 @@ namespace App\Http\Livewire;
 use App\Course;
 use App\Enrollment;
 use App\Group;
-use App\StateEnrollment;
 use App\Traits\DeleteMassive;
 use App\Traits\LogsTrail;
 use Illuminate\Database\QueryException;
@@ -24,7 +23,7 @@ use Mediconesystems\LivewireDatatables\NumberColumn;
  */
 class GroupTable extends LivewireDatatable
 {
-    use DeleteMassive, LogsTrail;
+    use DeleteMassive;
 
     public $model       = Group::class;
     public $hideable    = 'select';

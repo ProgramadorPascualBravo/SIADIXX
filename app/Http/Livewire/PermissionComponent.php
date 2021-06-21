@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Traits\ClearErrorsLivewireComponent;
 use App\Traits\FlashMessageLivewaire;
+use App\Traits\LogsTrail;
 use Illuminate\Database\QueryException;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -18,7 +19,7 @@ use Spatie\Permission\Models\Role;
  */
 class PermissionComponent extends Component
 {
-   use WithPagination, FlashMessageLivewaire, ClearErrorsLivewireComponent;
+   use WithPagination, FlashMessageLivewaire, ClearErrorsLivewireComponent, LogsTrail;
 
    public $view = 'create';
 

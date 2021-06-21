@@ -5,9 +5,8 @@ namespace App\Http\Livewire;
 
 
 use App\Course;
-use App\Program;
+use App\Traits\LogsTrail;
 use App\Traits\SetParamsTable;
-use Illuminate\Support\Facades\Auth;
 use Mediconesystems\LivewireDatatables\BooleanColumn;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\DateColumn;
@@ -19,9 +18,10 @@ use Mediconesystems\LivewireDatatables\NumberColumn;
  * Class CourseSearchTable
  * @package App\Http\Livewire
  */
+
 class CourseSearchTable extends LivewireDatatable
 {
-   use SetParamsTable;
+   use SetParamsTable, LogsTrail;
 
    public $model           = Course::class;
 

@@ -16,7 +16,7 @@
                 @foreach(Auth::user()->getAllPermissions()->filter(function ($item) {
                       return false !== stripos($item, 'read');
                    }) as $permission)
-                    @if($permission->name == 'report_read')
+                    @if($permission->name == 'report_read' or $permission->name == 'logs_read')
                         @continue;
                     @endif
                     <x-access-module-component :permission="$permission->name" />
