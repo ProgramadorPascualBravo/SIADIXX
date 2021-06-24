@@ -23,7 +23,7 @@ class ProgramComponent extends Component
 
     public $view = 'create';
 
-    public $program_id, $name, $code, $department_id, $state, $faculty;
+    public $program_id, $name, $code, $department_id, $faculty;
 
     protected $listeners = ['edit', 'showAlert'];
 
@@ -95,7 +95,6 @@ class ProgramComponent extends Component
         ]);
 
         try {
-           $this->process      = true;
            $program = Program::findOrFail($this->program_id);
            $program->update([
               'name'           => trim($this->name),
@@ -105,7 +104,6 @@ class ProgramComponent extends Component
               'state'          => $this->state,
            ]);
            $this->cancel();
-           $this->process    = false;
            $this->refreshTable();
            $this->showAlert('alert-success', __('messages.success.update'));
         } catch (QueryException $queryException) {

@@ -84,7 +84,7 @@ class GroupTable extends LivewireDatatable
 
    public function getCoursesProperty()
    {
-      return Course::all('name');
+      return Course::select('name')->where('state', 1)->get();
    }
 
    public function edit($id)

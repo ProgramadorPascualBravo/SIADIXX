@@ -11,6 +11,11 @@ Breadcrumbs::for('dashboard',  function (BreadcrumbTrail  $trail) {
    $trail->push('Inicio', route('dashboard'));
 });
 
+Breadcrumbs::for('logs',  function (BreadcrumbTrail  $trail) {
+   $trail->parent('dashboard');
+   $trail->push('Logs SIADI', route('log-index'));
+});
+
 Breadcrumbs::for('users', function (BreadcrumbTrail  $trail){
    $trail->parent('dashboard');
    $trail->push('Usuarios SIADI', route('user-index'));

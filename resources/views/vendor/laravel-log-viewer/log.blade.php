@@ -63,6 +63,7 @@
     </style>
 @endpush
 @section('content')
+    {{ Breadcrumbs::render('logs') }}
     <div class="container-fluid m-4">
         <div class="row">
             <div class="col sidebar mb-3">

@@ -71,7 +71,7 @@ class EnrollmentExtendImport implements ToModel, WithHeadingRow, WithValidation,
         }
         $this->count['mistakes']++;
         $array = $this->values;
-        $array['errors'] = [[$e->errorInfo[2]]];
+        $array['errors'] = [['Usuario matrículado en el curso.']];
         $this->failures->add($array);
     }
 

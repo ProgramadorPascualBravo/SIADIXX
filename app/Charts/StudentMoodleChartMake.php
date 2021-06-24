@@ -14,14 +14,14 @@ use Carbon\Carbon;
 class StudentMoodleChartMake extends BaseChartMake
 {
 
-   protected $model          = Student::class;
+   protected $model = Student::class;
 
 
    /**
-     * Initializes the chart.
-     *
-     * @return void
-     */
+    * Initializes the chart.
+    *
+    * @return void
+    */
 
    public function __construct()
    {
@@ -39,8 +39,4 @@ class StudentMoodleChartMake extends BaseChartMake
       return $this->getForState($state);
    }
 
-   public function getEnrollmentMonthCurrent()
-   {
-      return $this->getMonthCurrent();
-   }
 }

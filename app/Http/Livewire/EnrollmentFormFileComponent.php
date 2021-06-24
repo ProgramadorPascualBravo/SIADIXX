@@ -10,6 +10,7 @@ use App\Imports\EnrollmentImport;
 use App\Imports\StudentsImport;
 use App\Traits\ClearErrorsLivewireComponent;
 use App\Traits\DownloadDocument;
+use App\Traits\LogsTrail;
 use Illuminate\Database\QueryException;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -23,7 +24,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
  */
 class EnrollmentFormFileComponent extends Component
 {
-   use WithFileUploads, DownloadDocument, ClearErrorsLivewireComponent;
+   use WithFileUploads, DownloadDocument, ClearErrorsLivewireComponent, LogsTrail;
 
    public $file, $type = 1;
 

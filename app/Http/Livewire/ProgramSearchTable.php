@@ -35,13 +35,15 @@ class ProgramSearchTable extends LivewireDatatable
    {
       return $this->model::query()
          ->where('name', 'like', "%$this->params%")
-         ->orWhere('faculty', 'like', "%$this->params%");
+         ->orWhere('faculty', 'like', "%$this->params%")
+         ->orWhere('code', 'like', "%$this->params%");
    }
 
    public function columns() : array
    {
       $columns = [
          Column::name('name')->label(__('modules.program.name'))->filterable()->searchable(),
+         Column::name('code')->label(__('modules.input.code'))->filterable()->searchable(),
          Column::name('faculty')->label(__('modules.input.faculty'))->filterable()->searchable(),
          BooleanColumn::name('state')->label(__('modules.input.state'))->filterable(),
          NumberColumn::name('courses.id:count')->label('# de Asignaturas')->filterable()->alignCenter(),
