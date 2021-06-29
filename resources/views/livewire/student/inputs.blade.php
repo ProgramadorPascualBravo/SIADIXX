@@ -1,6 +1,6 @@
 <div class="grid grid-cols-1 gap-2">
     <div class="block">
-        <span class="text-gray-700 capitalize">{{ __('modules.input.names') }}</span>
+        <span >{{ __('modules.input.names') }}</span>
         <input type="text"
                class="@error('name') is-invalid-input @enderror input-underline" name="name" id="name" wire:model.defer="name" autocomplete="off">
         @error('name')
@@ -8,7 +8,7 @@
         @enderror
     </div>
     <div class="block">
-        <span class="text-gray-700 capitalize">{{ __('modules.input.last_name') }}</span>
+        <span >{{ __('modules.input.last_name') }}</span>
         <input type="text"
                class="@error('last_name') is-invalid-input @enderror input-underline" name="last_name" id="last_name" wire:model.defer="last_name" autocomplete="off">
         @error('last_name')
@@ -16,7 +16,7 @@
         @enderror
     </div>
     <div class="block">
-        <span class="text-gray-700 capitalize">{{ __('modules.input.email') }}</span>
+        <span >{{ __('modules.input.email') }}</span>
         <input type="text"
                class="@error('email') is-invalid-input @enderror input-underline" name="email" id="email" wire:model.defer="email" autocomplete="off" {{ $enrollment > 0 ? 'readonly' : '' }}>
         @error('username')
@@ -24,7 +24,7 @@
         @enderror
     </div>
     <div class="block">
-        <span class="text-gray-700 capitalize">{{ __('modules.input.document') }}</span>
+        <span >{{ __('modules.input.document') }}</span>
         <input type="number"
                class="@error('document') is-invalid-input @enderror input-underline" name="document" id="document" wire:model.defer="document" autocomplete="off">
         @error('document')
@@ -44,7 +44,7 @@
         @enderror
     </div> --}}
     <label class="block">
-        <span class="text-gray-700 capitalize">{{ __('modules.input.state') }}</span>
+        <span >{{ __('modules.input.state') }}</span>
         <select class="@error('state') is-invalid-input @enderror input-underline" name="state" id="state" wire:model.defer="state">
             <option value="">Seleccione una opción</option>
             <option value="1">Activo</option>

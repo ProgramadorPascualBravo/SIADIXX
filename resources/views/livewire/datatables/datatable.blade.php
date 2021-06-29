@@ -15,7 +15,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
                         </div>
-                        <input wire:model.debounce.500ms="search" class="form-input block bg-gray-50 focus:bg-white w-full rounded-md pl-10 transition ease-in-out duration-150 sm:text-sm sm:leading-5" placeholder="Buscar en {{ $this->searchableColumns()->map->label->join(', ') }}" />
+                        <input wire:model.debounce.500ms="search" class="form-input block bg-gray-100 focus:bg-white w-full pl-10 py-2 pr-10 my-3 transition ease-in-out duration-150 sm:text-sm sm:leading-5" placeholder="Buscar en {{ $this->searchableColumns()->map->label->join(', ') }}" />
                         <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
                             <button wire:click="$set('search', null)" class="text-gray-300 hover:text-red-600 focus:outline-none">
                                 <x-icons.x-circle class="h-5 w-5 stroke-current" />
@@ -32,9 +32,13 @@
                 @if($exportable)
                 <div x-data="{ init() {
                     window.livewire.on('startDownload', link => window.open(link,'_blank'))
-                } }" x-init="init">
-                    <button wire:click="export" class="flex items-center space-x-2 px-3 border border-green-400 rounded-md bg-white text-green-500 text-xs leading-4 font-medium uppercase tracking-wider hover:bg-green-200 focus:outline-none"><span>Exportar</span>
-                        <x-icons.excel class="m-2" /></button>
+                } }" x-init="init" class="border border-gray-300 w-max pl-2 hover:bg-siadi-green-100 rounded-lg mb-2 cursor-pointer">
+                    <button wire:click="export" class="py-2 inline-block rounded-l-lg font-weight-light text-xs uppercase">
+                        <span>Exportar</span>
+                    </button>
+                    <div class="bg-siadi-green-100 text-black inline-block p-2 rounded-r-lg">
+                        <x-icons.excel />
+                    </div>
                 </div>
                 @endif
 
@@ -64,8 +68,8 @@
                             @if($hideable === 'inline')
                                 @include('datatables::header-inline-hide', ['column' => $column, 'sort' => $sort])
                             @elseif($column['type'] === 'checkbox')
-                            <div class="relative table-cell h-12 w-48 overflow-hidden align-top px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider flex items-center focus:outline-none">
-                                <div class="px-3 py-1 rounded @if(count($selected)) bg-gray-800 @else bg-gray-200 @endif text-white text-center">
+                            <div class="relative table-cell h-12 w-48 overflow-hidden align-top px-6 py-3 border-b border-gray-200 bg-gradient-to-t from-gray-200 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider flex items-center focus:outline-none">
+                                <div class="px-3 py-1 rounded @if(count($selected)) bg-siadi-blue-300 @else bg-siadi-blue-300 @endif text-white text-center">
                                     {{ count($selected) }}
                                 </div>
                             </div>
@@ -75,14 +79,14 @@
                         @endforeach
                     </div>
 
-                    <div class="table-row divide-x divide-blue-200 bg-blue-100">
+                    <div class="table-row divide-x divide-blue-200 bg-siadi-blue-100">
                         @foreach($this->columns as $index => $column)
                             @if($column['hidden'])
                                 @if($hideable === 'inline')
-                                    <div class="table-cell w-5 overflow-hidden align-top bg-blue-100"></div>
+                                    <div class="table-cell w-5 overflow-hidden align-top bg-siadi-blue-100"></div>
                                 @endif
                             @elseif($column['type'] === 'checkbox')
-                                <div class="overflow-hidden align-top bg-blue-100 py-5 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider flex h-full flex-col items-center space-y-2 focus:outline-none">
+                                <div class="overflow-hidden align-top bg-blue-100 py-5 border-b border-gray-200 bg-siadi-blue-100 text-left text-xs leading-4 font-medium text-siadi-blue-700 uppercase tracking-wider flex h-full flex-col items-center space-y-2 focus:outline-none">
                                     <div class="text-center">Seleccionar Todo</div>
                                     <div>
                                         <input type="checkbox" wire:click="toggleSelectAll" @if(count($selected) === $this->results->total()) checked @endif class="form-checkbox mt-1 h-4 w-4 text-blue-600 transition duration-150 ease-in-out" />
@@ -116,7 +120,7 @@
                                 @elseif($column['type'] === 'checkbox')
                                     @include('datatables::checkbox', ['value' => $result->checkbox_attribute])
                                 @else
-                                    <div class="px-6 py-2 whitespace-no-wrap text-sm leading-5 text-gray-900 table-cell @if($column['align'] === 'right') text-right @elseif($column['align'] === 'center') text-center @else text-left @endif">
+                                    <div class="px-6 py-2 whitespace-no-wrap text-sm leading-5 text-siadi-blue-700 table-cell @if($column['align'] === 'right') text-right @elseif($column['align'] === 'center') text-center @else text-left @endif">
                                         {!! $result->{$column['name']} !!}
                                     </div>
                                 @endif
@@ -124,7 +128,7 @@
                         </div>
                     @empty
                         <p class="p-3 text-lg text-teal-600">
-                           There's Nothing to show at the moment
+                            No hay nada que mostrar en este momento
                         </p>
                     @endforelse
                 </div>
@@ -140,7 +144,7 @@
                                 <option value="25">25</option>
                                 <option value="50">50</option>
                                 <option value="100">100</option>
-                                <option value="99999999">All</option>
+                                <option value="99999999">Todo</option>
                             </select>
                         </div>
 
@@ -154,7 +158,7 @@
                             </div>
                         </div>
 
-                        <div class="flex justify-end text-gray-600">
+                        <div class="flex justify-end text-siadi-blue-700">
                             Resultados {{ $this->results->firstItem() }} - {{ $this->results->lastItem() }} of
                             {{ $this->results->total() }}
                         </div>

@@ -8,7 +8,7 @@ return [
          'pname'     => 'usuarios',
          'create'    => 'nuevo usuario',
          'edit'      => 'editar usuario',
-         'detail'    => 'perfil de usuario',
+         'detail'    => 'Perfil de usuario',
          'password_current'   => 'contraseña actual',
          'password_new'       => 'nueva contraseña',
          'password_confirm'   => 'confirmar contraseña'

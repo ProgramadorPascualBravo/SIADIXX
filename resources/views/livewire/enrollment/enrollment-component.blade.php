@@ -11,7 +11,7 @@
                 <livewire:enrollment-table />
             </div>
             @can('enrollment_write')
-                <div class="col-span-1">
+                <div class="col-span-1 content-form">
                     @include("livewire.enrollment.$view")
                 </div>
             @endcan

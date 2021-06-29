@@ -1,5 +1,5 @@
 <div class="text-right my-4 flex flex-row-reverse">
-    <button class="btn btn-blue mr-0" wire:click="update">
+    <button class="btn btn-blue-light mr-0" wire:click="update">
         {{ __('modules.update') }}
     </button>
     <button class="btn btn-red" wire:click="cancel">

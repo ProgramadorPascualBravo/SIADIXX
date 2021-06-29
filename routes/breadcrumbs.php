@@ -125,6 +125,11 @@ Breadcrumbs::for('enrollment', function (BreadcrumbTrail  $trail){
    $trail->push('Matrículas', route('enrollment-index'));
 });
 
+Breadcrumbs::for('enrollment-mass-creation', function (BreadcrumbTrail $trail){
+   $trail->parent('enrollment');
+   $trail->push('Creación masiva', route('enrollment-mass-creation'));
+});
+
 Breadcrumbs::for('enrollment-report', function (BreadcrumbTrail $trail) {
    $trail->parent('enrollment');
    $trail->push("Estadísticas", route('enrollment-report'));

@@ -5,7 +5,7 @@
 </a>--}}
 <div x-data="{ open: {{ isset($open) && $open ? 'true' : 'false' }}, working: false }" x-cloak wire:key="{{ $value }}">
     <span x-on:click="open = true">
-        <button class="text-red-700">
+        <button class="text-siadi-red block cursor-pointer transform hover:scale-125">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
             </svg>
@@ -39,21 +39,21 @@
             </div>
             <div class="w-full">
                 <div class="mt-3 text-center">
-                    <h3 class="text-lg leading-6 font-medium text-gray-900">
+                    <h3 class="text-lg leading-6 font-medium text-siadi-blue-900">
                         Eliminar registro
                     </h3>
                     <div class="mt-2">
-                        <div class="mt-10 text-gray-700">
+                        <div class="mt-10 text-siadi-blue-700">
                             ¿Estas seguro?
                         </div>
                         <div class="mt-10 flex justify-center">
                             <span class="mr-2">
-                                <button x-on:click="open = false" x-bind:disabled="working" class="w-32 rounded-md shadow-sm inline-flex justify-center items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:border-gray-700 focus:shadow-outline-teal active:bg-gray-700 transition ease-in-out duration-150">
+                                <button x-on:click="open = false" x-bind:disabled="working" class="w-32 rounded-md shadow-sm inline-flex justify-center items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-siadi-red focus:outline-none focus:border-gray-700 focus:shadow-outline-teal active:bg-gray-700 transition ease-in-out duration-150">
                                     No
                                 </button>
                             </span>
                             <span x-on:click="working = !working">
-                                <button wire:click="deleted('{{ $relation }}', {{ $value }})" class="w-32 rounded-md shadow-sm inline-flex justify-center items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:border-red-700 focus:shadow-outline-teal active:bg-blue-700 transition ease-in-out duration-150">
+                                <button wire:click="deleted('{{ $relation }}', {{ $value }})" class="w-32 rounded-md shadow-sm inline-flex justify-center items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-siadi-blue-300 focus:outline-none focus:border-red-700 focus:shadow-outline-teal active:bg-blue-700 transition ease-in-out duration-150">
                                     Sí
                                 </button>
                             </span>

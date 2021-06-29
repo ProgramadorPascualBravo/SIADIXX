@@ -10,7 +10,7 @@
                 <livewire:department-table />
             </div>
             @can('category_write')
-                <div class="col-span-1">
+                <div class="col-span-1 content-form">
                     @include("livewire.department.$view")
                 </div>
             @endcan

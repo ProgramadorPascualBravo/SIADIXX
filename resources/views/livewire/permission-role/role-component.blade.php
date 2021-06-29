@@ -1,10 +1,9 @@
 <div>
     @include("sessions.session-input")
     <div class="grid grid-cols-4 gap-2">
-
         <div class="col-span-2 col-start-2 my-3">
-                <h2 class="text-2xl mb-4 text-center">Selecciona un usuario</h2>
-                <label class="block my-4">
+                <h2 class="font-normal text-2xl mb-4 border-b-2 border-siadi-blue-300 w-max m-auto">Selecciona un usuario</h2>
+                <label class="block w-96 m-auto">
                     <span class="text-gray-700">Usuario</span>
                     <select class="@error('user_id') is-invalid-input @enderror input-underline" name="user_id" id="user_id" wire:model.defer="user_id" wire:change="change">
                         <option value="">Seleccione una opción</option>

@@ -10,7 +10,7 @@
             <livewire:group-table />
         </div>
         @can('group_write')
-        <div class="col-span-1">
+        <div class="col-span-1 content-form">
             @include("livewire.group.$view")
         </div>
         @endcan

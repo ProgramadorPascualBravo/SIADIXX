@@ -5,7 +5,7 @@
             <livewire:user-table />
         </div>
         @can('user_write')
-            <div class="col-span-1">
+            <div class="col-span-1 content-form">
                 @include("livewire.user.$view")
             </div>
         @endcan

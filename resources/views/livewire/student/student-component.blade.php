@@ -10,7 +10,7 @@
             <livewire:student-table />
         </div>
         @can('moodle_write')
-            <div class="col-span-1">
+            <div class="col-span-1 content-form">
                 @include("livewire.student.$view")
             </div>
         @endcan

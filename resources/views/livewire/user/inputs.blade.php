@@ -1,6 +1,6 @@
 <div class="grid grid-cols-1 gap-2">
     <label class="block">
-        <span class="text-gray-700 capitalize">{{ __('modules.input.name') }}</span>
+        <span class=" ">{{ __('modules.input.name') }}</span>
         <input type="text"
                class="@error('name') is-invalid-input @enderror input-underline" name="name" id="name" wire:model.defer="name" autocomplete="off">
         @error('name')
@@ -8,7 +8,7 @@
         @enderror
     </label>
     <label class="block">
-        <span class="text-gray-700 capitalize">{{ __('modules.input.last_name') }}</span>
+        <span class=" ">{{ __('modules.input.last_name') }}</span>
         <input type="text"
                class="@error('last_name') is-invalid-input @enderror input-underline" name="last_name" id="last_name" wire:model.defer="last_name" autocomplete="off">
         @error('last_name')
@@ -16,7 +16,7 @@
         @enderror
     </label>
     <label class="block">
-        <span class="text-gray-700 capitalize">{{ __('modules.input.document') }}</span>
+        <span class=" ">{{ __('modules.input.document') }}</span>
         <input type="number"
                class="@error('document') is-invalid-input @enderror input-underline" name="document" id="document" wire:model.defer="document" autocomplete="off">
         @error('document')
@@ -24,7 +24,7 @@
         @enderror
     </label>
     <label class="block">
-        <span class="text-gray-700 capitalize">{{ __('modules.input.email') }}</span>
+        <span class=" ">{{ __('modules.input.email') }}</span>
         <input type="email"
                class="@error('username') is-invalid-input @enderror input-underline" name="username" id="username" wire:model.defer="username" autocomplete="off">
         @error('username')
@@ -32,7 +32,7 @@
         @enderror
     </label>
     <label class="block">
-        <span class="text-gray-700 capitalize">{{ __('modules.category.name') }}</span>
+        <span class=" ">{{ __('modules.category.name') }}</span>
         <select class="@error('department_id') is-invalid-input @enderror input-underline" name="department_id" id="department_id" wire:model.defer="department_id">
             <option value="">Seleccione una opción</option>
             @foreach($departments as $department)
@@ -44,7 +44,7 @@
         @enderror
     </label>
     <label class="block">
-        <span class="text-gray-700 capitalize">{{ __('modules.input.state') }}</span>
+        <span class=" ">{{ __('modules.input.state') }}</span>
         <select class="@error('state') is-invalid-input @enderror input-underline" name="state" id="state" wire:model.defer="state">
             <option value="">Seleccione una opción</option>
             <option value="1">Activo</option>

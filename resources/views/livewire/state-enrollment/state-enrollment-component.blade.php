@@ -5,7 +5,7 @@
             <livewire:state-enrollment-table />
         </div>
         @can('state_enrollment_write')
-            <div class="col-span-1">
+            <div class="col-span-1 content-form">
                 @include("livewire.state-enrollment.$view")
             </div>
         @endcan

@@ -10,7 +10,7 @@
                 <livewire:program-table />
             </div>
             @can('program_write')
-                <div class="col-span-1">
+                <div class="col-span-1 content-form">
                     @include("livewire.program.$view")
                 </div>
             @endcan

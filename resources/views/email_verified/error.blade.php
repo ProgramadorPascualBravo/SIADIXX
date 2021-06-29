@@ -13,16 +13,17 @@
     <div class="max-w-2xl w-full space-y-8">
         <div class="grid grid-cols-2 p-5 bg-white">
             <div class="col-span-1">
-                <h1 class="font-bold text-2xl">
+                <h1 class="font-medium text-4xl mt-4 mb-1 text-siadi-blue-900">
                     Información
                 </h1>
+                <hr class="border-siadi-blue-700">
             </div>
             <div class="col-span-1 text-right">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-siadi-red" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
             </div>
-            <div class="col-span-2">
+            <div class="col-span-2 text-siadi-blue-900 text-xl">
                 <br>
                 <p>
                     El link no es valido.

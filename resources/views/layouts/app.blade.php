@@ -15,9 +15,9 @@
 </head>
 <body>
 <header>
-    <nav class="flex items-center bg-gray-800 p-4 text-white">
+    <nav class="flex items-center bg-siadi-blue-900 p-4 text-white">
         <div class="flex items-center flex-shrink-0 text-white mr-6">
-            <span class="font-semibold text-xl tracking-tight"><a href="{{ route('dashboard') }}">SIADI</a></span>
+            <span class="font-semibold text-xl tracking-tight"><a href="{{ route('dashboard') }}" class="text-siadi-yellow">SIADI</a></span>
         </div>
         <div class="mr-6 relative" x-data="{ open : false}" >
             <a @click="open = true" class="cursor-pointer">Módulos</a>
@@ -101,7 +101,11 @@
             <a href="{{ route('search-index') }}">Búsquedas</a>
         </div>
         <div class="flex-1 text-right relative" x-data="{ open : false }">
-            <a @click="open = true" class="text-white cursor-pointer bg-gray-300 py-2 px-4 rounded text-gray-800">{{ Auth::user()->name }} {{ Auth::user()->last_name }} <i class="fi-torso"></i></a>
+            <a @click="open = true" class="text-white cursor-pointer py-2 px-4">{{ Auth::user()->name }} {{ Auth::user()->last_name }}
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg></a>
             <ul  x-show="open"
                  x-transition:enter="transition ease-out duration-300"
                  x-transition:enter-start="opacity-0 transform scale-90"

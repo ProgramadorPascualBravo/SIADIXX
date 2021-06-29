@@ -10,7 +10,7 @@
                 <livewire:rol-moodle-table />
             </div>
             @can('role_moodle_write')
-                <div class="col-span-1">
+                <div class="col-span-1 content-form">
                     @include("livewire.rol_moodle.$view")
                 </div>
             @endcan

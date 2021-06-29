@@ -1,7 +1,7 @@
-<div class="px-5">
+<div>
     <div wire:ignore.self >
-        <div class="my-4">
-            <h3 class="text-2xl mb-4 text-center">{{ __('modules.enrollment.edit') }}</h3>
+        <h2>{{ __('modules.enrollment.edit') }}</h2>
+        <div>
             @include('livewire.enrollment.inputs')
             @include('fragments.btn-update')
         </div>

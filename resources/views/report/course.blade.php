@@ -1,9 +1,10 @@
 @extends('layouts.app')
 @section('content')
     {{ Breadcrumbs::render('course-report') }}
-    <div class="grid grid-cols-5 gap-4">
+    <div class="grid grid-cols-5 gap-4 px-4">
         <div class="col-span-5 mb-3">
-            <h1 class="font-bold text-4xl my-4 text-center">{{ __('modules.stats') }}</h1>
+            <h1 class="font-medium text-4xl mt-4 mb-1 text-siadi-blue-900">{{ __('modules.stats') }}</h1>
+            <hr class="border-siadi-blue-700">
         </div>
         <div class="col-span-3 pl-2">
             <h2 class="text-center text-3xl my-4"></h2>

@@ -1,18 +1,20 @@
 @extends('layouts.app')
 @section('content')
     {{ Breadcrumbs::render('dashboard') }}
-    <div class="grid grid-cols-5 gap-4 px-2">
+    <div class="grid grid-cols-5 gap-4 px-4">
         <div class="col-span-5 @cannot('report_read') hidden @endcan">
-            <h2 class="text-center font-bold text-3xl my-4">Estadisticas del mes de {{ \App\View\Components\StatsCurrentMonthComponent::getMonth([date('m')]) }}</h2>
-            <div class="flex flex-wrap justify-center">
+            <h2 class="text-left font-bold text-3xl mt-4 mb-1 text-siadi-blue-900">Estadisticas del mes de {{ \App\View\Components\StatsCurrentMonthComponent::getMonth([date('m')]) }}</h2>
+            <hr class="border-siadi-blue-700">
+            <div class="flex flex-wrap">
                 @foreach(['moodle', 'course', 'enrollment'] as $group)
                     <x-stats-current-month-component :type="$group"/>
                 @endforeach
             </div>
         </div>
         <div class="col-span-5">
-            <h2 class="text-center font-bold text-3xl my-4">Módulos</h2>
-            <div class="flex flex-wrap justify-center">
+            <h2 class="font-bold text-3xl mt-4 mb-1 text-siadi-blue-900">Módulos</h2>
+            <hr class="border-siadi-blue-700">
+            <div class="flex flex-wrap">
                 @foreach(Auth::user()->getAllPermissions()->filter(function ($item) {
                       return false !== stripos($item, 'read');
                    }) as $permission)

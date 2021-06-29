@@ -10,7 +10,7 @@
             <livewire:course-table />
         </div>
         @can('course_write')
-            <div class="col-span-1">
+            <div class="col-span-1 content-form">
                 @include("livewire.course.$view")
             </div>
         @endcan
