@@ -16,6 +16,8 @@ trait DeleteMassive
 {
    use LogsTrail;
 
+   public $destroy;
+
    public function deleteMassive($relation)
    {
       $restrictions = 0;

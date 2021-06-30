@@ -52,7 +52,7 @@
                 @can('group_read')
                     <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('group-index') }}">Grupos</a></li>
                 @endcan
-                @can('role_read')
+                @can('role_moodle_read')
                     <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('role-moodle-index') }}">Roles de Matrícula</a></li>
                 @endcan
                 @can('state_enrollment_read')
@@ -63,24 +63,26 @@
                 @endcan
             </ul>
         </div>
+        @canany(['moodle_massive', 'enrollment_massive'])
         <div class="mr-6 relative" x-data="{ open : false}" >
-            <a @click="open = true" class="cursor-pointer">Carga Masiva</a>
-            <ul x-show="open"
-                x-transition:enter="transition ease-out duration-300"
-                x-transition:enter-start="opacity-0 transform scale-90"
-                x-transition:enter-end="opacity-100 transform scale-100"
-                x-transition:leave="transition ease-in duration-300"
-                x-transition:leave-start="opacity-100 transform scale-100"
-                x-transition:leave-end="opacity-0 transform scale-90" @click.away="open = false" class="absolute bg-gray-800 rounded w-max z-30">
+                <a @click="open = true" class="cursor-pointer">Carga Masiva</a>
+                <ul x-show="open"
+                    x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 transform scale-90"
+                    x-transition:enter-end="opacity-100 transform scale-100"
+                    x-transition:leave="transition ease-in duration-300"
+                    x-transition:leave-start="opacity-100 transform scale-100"
+                    x-transition:leave-end="opacity-0 transform scale-90" @click.away="open = false" class="absolute bg-gray-800 rounded w-max z-30">
 
-                @can('moodle_massive')
-                    <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('moodle-mass-creation') }}">Usuarios plataforma</a></li>
-                @endcan
-                @can('enrollment_massive')
-                    <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('enrollment-mass-creation') }}">Matrículas</a></li>
-                @endcan
-            </ul>
+                    @can('moodle_massive')
+                        <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('moodle-mass-creation') }}">Usuarios plataforma</a></li>
+                    @endcan
+                    @can('enrollment_massive')
+                        <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('enrollment-mass-creation') }}">Matrículas</a></li>
+                    @endcan
+                </ul>
         </div>
+        @endcanany
         @can('report_read')
         <div class="mr-6 relative" x-data="{ open : false}" >
             <a @click="open = true" class="cursor-pointer">Estadisticas</a>
@@ -97,9 +99,11 @@
             </ul>
         </div>
         @endcan
-        <div>
-            <a href="{{ route('search-index') }}">Búsquedas</a>
-        </div>
+        @can('search_read')
+            <div>
+                <a href="{{ route('search-index') }}">Búsquedas</a>
+            </div>
+        @endcan
         <div class="flex-1 text-right relative" x-data="{ open : false }">
             <a @click="open = true" class="text-white cursor-pointer py-2 px-4">{{ Auth::user()->name }} {{ Auth::user()->last_name }}
 

@@ -36,7 +36,7 @@ class EnrollmentImport implements ToModel, WithHeadingRow, SkipsOnFailure, WithV
    {
       return [
          'code'              => 'required|exists:groups,code',
-         'email'             => 'required|exists:students,email',
+         'email'             => 'required|email:rfc|exists:students,email',
          'rol'               => 'required|exists:roles_moodle,name',
          'state'             => 'required|exists:state_enrollments,id',
          'period'            => 'required'

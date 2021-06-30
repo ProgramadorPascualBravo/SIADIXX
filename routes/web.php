@@ -85,7 +85,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
        Route::get('/group/report', [PageController::class, 'reportUser'])->name('group-report')->middleware('permission:report_read');
 
        Route::view('/role-moodle', 'rol_moodle.index')->name('role-moodle-index')
-           ->middleware('permission:role_read');
+           ->middleware('permission:role_moodle_read');
 
        Route::view('/state-enrollment', 'state_enrollment.index')->name('state-enrollment-index')
           ->middleware('permission:state_enrollment_read');

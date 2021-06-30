@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Enrollment;
 use App\StateEnrollment;
 use App\Traits\DeleteMassive;
 use Illuminate\Support\Facades\Auth;
@@ -10,6 +11,7 @@ use Mediconesystems\LivewireDatatables\BooleanColumn;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\DateColumn;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
+use Mediconesystems\LivewireDatatables\NumberColumn;
 
 /**
  * Libreria https://laravel-livewire.com/docs/2.x/quickstart
@@ -39,10 +41,12 @@ class StateEnrollmentTable extends LivewireDatatable
    public function columns()
    {
       $columns = [
+         Column::checkbox(),
          Column::callback(['id'], function ($id){return $id;})->label(Str::title(__('modules.input.code'))),
-         Column::name('name')->label(Str::title(__('modules.input.name')))->editable()->searchable()->truncate(),
+         Column::name('name')->label(Str::title(__('modules.input.name')))->editable()->searchable()->filterable()->truncate(),
          BooleanColumn::name('delete_moodle')->label(Str::title(__('modules.input.delete_moodle')))->filterable()->alignCenter(),
          BooleanColumn::name('state')->label(Str::title(__('modules.input.state')))->filterable()->alignCenter(),
+         NumberColumn::name('enrollments.id:count')->label('# Matrículas')->filterable()->alignCenter(),
          DateColumn::name('created_at')->label(Str::title(__('modules.table.created')))->filterable(),
       ];
       if (Auth::user()->can('state_enrollment_write')) {

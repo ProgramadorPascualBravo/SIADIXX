@@ -65,7 +65,9 @@ class EnrollmentsObserver
     public function deleted(Enrollment $enrollment)
     {
        $enrollment_moodle = EnrollmentMoodle::where('enrollment_id', $enrollment->id)->first();
-       $enrollment_moodle->delete();
+       if (!is_null($enrollment_moodle)) {
+         $enrollment_moodle->delete();
+       }
 
     }
 

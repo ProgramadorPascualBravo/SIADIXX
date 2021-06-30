@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Enrollment;
 use App\RolMoodle;
 use App\Traits\DeleteMassive;
 use Illuminate\Support\Facades\Auth;
@@ -42,8 +43,11 @@ class RolMoodleTable extends LivewireDatatable
     {
         $columns = [
            Column::checkbox(),
-           Column::name('name')->label(Str::title(__('modules.input.name')))->editable()->searchable()->truncate(),
+           Column::name('name')->label(Str::title(__('modules.input.name')))->editable()->searchable()->filterable()->truncate(),
            BooleanColumn::name('state')->label(Str::title(__('modules.input.state')))->filterable()->alignCenter(),
+           NumberColumn::callback(['name'], function ($name) {
+              return Enrollment::where('rol', $name)->get()->count();
+           })->label('# Matrículas')->filterable()->alignCenter(),
            DateColumn::name('created_at')->label(Str::title(__('modules.table.created')))->filterable(),
         ];
         if (Auth::user()->can('role_moodle_write')) {

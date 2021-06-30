@@ -40,7 +40,7 @@ class DepartmentTable extends LivewireDatatable
       $relation = $this->relation;
       $columns = [
          Column::checkbox(),
-         Column::name('name')->label(Str::title(__('modules.input.name')))->searchable()->truncate(),
+         Column::name('name')->label(Str::title(__('modules.input.name')))->searchable()->truncate()->filterable(),
          BooleanColumn::name('state')->label(Str::title(__('modules.input.state')))->filterable(),
          NumberColumn::name('programs.id:count')->label('# Programas')->filterable()->alignCenter(),
          DateColumn::name('created_at')->label(Str::title(__('modules.table.created')))->filterable(),

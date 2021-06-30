@@ -9,7 +9,7 @@
     </div>
 
     <label class="block">
-        <span{{ Str::ucfirst(__('modules.input.delete_moodle')) }}</span>
+        <span>{{ Str::ucfirst(__('modules.input.delete_moodle')) }}</span>
         <select class="@error('delete_moodle') is-invalid-input @enderror input-underline" name="delete_moodle" id="delete_moodle" wire:model.defer="delete_moodle">
             <option selected value="">Seleccione una opción</option>
             <option value="1">Sí</option>

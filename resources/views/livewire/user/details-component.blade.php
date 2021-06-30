@@ -1,16 +1,16 @@
-<div class="grid grid-cols-5 gap-4 px-4">
+<div class="grid grid-cols-5 gap-4">
     @include("sessions.session-input")
-    <div class="col-span-3 col-start-2 p-2">
-        <div class="grid grid-cols-2 gap-4 px-4">
+    <div class="col-span-3">
+        <div class="grid grid-cols-2 gap-4">
             <div class="col-span-1 pt-4">
                 <h2 class="font-normal text-2xl mb-4 text-siadi-blue-900 border-siadi-blue-300 border-b-2 w-max">Datos Usuario</h2>
                 <h2><b>Nombres y Apellidos :</b> {{ $user->full_name }}</h2>
                 <h2><b>Documento :</b> {{ $user->document }} </h2>
                 <h2><b>Correo :</b> {{ $user->username }} </h2>
-                <h2><b>Categoria :</b> {{ Auth::user()->department->name }}</h2>
+                <h2><b>Categoria :</b> {{ Auth::user()->department->name ?? 'No Categoria asociada' }}</h2>
                 <h2><b>Estado :</b> {!! $user->state == 1 ? "<span class='text-green-600 font-bold'>Activo</span>" : "<span class='text-red-600 font-bold'>Desactivado</span>" !!} </h2>
                 <h2><b>Cuenta verificada :</b> {!! $user->verified == 1 ? "<span class='text-green-500 font-bold'>Verificado</span>" : "<span class='text-red-500 font-bold'>No Verificado</span>" !!}</h2>
-                <div class="border border-gray-300 w-max pl-2 hover:bg-blue-100 rounded-lg mb-4 float-right">
+                <div class="border border-gray-300 w-max pl-2 hover:bg-blue-100 rounded-lg mb-4">
                     <span class="py-2 inline-block rounded-l-lg text-sm">
                         Creado en SIADI :</b> {{ \Illuminate\Support\Carbon::createFromFormat('Y-m-d H:i:s', $user->created_at)->format('d-m-Y') }}
                     </span>

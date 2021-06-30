@@ -7,7 +7,7 @@
             <hr class="border-siadi-blue-700">
         </div>
         <div>
-            @livewire('course-detail-component', ['course' => $course] );
+            @livewire('course-detail-component', ['course' => $course] )
         </div>
     </div>
 @endsection

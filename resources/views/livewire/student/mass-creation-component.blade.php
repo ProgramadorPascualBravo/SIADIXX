@@ -42,8 +42,8 @@
             <li class="mb-3 text-lg">
                 Finalizado el proceso pueden surgir 2 escenarios:
                 <ol class="list-decimal pl-4">
-                    <li class="my-3 text-sm"><b>Hay errores:</b> Se genera un documento excel con los registros que contienen incosistencias y no se pudieron guardar.</li>
-                    <li class="mb-3 text-sm"><b>No hay errores:</b> No sé genera documento y sale un mensaje informando que todos los registros fueron existosos. </li>
+                    <li class="my-3 text-sm"><b>Hay errores:</b> Se genera un documento excel con los registros que contienen inconsistencias y no se pudieron guardar.</li>
+                    <li class="mb-3 text-sm"><b>No hay errores:</b> No sé genera documento y sale un mensaje informando que todos los registros fueron exítosos. </li>
                 </ol>
             </li>
         </ol>

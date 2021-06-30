@@ -1,5 +1,5 @@
-<div class="grid grid-cols-4 gap-2">
-    <div class="col-span-2 col-start-2 text-center pt-4">
+<div class="grid grid-cols-5 gap-2">
+    <div class="col-span-3 col-start-2 text-center pt-4 flex justify-center">
         <button wire:click="change('student')"
              class="border border-gray-300 w-max mr-5 pl-2 inline-block rounded-lg cursor-pointer hover:bg-gray-200 inline-block {{ $view == 'student' ? 'bg-gray-200' : '' }}">
             <span class="py-2 inline-block rounded-l-lg text-sm capitalize">
@@ -57,7 +57,7 @@
         </button>
     </div>
     @if(!empty($view))
-        <div class="col-span-4 px-2">
+        <div class="col-span-5 px-2">
             @include("livewire.search.$view")
         </div>
     @endif

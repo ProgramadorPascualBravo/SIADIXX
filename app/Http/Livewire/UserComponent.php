@@ -28,7 +28,6 @@ class UserComponent extends Component implements ModuleComponent
     use WithPagination, ClearErrorsLivewireComponent, FlashMessageLivewaire, LogsTrail;
 
     public $view = 'create';
-
     public $user_id, $name, $last_name, $username, $document, $department_id, $state, $process = false;
 
     protected $listeners = ['edit', 'showAlert'];

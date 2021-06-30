@@ -46,7 +46,7 @@ class EnrollmentTable extends LivewireDatatable
               $this->groups->pluck('code')
            )->searchable(),
            Column::name('email')->label(Str::title(__('modules.input.email')))->filterable()->searchable(),
-           Column::name('rol')->label(Str::title(__('modules.role-moodle.n)ame')))->filterable(
+           Column::name('rol')->label(Str::title(__('modules.role-moodle.name')))->filterable(
               $this->roles->pluck('name')
            )->searchable(),
            Column::name('period')->label(Str::title(__('modules.input.period')))->filterable()->searchable(),

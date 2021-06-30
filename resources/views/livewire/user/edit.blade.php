@@ -1,4 +1,4 @@
-<div class="px-5">
+<div>
     <div wire:ignore.self >
         <h2>{{ __('modules.user.edit') }}</h2>
         <div>

@@ -7,7 +7,7 @@
             </div>
         @endcan
         <div class="@cannot('moodle_write') col-span-4 px-4 @endcan col-span-3 pl-4">
-            <livewire:student-table />
+            <livewire:student-table :destroy="Auth::user()->can('moodle_destroy')"/>
         </div>
         @can('moodle_write')
             <div class="col-span-1 content-form">
