@@ -159,7 +159,7 @@ trait DeleteMassive
          }
       } catch (QueryException $queryException) {
          $this->emit('showAlert', 'alert-error', __('messages.errors.delete'));
-         $this->setLog('error', $message, 'deleted', "type {$relation}", [
+         $this->setLog('error', __('messages.errors.delete'), 'deleted', "type {$relation}", [
             'id' => $id, 'exception' => $queryException->getMessage()
          ]);
       }
