@@ -1,5 +1,6 @@
 <?php
 
+use App\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -93,6 +94,17 @@ class PermissionsSeeder extends Seeder
        Permission::create(['name' => 'role_moodle_destroy']);
 
        /**
+        * StateEnrollment
+        */
+
+       Permission::create(['name' => 'state_enrollment_read']);
+
+       Permission::create(['name' => 'state_enrollment_write']);
+
+       Permission::create(['name' => 'state_enrollment_destroy']);
+
+
+       /**
         * Enrollment
         */
 
@@ -125,6 +137,7 @@ class PermissionsSeeder extends Seeder
         */
 
        Permission::create(['name' => 'report_read']);
+       Permission::create(['name' => 'logs_read']);
 
        $admin = Role::create(['name' => 'admin']);
        $manager = Role::create(['name' => 'manager']);
@@ -150,14 +163,18 @@ class PermissionsSeeder extends Seeder
           'group_read',
           'group_write',
           'group_destroy',
-          'rol_read',
-          'rol_write',
-          'rol_destroy',
+          'role_moodle_read',
+          'role_moodle_write',
+          'role_moodle_destroy',
           'enrollment_read',
           'enrollment_write',
           'enrollment_destroy',
           'enrollment_massive',
+          'state_enrollment_write',
+          'state_enrollment_destroy',
+          'state_enrollment_massive',
           'search_read',
+          'logs_read',
           'report_read'
        ]);
 
@@ -178,9 +195,12 @@ class PermissionsSeeder extends Seeder
           'group_read',
           'group_write',
           'group_destroy',
-          'rol_read',
-          'rol_write',
-          'rol_destroy',
+          'role_moodle_read',
+          'role_moodle_write',
+          'role_moodle_destroy',
+          'state_enrollment_write',
+          'state_enrollment_destroy',
+          'state_enrollment_massive',
           'enrollment_read',
           'enrollment_write',
           'enrollment_destroy',
@@ -192,5 +212,7 @@ class PermissionsSeeder extends Seeder
        $reports->givePermissionTo([
           'report_read'
        ]);
+       $user = User::where('username', 'admin@pascualbravo.edu.co')->first();
+       $user->assignRole('admin');
     }
 }
