@@ -18,7 +18,7 @@
     <nav class="flex items-center bg-siadi-blue-900 p-4 text-white">
         <div class="flex items-center flex-shrink-0 text-white mr-6">
             <span class="font-semibold text-xl tracking-tight">
-                 @if(isset($egg))
+                 @if(!is_null($egg))
                     <a href="{{ route('dashboard') }}" class="text-siadi-yellow">SUANFOSON</a>
                 @else
                     <a href="{{ route('dashboard') }}" class="text-siadi-yellow">SIADI</a>
@@ -134,7 +134,7 @@
 </header>
     @yield('content')
 <footer class="border-b-8 border-siadi-blue-900 px-4">
-    @if(isset($egg))
+    @if(!is_null($egg))
         <p>SUANFOSON | El Verdadero Nombre del Sistema.</p>
     @else
         <p>SIADI | Sistema de Información Académico Digital</p>

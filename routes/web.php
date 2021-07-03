@@ -38,68 +38,68 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         //Route::get('/user/report', [PageController::class, 'reportUser'])->name('user-report')->middleware('profile:report_read');
 
-        Route::view('/role/{egg?}', 'permission-role.index', ['option' => false])->name('role-index');;
+        Route::view('/role/{egg?}', 'permission-role.index', ['option' => false, 'egg' => $egg ?? null])->name('role-index');;
 
-        Route::view('/permission/{egg?}', 'permission-role.index', ['option' => true])->name('permission-index');
+        Route::view('/permission/{egg?}', 'permission-role.index', ['option' => true, 'egg' => $egg ?? null])->name('permission-index');
 
-        Route::view('/students/{egg?}', 'student.index')->name('moodle-index')
+        Route::view('/students/{egg?}', 'student.index', ['egg' => $egg ?? null])->name('moodle-index')
            ->middleware('permission:moodle_read');
 
         Route::get('/students/{id}/details/{egg?}', function ($id){
-           return view('student.details', ['student' => \App\Student::find($id)]);
+           return view('student.details', ['student' => \App\Student::find($id), 'egg' => $egg ?? null]);
         })->name('moodle-detail')->middleware('permission:moodle_detail');
 
-        Route::view('/students/mass-creation/{egg?}', 'student.mass-creation')->name('moodle-mass-creation')
+        Route::view('/students/mass-creation/{egg?}', 'student.mass-creation', ['egg' => $egg ?? null])->name('moodle-mass-creation')
            ->middleware('permission:moodle_massive');
 
         Route::get('/students/report/{egg?}', [PageController::class, 'reportStudent'])->name('moodle-report')->middleware('permission:report_read');
 
         Route::get('/students/report/download/{egg?}', [PageController::class, 'exportReportStudent'])->name('moodle-report-download')->middleware('permission:report_read');
 
-        Route::view('/category/{egg?}', 'department.index')->name('category-index')
+        Route::view('/category/{egg?}', 'department.index',['egg' => $egg ?? null])->name('category-index')
            ->middleware('permission:category_read');
 
-        Route::view('/program/{egg?}', 'program.index')->name('program-index')
+        Route::view('/program/{egg?}', 'program.index', ['egg' => $egg ?? null])->name('program-index')
            ->middleware('permission:program_read');
 
         Route::get('/program/{id}/detail/{egg?}', function ($id) {
-           return view('program.details', ['program' => \App\Program::find($id)]);
+           return view('program.details', ['program' => \App\Program::find($id), 'egg' => $egg ?? null]);
         })->name('program-detail')->middleware('permission:program_detail');
 
-        Route::view('/course/{egg?}', 'course.index')->name('course-index')
+        Route::view('/course/{egg?}', 'course.index', ['egg' => $egg ?? null])->name('course-index')
            ->middleware('permission:course_read');
 
         Route::get('/course/{id}/detail/{egg?}', function ($id) {
-          return view('course.details', ['course' => \App\Course::find($id)]);
+          return view('course.details', ['course' => \App\Course::find($id), 'egg' => $egg ?? null]);
         })->name('course-detail')->middleware('permission:course_detail');
 
        Route::get('/course/report/{egg?}', [PageController::class, 'reportCourse'])->name('course-report')->middleware('permission:report_read');
 
-       Route::view('/group/{egg?}', 'group.index')->name('group-index')
+       Route::view('/group/{egg?}', 'group.index', ['egg' => $egg ?? null])->name('group-index')
            ->middleware('permission:group_read');
 
         Route::get('/group/{id}/detail/{egg?}', function ($id) {
-          return view('group.details', ['group' => \App\Group::find($id)]);
+          return view('group.details', ['group' => \App\Group::find($id), 'egg' => $egg ?? null]);
         })->name('group-detail')->middleware('permission:group_detail');
 
        Route::get('/group/report/{egg?}', [PageController::class, 'reportUser'])->name('group-report')->middleware('permission:report_read');
 
-       Route::view('/role-moodle/{egg?}', 'rol_moodle.index')->name('role-moodle-index')
+       Route::view('/role-moodle/{egg?}', 'rol_moodle.index', ['egg' => $egg ?? null])->name('role-moodle-index')
            ->middleware('permission:role_moodle_read');
 
-       Route::view('/state-enrollment/{egg?}', 'state_enrollment.index')->name('state-enrollment-index')
+       Route::view('/state-enrollment/{egg?}', 'state_enrollment.index', ['egg' => $egg ?? null])->name('state-enrollment-index')
           ->middleware('permission:state_enrollment_read');
 
-        Route::view('/enrollment/{egg?}', 'enrollment.index')->name('enrollment-index')
+        Route::view('/enrollment/{egg?}', 'enrollment.index', ['egg' => $egg ?? null])->name('enrollment-index')
            ->middleware('permission:enrollment_read');
-        Route::view('/enrollment/mass-creation/{egg?}', 'enrollment.mass-creation')->name('enrollment-mass-creation')
+        Route::view('/enrollment/mass-creation/{egg?}', 'enrollment.mass-creation', ['egg' => $egg ?? null])->name('enrollment-mass-creation')
            ->middleware('permission:enrollment_massive');
 
        Route::get('/enrollment/report/{egg?}', [PageController::class, 'reportEnrollment'])->name('enrollment-report')->middleware('permission:report_read');
 
        Route::any('/search/{egg?}', function ()
         {
-           return view('search.index');
+           return view('search.index', ['egg' => $egg ?? null]);
         })->name('search-index')
            ->middleware('permission:search_read');
 
