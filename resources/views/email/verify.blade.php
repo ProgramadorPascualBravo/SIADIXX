@@ -21,6 +21,6 @@
         <br />
         <br />
         <p>Atentamente</p>
-        <p>Team suanfonson</p>
+        <p>Team SIADI | Sistema de Información Académico Digital</p>
     </div>
 </div>

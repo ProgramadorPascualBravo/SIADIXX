@@ -17,7 +17,13 @@
 <header>
     <nav class="flex items-center bg-siadi-blue-900 p-4 text-white">
         <div class="flex items-center flex-shrink-0 text-white mr-6">
-            <span class="font-semibold text-xl tracking-tight"><a href="{{ route('dashboard') }}" class="text-siadi-yellow">SIADI</a></span>
+            <span class="font-semibold text-xl tracking-tight">
+                 @if(isset($egg))
+                    <a href="{{ route('dashboard') }}" class="text-siadi-yellow">SUANFOSON</a>
+                @else
+                    <a href="{{ route('dashboard') }}" class="text-siadi-yellow">SIADI</a>
+                @endif
+            </span>
         </div>
         <div class="mr-6 relative" x-data="{ open : false}" >
             <a @click="open = true" class="cursor-pointer">Módulos</a>
@@ -127,6 +133,13 @@
     </nav>
 </header>
     @yield('content')
+<footer class="border-b-8 border-siadi-blue-900 px-4">
+    @if(isset($egg))
+        <p>SUANFOSON | El Verdadero Nombre del Sistema.</p>
+    @else
+        <p>SIADI | Sistema de Información Académico Digital</p>
+    @endif
+</footer>
     <script src="{{ asset('js/alpine.min.js')  }}" defer></script>
     <script nomodule src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine-ie11.min.js" defer></script>
     @stack('custom-script')
