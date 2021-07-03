@@ -25,7 +25,7 @@ Route::get('/logout', [PageController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('/dashboard')->group(function(){
-        Route::get('/{egg?}', function (){
+        Route::get('/', function (){
            return view('dashboard');
         })->name('dashboard');
        Route::get('/logs/{egg?}', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->name('log-index');
