@@ -13,7 +13,7 @@
     @livewireStyles
 
 </head>
-<body>
+<body class="flex flex-col min-h-screen ">
 <header>
     <nav class="flex items-center bg-siadi-blue-900 p-4 text-white">
         <div class="flex items-center flex-shrink-0 text-white mr-6">
@@ -26,52 +26,63 @@
             </span>
         </div>
         <div class="mr-6 relative" x-data="{ open : false}" >
-            <a @click="open = true" class="cursor-pointer">Módulos</a>
-            <ul x-show="open"
-                x-transition:enter="transition ease-out duration-300"
-                x-transition:enter-start="opacity-0 transform scale-90"
-                x-transition:enter-end="opacity-100 transform scale-100"
-                x-transition:leave="transition ease-in duration-300"
-                x-transition:leave-start="opacity-100 transform scale-100"
-                x-transition:leave-end="opacity-0 transform scale-90" @click.away="open = false" class="absolute bg-gray-800 rounded w-max z-30">
-                @can('user_read')
-                    <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('user-index') }}">Usuarios</a></li>
-                @endcan
-                @can('moodle_read')
-                    <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('moodle-index') }}">Usuarios Plataforma</a></li>
-                @endcan
-                @can('role_read')
-                    <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('role-index') }}">Roles de SIADI</a></li>
-                @endcan
-                @can('permission_read')
-                    <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('permission-index') }}">Permisos de SIADI</a></li>
-                @endcan
-                @can('category_read')
-                    <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('category-index') }}">Categorías</a></li>
-                @endcan
-                @can('program_read')
-                    <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('program-index') }}">Programas</a></li>
-                @endcan
-                @can('course_read')
-                    <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('course-index') }}">Asignaturas</a></li>
-                @endcan
-                @can('group_read')
-                    <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('group-index') }}">Grupos</a></li>
-                @endcan
-                @can('role_moodle_read')
-                    <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('role-moodle-index') }}">Roles de Matrícula</a></li>
-                @endcan
-                @can('state_enrollment_read')
-                    <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('state-enrollment-index') }}">Estados de Matrícula</a></li>
-                @endcan
-                @can('enrollment_read')
-                    <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('enrollment-index') }}">Matrículas</a></li>
-                @endcan
-            </ul>
+            <a @click="open = true" class="cursor-pointer">
+                Módulos
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </a>
+
+                <ul x-show="open"
+                    x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 transform scale-90"
+                    x-transition:enter-end="opacity-100 transform scale-100"
+                    x-transition:leave="transition ease-in duration-300"
+                    x-transition:leave-start="opacity-100 transform scale-100"
+                    x-transition:leave-end="opacity-0 transform scale-90" @click.away="open = false" class="absolute bg-gray-800 rounded w-max z-30">
+                    @can('user_read')
+                        <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('user-index') }}">Usuarios</a></li>
+                    @endcan
+                    @can('moodle_read')
+                        <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('moodle-index') }}">Usuarios Plataforma</a></li>
+                    @endcan
+                    @can('role_read')
+                        <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('role-index') }}">Roles de SIADI</a></li>
+                    @endcan
+                    @can('permission_read')
+                        <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('permission-index') }}">Permisos de SIADI</a></li>
+                    @endcan
+                    @can('category_read')
+                        <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('category-index') }}">Categorías</a></li>
+                    @endcan
+                    @can('program_read')
+                        <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('program-index') }}">Programas</a></li>
+                    @endcan
+                    @can('course_read')
+                        <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('course-index') }}">Asignaturas</a></li>
+                    @endcan
+                    @can('group_read')
+                        <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('group-index') }}">Grupos</a></li>
+                    @endcan
+                    @can('role_moodle_read')
+                        <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('role-moodle-index') }}">Roles de Matrícula</a></li>
+                    @endcan
+                    @can('state_enrollment_read')
+                        <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('state-enrollment-index') }}">Estados de Matrícula</a></li>
+                    @endcan
+                    @can('enrollment_read')
+                        <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('enrollment-index') }}">Matrículas</a></li>
+                    @endcan
+                </ul>
         </div>
         @canany(['moodle_massive', 'enrollment_massive'])
         <div class="mr-6 relative" x-data="{ open : false}" >
-                <a @click="open = true" class="cursor-pointer">Carga Masiva</a>
+            <a @click="open = true" class="cursor-pointer">
+                Carga Masiva
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </a>
                 <ul x-show="open"
                     x-transition:enter="transition ease-out duration-300"
                     x-transition:enter-start="opacity-0 transform scale-90"
@@ -91,7 +102,12 @@
         @endcanany
         @can('report_read')
         <div class="mr-6 relative" x-data="{ open : false}" >
-            <a @click="open = true" class="cursor-pointer">Estadisticas</a>
+            <a @click="open = true" class="cursor-pointer">
+                Estadisticas
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </a>
             <ul x-show="open"
                 x-transition:enter="transition ease-out duration-300"
                 x-transition:enter-start="opacity-0 transform scale-90"
@@ -111,11 +127,17 @@
             </div>
         @endcan
         <div class="flex-1 text-right relative" x-data="{ open : false }">
-            <a @click="open = true" class="text-white cursor-pointer py-2 px-4">{{ Auth::user()->name }} {{ Auth::user()->last_name }}
-
+            <a @click="open = true" class="text-white cursor-pointer py-2 px-4">
+                @if(isset($_GET['egg']))
+                    <img class="inline-block rounded-full" width="50px" src="{{ asset('img/suafonson.jpg') }}" alt="">
+                    Suanfonson
+                @else
+                    {{ Auth::user()->name }} {{ Auth::user()->last_name }}
+                @endif
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                </svg></a>
+                </svg>
+            </a>
             <ul  x-show="open"
                  x-transition:enter="transition ease-out duration-300"
                  x-transition:enter-start="opacity-0 transform scale-90"
@@ -132,19 +154,21 @@
         </div>
     </nav>
 </header>
+<main class="flex-grow">
     @yield('content')
-<footer class="border-b-8 border-siadi-blue-900 px-4">
+</main>
+<footer style="border-bottom-width: 4em" class="border-siadi-blue-900 px-4 text-siadi-blue-900 mt-4 text-xl">
     @if(isset($_GET['egg']))
         <p>SUANFOSON | El Verdadero Nombre del Sistema.</p>
     @else
         <p>SIADI | Sistema de Información Académico Digital</p>
     @endif
 </footer>
-    <script src="{{ asset('js/alpine.min.js')  }}" defer></script>
-    <script nomodule src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine-ie11.min.js" defer></script>
-    @stack('custom-script')
-    @livewireScripts
-    <script src="{{ mix('js/app.js') }}"></script>
+<script src="{{ asset('js/alpine.min.js')  }}" defer></script>
+<script nomodule src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine-ie11.min.js" defer></script>
+@stack('custom-script')
+@livewireScripts
+<script src="{{ mix('js/app.js') }}"></script>
 
 </body>
 </html>
