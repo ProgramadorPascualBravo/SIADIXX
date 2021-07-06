@@ -56,7 +56,7 @@ class GroupTable extends LivewireDatatable
               $this->courses->pluck('name')
            )->label(Str::title(__('modules.course.name'))),
            NumberColumn::callback(['code', 'name'], function ($code) {
-              return Enrollment::where(['code' => $code, 'state' => 'Matrículado'])->get()->count();
+              return Enrollment::where(['code' => $code, 'state' => self::MATRICULADO])->get()->count();
            })->label('# Matrículas Activas')->filterable()->alignCenter(),
            DateColumn::name('created_at')->label(Str::title(__('modules.table.created')))->filterable()->hide(),
            Column::callback(['id'], function ($id){

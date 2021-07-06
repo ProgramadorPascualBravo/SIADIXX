@@ -53,7 +53,9 @@ class GroupEnrollmentTable extends LivewireDatatable
          ),
          Column::name('period')->label(__('modules.input.period'))->filterable()->searchable(),
          DateColumn::name('created_at')->filterable()->label(__('modules.table.created')),
-         Column::name('last_entry')->label("Último ingreso")->filterable()->alignRight(),
+         Column::callback(['code', 'name'], function ($code, $name) {
+            return Enrollment::lastEntry($code, $name)[0]->ultimoCur ?? 'Nunca';
+         })->label("Último ingreso")->filterable()->alignRight(),
          Column::callback(['user.id'], function ($id){
             return view('fragments.link-to', ['route' => 'moodle-detail', 'params' => ['id' => $id], 'name' => 'Ver', 'btn' => 'btn-blue']);
          })->label(__('modules.table.detail'))->alignCenter(),

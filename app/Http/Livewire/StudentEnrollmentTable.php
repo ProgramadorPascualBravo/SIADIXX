@@ -50,7 +50,9 @@ class StudentEnrollmentTable extends LivewireDatatable
             $this->states->pluck('name')
          )->alignRight(),
          DateColumn::name('created_at')->filterable()->label(__('modules.table.created')),
-         Column::name('last_entry')->label("Último ingreso")->filterable()->alignRight(),
+         Column::callback(['code', 'name'], function ($code, $name) {
+            return Enrollment::lastEntry($code, $name)[0]->ultimoCur ?? 'Nunca';
+         })->label("Último ingreso")->filterable()->alignRight(),
       ];
 
       return $columns;
