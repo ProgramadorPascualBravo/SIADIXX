@@ -59,8 +59,8 @@ class EnrollmentSearchTable extends LivewireDatatable
          })->label(Str::title(__('modules.input.state')))->filterable(
             $this->states->pluck('name')
          )->alignRight(),
-         Column::callback(['code', 'name'], function ($code, $name) {
-            return Enrollment::lastEntry($code, $name)[0]->ultimoCur ?? 'Nunca';
+         Column::callback(['code', 'email'], function ($code, $email) {
+            return Enrollment::lastEntry($code, $email)[0]->ultimoCur ?? 'Nunca';
          })->label("Último ingreso")->filterable()->alignRight(),
       ];
 
