@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Manager;
 
 class EnrollmentMoodle extends Model
 {
@@ -11,4 +12,5 @@ class EnrollmentMoodle extends Model
     protected $fillable = [
       'code', 'email', 'enrollment_id', 'rol'
     ];
+
 }

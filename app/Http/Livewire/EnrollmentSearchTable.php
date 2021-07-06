@@ -59,7 +59,7 @@ class EnrollmentSearchTable extends LivewireDatatable
          })->label(Str::title(__('modules.input.state')))->filterable(
             $this->states->pluck('name')
          )->alignRight(),
-         DateColumn::name('created_at')->label(__('modules.table.created'))->filterable()->alignRight(),
+         Column::name('last_entry')->label("Último ingreso")->filterable()->alignRight(),
       ];
 
       return $columns;
