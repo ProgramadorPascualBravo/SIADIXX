@@ -25,13 +25,6 @@ class GroupEnrollmentTable extends LivewireDatatable
 
    public $exportable   = true;
 
-   protected $state    = [
-      'Desmatriculado',
-      'Matrículado',
-      'Cancelada',
-      'Finalizada',
-      'Retirado'
-   ];
 
    public function builder()
    {
@@ -53,8 +46,8 @@ class GroupEnrollmentTable extends LivewireDatatable
          ),
          Column::name('period')->label(__('modules.input.period'))->filterable()->searchable(),
          DateColumn::name('created_at')->filterable()->label(__('modules.table.created')),
-         Column::callback(['code', 'name'], function ($code, $name) {
-            return Enrollment::lastEntry($code, $name)[0]->ultimoCur ?? 'Nunca';
+         Column::callback(['code', 'email'], function ($code, $email) {
+            return Enrollment::lastEntry($code, $email)[0]->ultimoCur ?? 'Nunca';
          })->label("Último ingreso")->filterable()->alignRight(),
          Column::callback(['user.id'], function ($id){
             return view('fragments.link-to', ['route' => 'moodle-detail', 'params' => ['id' => $id], 'name' => 'Ver', 'btn' => 'btn-blue']);
