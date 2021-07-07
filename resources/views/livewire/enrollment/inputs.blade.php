@@ -1,19 +1,14 @@
 <div class="grid grid-cols-1 gap-2">
     <label class="block">
-        <span >{{ __('modules.group.name') }}</span>
-        <select class="@error('code') is-invalid-input @enderror input-underline" name="code" id="code" wire:model.defer="code" {{ $view == 'edit' ? 'disabled' : '' }} >
-            <option value="">Seleccione una opción</option>
-            @foreach($groups as $group)
-                <option value="{{ $group->code }}">{{ $group->name }}:{{ $group->course->name }}</option>
-            @endforeach
-        </select>
+        <span>{{ __('modules.group.name') }}</span>
+        <input type="text" class="@error('code') is-invalid-input @enderror input-underline" name="code" id="code" wire:model.defer="code" {{ $view == 'edit' ? 'disabled' : '' }} />
         @error('code')
-        <span class="form-error is-visible">{{ $message }}</span>
+            <span class="form-error is-visible">{{ $message }}</span>
         @enderror
     </label>
     <div class="block">
         <span >{{ __('modules.input.email') }}</span>
-        <input type="text"
+        <input type="email"
                class="@error('email') is-invalid-input @enderror input-underline" name="email" id="email" wire:model.defer="email" {{ $view == 'edit' ? 'disabled' : '' }}>
         @error('email')
             <span class="form-error is-visible">{{ $message }}</span>

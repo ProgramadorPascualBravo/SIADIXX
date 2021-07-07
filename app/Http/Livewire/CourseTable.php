@@ -38,7 +38,7 @@ class CourseTable extends LivewireDatatable
       $columns = [
          Column::checkbox(),
          Column::name('code')->label(Str::title(__('modules.input.code')))->filterable()->searchable(),
-         Column::name('name')->label(Str::title(__('modules.input.name')))->editable()->filterable()->searchable(),
+         Column::name('name')->label(Str::title(__('modules.input.name')))->filterable()->searchable(),
          BooleanColumn::name('state')->label(Str::title(__('modules.input.state')))->filterable(),
          Column::name('program.name')->filterable(
             $this->programs->pluck('name')

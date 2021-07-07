@@ -23,7 +23,7 @@ class ProgramComponent extends Component
 
     public $view = 'create';
 
-    public $program_id, $name, $code, $department_id, $faculty;
+    public $program_id, $name, $code, $department_id, $faculty, $state;
 
     protected $listeners = ['edit', 'showAlert'];
 
@@ -38,7 +38,7 @@ class ProgramComponent extends Component
     public function store()
     {
         $this->validate([
-            'name'              => 'required',
+            'name'              => 'required|unique:programs,name',
             'code'              => 'required|numeric',
             'department_id'     => 'required|exists:departments,id',
             'faculty'           => 'required',
@@ -56,7 +56,6 @@ class ProgramComponent extends Component
                'department_id'     => $this->department_id,
                'state'             => $this->state
            ]);
-
            $this->cancel();
            $this->refreshTable();
            $this->showAlert('alert-success', __('messages.success.create'));
@@ -65,7 +64,7 @@ class ProgramComponent extends Component
            ]);
         } catch (QueryException $queryException) {
            $this->showAlert('alert-error', __('messages.errors.create'));
-           $this->setLog('info', __('messages.errors.create'), 'store', __('modules.program.title'), [
+           $this->setLog('error', __('messages.errors.create'), 'store', __('modules.program.title'), [
                'exception' => $queryException->getMessage()
            ]);
 
@@ -107,7 +106,6 @@ class ProgramComponent extends Component
            $this->refreshTable();
            $this->showAlert('alert-success', __('messages.success.update'));
         } catch (QueryException $queryException) {
-           $this->process    = false;
            $this->showAlert('alert-error', __('messages.error.update'));        }
     }
 
@@ -118,7 +116,7 @@ class ProgramComponent extends Component
         $this->state            = '';
         $this->faculty          = '';
         $this->department_id    = '';
-        $this->code    = '';
+        $this->code             = '';
         $this->view             = 'create';
         $this->hydrate();
     }

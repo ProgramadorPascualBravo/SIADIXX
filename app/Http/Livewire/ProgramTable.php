@@ -40,9 +40,9 @@ class ProgramTable extends LivewireDatatable
         $relation = $this->relation;
         $columns =  [
            Column::checkbox(),
-           Column::name('name')->label(Str::title(__('modules.program.name')))->editable()->filterable()->searchable(),
-           Column::name('code')->label(Str::title(__('modules.input.code')))->editable()->filterable()->searchable(),
-           Column::name('faculty')->label(Str::title(__('modules.input.faculty')))->editable()->filterable()->searchable(),
+           Column::name('name')->label(Str::title(__('modules.program.name')))->filterable()->searchable(),
+           Column::name('code')->label(Str::title(__('modules.input.code')))->filterable()->searchable(),
+           Column::name('faculty')->label(Str::title(__('modules.input.faculty')))->filterable()->searchable(),
            BooleanColumn::name('state')->label(Str::title(__('modules.input.state')))->filterable()->hide(),
            Column::name('department.name')->filterable(
               $this->department->pluck('name')

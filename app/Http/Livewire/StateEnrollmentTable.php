@@ -43,7 +43,7 @@ class StateEnrollmentTable extends LivewireDatatable
       $columns = [
          Column::checkbox(),
          Column::callback(['id'], function ($id){return $id;})->label(Str::title(__('modules.input.code'))),
-         Column::name('name')->label(Str::title(__('modules.input.name')))->editable()->searchable()->filterable()->truncate(),
+         Column::name('name')->label(Str::title(__('modules.input.name')))->searchable()->filterable()->truncate(),
          BooleanColumn::name('delete_moodle')->label(Str::title(__('modules.input.delete_moodle')))->filterable()->alignCenter(),
          BooleanColumn::name('state')->label(Str::title(__('modules.input.state')))->filterable()->alignCenter(),
          NumberColumn::name('enrollments.id:count')->label('# Matrículas')->filterable()->alignCenter(),

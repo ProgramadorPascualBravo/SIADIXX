@@ -43,7 +43,7 @@ class RolMoodleTable extends LivewireDatatable
     {
         $columns = [
            Column::checkbox(),
-           Column::name('name')->label(Str::title(__('modules.input.name')))->editable()->searchable()->filterable()->truncate(),
+           Column::name('name')->label(Str::title(__('modules.input.name')))->searchable()->filterable()->truncate(),
            BooleanColumn::name('state')->label(Str::title(__('modules.input.state')))->filterable()->alignCenter(),
            NumberColumn::callback(['name'], function ($name) {
               return Enrollment::where('rol', $name)->get()->count();

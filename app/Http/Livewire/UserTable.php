@@ -49,11 +49,11 @@ class UserTable extends LivewireDatatable
       $relation = $this->relation;
       $columns = [
          Column::checkbox('id'),
-         Column::name('name')->label(Str::title(__('modules.input.names')))->filterable()->searchable()->editable(),
-         Column::name('last_name')->label(Str::title(__('modules.input.last_name')))->filterable()->searchable()->editable(),
+         Column::name('name')->label(Str::title(__('modules.input.names')))->filterable()->searchable(),
+         Column::name('last_name')->label(Str::title(__('modules.input.last_name')))->filterable()->searchable(),
          Column::name('document')->label(Str::title(__('modules.input.document')))->filterable()->searchable(),
          Column::name('username')->label('Email')->filterable()->searchable(),
-         BooleanColumn::name('state')->label(Str::title(__('modules.input.state')))->filterable()->hide(),
+         BooleanColumn::name('state')->label(Str::title(__('modules.input.state')))->filterable(),
          Column::name('department.name')->filterable()->label(Str::title(__('modules.category.name'))),
          DateColumn::name('created_at')->label(Str::title(__('modules.table.created')))->filterable(),
          Column::callback(['id', 'name'], function ($id){

@@ -42,7 +42,7 @@ class StudentSearchTable extends LivewireDatatable
    {
       $columns = [
          Column::name('name')->label(__('modules.input.names'))->filterable()->searchable(),
-         Column::name('last_name')->label(__('modules.input.last_name'))->filterable()->searchable()->editable(),
+         Column::name('last_name')->label(__('modules.input.last_name'))->filterable()->searchable(),
          Column::name('email')->label(__('modules.input.email'))->filterable()->searchable(),
          Column::name('document')->label(__('modules.input.document'))->filterable()->searchable(),
          BooleanColumn::name('state')->label(__('modules.input.state'))->filterable()->alignCenter(),
