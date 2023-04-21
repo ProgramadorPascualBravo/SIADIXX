@@ -56,7 +56,7 @@
                     Si tienes dificultad para acceder
                 </p>
                 <p class="text-center">
-                    <a href="https://pascualbravovirtual.edu.co/soporte/upload/" target="_blank" class="text-siadi-blue-500 font-medium">
+                    <a href="https://soporte.pascualbravovirtual.edu.co/index.php" target="_blank" class="text-siadi-blue-500 font-medium">
                         ingresa al centro de soporte
                     </a>
                 </p>

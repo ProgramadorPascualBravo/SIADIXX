@@ -74,6 +74,6 @@ class StatsCurrentMonthComponent extends Component
 
     static function getMonth($month)
     {
-       return self::$months['06'];
+       return self::$months[$month];
     }
 }

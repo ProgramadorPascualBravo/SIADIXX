@@ -47,8 +47,8 @@ class EnrollmentExtendImport implements ToModel, WithHeadingRow, WithValidation,
             ->first();
         if (is_null($student)) {
             Student::create([
-                'name'      => Str::lower(trim($row['name'])),
-                'last_name' => Str::lower(trim($row['last_name'])),
+                'name'      => Str::title(trim($row['name'])),
+                'last_name' => Str::title(trim($row['last_name'])),
                 'email'     => Str::lower(trim($row['email'])),
                 'document'  => trim($row['document']),
                 'password'  => md5(trim($row['document'])),

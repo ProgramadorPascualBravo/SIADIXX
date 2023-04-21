@@ -120,7 +120,7 @@
                                 @elseif($column['type'] === 'checkbox')
                                     @include('datatables::checkbox', ['value' => $result->checkbox_attribute])
                                 @else
-                                    <div class="px-6 py-2 whitespace-no-wrap text-sm leading-5 text-siadi-blue-700 table-cell @if($column['align'] === 'right') text-right @elseif($column['align'] === 'center') text-center @else text-left @endif">
+                                    <div class="px-6 py-2 whitespace-no-wrap text-sm leading-5 text-siadi-blue-700 table-cell @if($column['contentAlign'] === 'right') text-right @elseif($column['contentAlign'] === 'center') text-center @else text-left @endif">
                                         {!! $result->{$column['name']} !!}
                                     </div>
                                 @endif
@@ -137,7 +137,7 @@
             <div class="rounded-lg rounded-t-none max-w-screen rounded-lg border-b border-gray-200 bg-white">
                 <div class="p-2 sm:flex items-center justify-between">
                     {{-- check if there is any data --}}
-                    @if($this->results[1])
+                     {{--@if($this->results[1])--}}
                         <div class="my-2 sm:my-0 flex items-center">
                             <select name="perPage" class="mt-1 form-select block w-full pl-3 pr-10 py-2 text-base leading-6 border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5" wire:model="perPage">
                                 <option value="10">10</option>
@@ -162,7 +162,7 @@
                             Resultados {{ $this->results->firstItem() }} - {{ $this->results->lastItem() }} of
                             {{ $this->results->total() }}
                         </div>
-                    @endif
+                    {{--@endif--}}
                 </div>
             </div>
             @endif

@@ -28,7 +28,12 @@ class GroupEnrollmentTable extends LivewireDatatable
 
    public function builder()
    {
-      return $this->model::query()->where('code', $this->params);
+      return $this->model::query()
+          //->join('enrollments', 'enrollments.code','=','groups.code')
+          ->join('students','students.email','=','enrollments.email')
+          ->join('state_enrollments','state_enrollments.id','=','enrollments.state')
+          ->where('code', $this->params);
+
    }
 
    public function columns() : array
@@ -36,10 +41,18 @@ class GroupEnrollmentTable extends LivewireDatatable
       $columns = [
          Column::name('code')->label(__('modules.input.code'))->searchable()->filterable(),
          Column::name('email')->label(__('modules.input.email'))->searchable()->filterable(),
+
+         //12/2022 inicio
+         Column::name('user.document')->label('Cedula')->searchable()->filterable()
+            ->alignRight(),
+         Column::name('user.name')->label('Nombres')->searchable()->filterable(),
+         Column::name('user.last_name')->label('Apellidos')->searchable()->filterable(),
+         //12/2022 fin
+
          Column::name('rol')->label('Rol matrícula')->filterable(
             $this->roles->pluck('name')
          )->searchable(),
-         Column::callback(['state_enrollemnt.name'], function($name) {
+         Column::callback(['state_enrollment.name'], function($name) {
             return Str::title($name);
          })->label(Str::title(__('modules.input.state')))->filterable(
             $this->states->pluck('name')
@@ -49,9 +62,10 @@ class GroupEnrollmentTable extends LivewireDatatable
          Column::callback(['code', 'email'], function ($code, $email) {
             return Enrollment::lastEntry($code, $email)[0]->ultimoCur ?? 'Nunca';
          })->label("Último ingreso")->filterable()->alignRight(),
+
          Column::callback(['user.id'], function ($id){
             return view('fragments.link-to', ['route' => 'moodle-detail', 'params' => ['id' => $id], 'name' => 'Ver', 'btn' => 'btn-blue']);
-         })->label(__('modules.table.detail'))->alignCenter(),
+         })->label(__('modules.table.detail'))->alignCenter()->excludeFromExport()
       ];
 
       return $columns;
@@ -66,4 +80,5 @@ class GroupEnrollmentTable extends LivewireDatatable
    {
       return StateEnrollment::select(['id', 'name'])->where('state', 1)->get();
    }
+
 }

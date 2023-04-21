@@ -29,22 +29,35 @@ class StudentEnrollmentTable extends LivewireDatatable
 
    public function builder()
    {
-      return $this->model::query()->where('email', $this->params);
+      return $this->model::query()
+          ->join('groups','groups.code','=','enrollments.code')
+          ->join('state_enrollments','state_enrollments.id','=','enrollments.state')
+          ->join('courses','courses.id','=','groups.course_id')
+          ->where('email', $this->params)
+          ;
+
+
    }
 
    public function columns()
    {
       $columns = [
-         Column::callback(['group.course.name', 'group.course.id'], function ($name, $id){
+          Column::callback(['group.course.name', 'group.course.id'], function ($name, $id){
             return view('fragments.link-to-name', ['route' => 'course-detail', 'params' => ['id' => $id], 'name' => $name]);
-         })->label(__('modules.course.name'))->searchable(),
+         })
+              ->label(__('modules.course.name'))
+              ->searchable()
+              ->exportCallback(function($name){return $name;}),
          Column::callback(['group.name', 'group.id'], function ($name, $id){
             return view('fragments.link-to-name', ['route' => 'group-detail', 'params' => ['id' => $id], 'name' => $name]);
-         })->label(__('modules.group.name'))->searchable()->alignCenter(),
+         })->label(__('modules.group.name'))
+             ->searchable()
+             ->alignCenter()
+             ->exportCallback(function($name){return $name;}),
          Column::name('rol')->filterable(
             $this->roles->pluck('name')
          )->label('Rol matrícula'),
-         Column::callback(['state_enrollemnt.name'], function($name) {
+         Column::callback(['state_enrollment.name'], function($name) {
             return Str::title($name);
          })->label(Str::title(__('modules.input.state')))->filterable(
             $this->states->pluck('name')

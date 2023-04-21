@@ -34,6 +34,10 @@ class ProgramTable extends LivewireDatatable
 
     protected $listeners = ['refreshLivewireDatatable'];
 
+    public function builder()
+    {
+        return Program::query()->join('departments', 'departments.id', '=', 'programs.department_id');
+    }
 
     public function columns() : array
     {
@@ -50,18 +54,18 @@ class ProgramTable extends LivewireDatatable
            NumberColumn::name('courses.id:count')->label('# Asignaturas')->filterable()->alignCenter(),
            Column::callback(['id'], function ($id){
               return view('fragments.link-to', ['route' => 'program-detail', 'params' => ['id' => $id], 'name' => 'Ver', 'btn' => 'btn-blue']);
-           })->label(Str::title(__('modules.table.detail')))->alignCenter(),
+           })->label(Str::title(__('modules.table.detail')))->alignCenter()->excludeFromExport(),
         ];
 
         if (Auth::user()->can('program_write')) {
-             array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignCenter());
+             array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignCenter()->excludeFromExport());
         }
         if (Auth::user()->can('program_destroy')){
            array_push($columns, Column::callback(['id', 'name'], function ($id) use ($relation){
               return view('fragments.btn-action-delete', [
                  'value' => $id, 'relation' => $relation
               ]);
-           })->label('Eliminar')->alignCenter()->hide());
+           })->label('Eliminar')->alignCenter()->hide()->excludeFromExport());
         }
 
         return $columns;

@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Course;
 use App\Enrollment;
+use App\EnrollmentMoodle;
 use App\Group;
 use App\Traits\DeleteMassive;
 use App\Traits\LogsTrail;
@@ -29,7 +30,7 @@ class GroupTable extends LivewireDatatable
     public $hideable    = 'select';
     public $exportable  = true;
     public const MATRICULADO = 1;
-    public const FINALIZADA = 4;
+    public const FINALIZADA = 3;
 
     public $beforeTableSlot = 'fragments.delete-massive';
 
@@ -39,7 +40,8 @@ class GroupTable extends LivewireDatatable
 
     public function builder()
     {
-        return $this->model::query();
+        return $this->model::query()->join('courses', 'courses.id', '=', 'course_id');
+
     }
 
     public function columns()
@@ -61,14 +63,14 @@ class GroupTable extends LivewireDatatable
            DateColumn::name('created_at')->label(Str::title(__('modules.table.created')))->filterable()->hide(),
            Column::callback(['id'], function ($id){
               return view('fragments.link-to', ['route' => 'group-detail', 'params' => ['id' => $id], 'name' => "Ver", 'btn' => 'btn-blue']);
-           })->label(Str::title(__('modules.table.detail')))->alignCenter(),
+           })->label(Str::title(__('modules.table.detail')))->alignCenter()->excludeFromExport(),
 
         ];
         if (Auth::user()->can('group_write')) {
            array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignCenter());
            array_push($columns, Column::callback(['code'], function ($code){
               return view('livewire.datatables.close', ['value' => $code]);
-           })->label('Cerrar Matrículas')->alignCenter());
+           })->label('Cerrar Matrículas')->alignCenter()->excludeFromExport());
 
         }
         if (Auth::user()->can('group_destroy')){
@@ -76,7 +78,7 @@ class GroupTable extends LivewireDatatable
               return view('fragments.btn-action-delete', [
                  'value' => $id, 'relation' => $relation
               ]);
-           })->label('Eliminar')->alignCenter()->hide());
+           })->label('Eliminar')->alignCenter()->hide()->excludeFromExport());
         }
 
        return $columns;
@@ -94,11 +96,25 @@ class GroupTable extends LivewireDatatable
    public function close($code)
    {
       try {
+
          Enrollment::where('code', $code)
                   ->where('state', self::MATRICULADO)
                   ->update([
                      'state' => self::FINALIZADA
                   ]);
+
+         EnrollmentMoodle::where('code', $code)->delete();
+         //$deleted = EnrollmentMoodle::where('code', $code)->delete();
+         //dd($deleted);
+
+# Linea de codigo anterior - 21/02/2022
+
+                  #Enrollment::where('code', $code)
+          #        ->where('state', self::MATRICULADO)
+           #       ->update([
+            #         'state' => self::FINALIZADA
+             #     ]);
+
          $this->emit('showAlert', 'alert-success', 'Operación realizada!');
          $this->setLog('info', 'Cerrar matriculas', 'close', __('modules.group.detail'), [
              'code' => $code

@@ -29,7 +29,7 @@ class StudentFormFileComponent extends Component
 
    public $file;
 
-   public $listeners = ['analyze'];
+   public $listeners = ['analyze', 'cancel'];
 
    public function render()
    {

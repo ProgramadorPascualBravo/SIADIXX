@@ -8,22 +8,23 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.2.5",
+        "php": "^8.0.28",
         "ext-gettext": "*",
         "consoletvs/charts": "6.*",
-        "diglactic/laravel-breadcrumbs": "^7.0",
+        "diglactic/laravel-breadcrumbs": "^8.0",
         "felixkiss/uniquewith-validator": "^3.4",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
-        "guzzlehttp/guzzle": "^6.3",
-        "laravel/framework": "^7.0",
+        "guzzlehttp/guzzle": "^7.5.0",
+        "laravel/framework": "^8.0",
         "laravel/tinker": "^2.0",
         "laraveles/spanish": "^1.5",
-        "livewire/livewire": "^2.3",
+        "livewire/livewire": "^2.12.3",
         "maatwebsite/excel": "^3.1",
-        "mediconesystems/livewire-datatables": "^0.4.3",
+        "mediconesystems/livewire-datatables": "^0.10.0",
         "rap2hpoutre/laravel-log-viewer": "^1.7",
         "spatie/laravel-permission": "^4.0"
+
     },
     "require-dev": {
         "facade/ignition": "^2.0",
@@ -61,7 +62,8 @@
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi"
+            "@php artisan package:discover --ansi",
+            "@php artisan vendor:publish --force --tag=livewire:assets --ansi"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""

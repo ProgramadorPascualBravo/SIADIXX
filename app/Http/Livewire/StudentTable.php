@@ -56,20 +56,20 @@ class StudentTable extends LivewireDatatable
             DateColumn::name('created_at')->label(Str::title(__('modules.table.created')))->filterable(),
             Column::callback(['id'], function ($id){
                return view('fragments.link-to', ['route' => 'moodle-detail', 'params' => ['id' => $id]]);
-            })->label(Str::title(__('modules.table.detail')))->alignCenter(),
+            })->label(Str::title(__('modules.table.detail')))->alignCenter()->excludeFromExport(),
             Column::callback(['id', 'name'], function ($id){
               return view('fragments.btn-action-reset-password', ['action' => 'reset', 'value' => $id, 'name' => 'Reiniciar']);
-            })->label(Str::title(__('modules.table.reset-password')))->alignCenter(),
+            })->label(Str::title(__('modules.table.reset-password')))->alignCenter()->excludeFromExport(),
         ];
         if (Auth::user()->can('moodle_write')) {
-           array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignCenter());
+           array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignCenter()->excludeFromExport());
         }
         if (Auth::user()->can('moodle_destroy')){
            array_push($columns, Column::callback(['id', 'document'], function ($id) use ($relation){
               return view('fragments.btn-action-delete', [
                  'value' => $id, 'relation' => $relation
               ]);
-           })->label('Eliminar')->alignCenter()->hide());
+           })->label('Eliminar')->alignCenter()->hide()->excludeFromExport());
         }
 
         return $columns;

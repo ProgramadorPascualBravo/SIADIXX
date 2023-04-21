@@ -34,7 +34,7 @@ svg {
     h2+div {
       @apply p-2;
     }
-    label, label.block span, div.block span {
+    label, label.block span, div.block span:not(.form-error) {
       @apply text-siadi-blue-700 font-medium capitalize
     }
     input {

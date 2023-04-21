@@ -32,6 +32,11 @@ class CourseTable extends LivewireDatatable
 
    public $beforeTableSlot = 'fragments.delete-massive';
 
+    public function builder()
+    {
+        return Course::query()->join('programs', 'programs.id', '=', 'courses.program_id');
+    }
+
    public function columns()
    {
       $relation = $this->relation;
@@ -47,17 +52,17 @@ class CourseTable extends LivewireDatatable
          DateColumn::name('created_at')->label(Str::title(__('modules.table.created')))->filterable()->hide(),
          Column::callback(['id'], function ($id){
             return view('fragments.link-to', ['route' => 'course-detail', 'params' => ['id' => $id], 'name' => 'Ver', 'btn' => 'btn-blue']);
-         })->label(Str::title(__('modules.table.detail'))),
+         })->label(Str::title(__('modules.table.detail')))->excludeFromExport(),
       ];
       if (Auth::user()->can('course_write')) {
-         array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight());
+         array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignRight()->excludeFromExport());
       }
       if (Auth::user()->can('course_destroy')){
          array_push($columns, Column::callback(['id', 'name'], function ($id) use ($relation){
             return view('fragments.btn-action-delete', [
                'value' => $id, 'relation' => $relation
             ]);
-         })->label('Eliminar')->alignCenter()->hide());
+         })->label('Eliminar')->alignCenter()->hide()->excludeFromExport());
       }
 
       return $columns;

@@ -50,10 +50,10 @@ class StateEnrollmentTable extends LivewireDatatable
          DateColumn::name('created_at')->label(Str::title(__('modules.table.created')))->filterable(),
       ];
       if (Auth::user()->can('state_enrollment_write')) {
-         array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignCenter());
+         array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignCenter()->excludeFromExport());
       }
       if (Auth::user()->can('state_enrollment_destroy')){
-         array_push($columns, Column::delete()->label('Eliminar')->alignCenter()->hide());
+         array_push($columns, Column::delete()->label('Eliminar')->alignCenter()->hide()->excludeFromExport());
       }
       return $columns;
    }

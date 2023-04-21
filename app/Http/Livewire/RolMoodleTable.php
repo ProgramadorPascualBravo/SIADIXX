@@ -45,16 +45,17 @@ class RolMoodleTable extends LivewireDatatable
            Column::checkbox(),
            Column::name('name')->label(Str::title(__('modules.input.name')))->searchable()->filterable()->truncate(),
            BooleanColumn::name('state')->label(Str::title(__('modules.input.state')))->filterable()->alignCenter(),
-           NumberColumn::callback(['name'], function ($name) {
+           /*NumberColumn::callback(['name'], function ($name) {
               return Enrollment::where('rol', $name)->get()->count();
-           })->label('# Matrículas')->filterable()->alignCenter(),
+           })->label('# Matrículas')->filterable()->alignCenter(),*/
+            NumberColumn::name('enrollments.id:count')->label('# Matrículas')->filterable()->alignCenter(),
            DateColumn::name('created_at')->label(Str::title(__('modules.table.created')))->filterable(),
         ];
         if (Auth::user()->can('role_moodle_write')) {
-          array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignCenter());
+          array_push($columns, Column::name('id')->view('livewire.datatables.edit')->label('Editar')->alignCenter()->excludeFromExport());
         }
         if (Auth::user()->can('role_moodle_destroy')){
-          array_push($columns, Column::delete()->label('Eliminar')->alignCenter()->hide());
+          array_push($columns, Column::delete()->label('Eliminar')->alignCenter()->hide()->excludeFromExport());
         }
         return $columns;
     }

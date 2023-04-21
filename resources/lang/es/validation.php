@@ -117,6 +117,7 @@ return [
     'uploaded'             => 'El campo :attribute no se pudo subir.',
     'url'                  => 'El formato del campo :attribute es inválido.',
     'uuid'                 => 'El campo :attribute debe ser un UUID válido.',
+    'moodle_username'      => 'El campo :attribute solo puede contener letras en minúscula, números, guiones y guiones bajos.',
 
     /*
     |--------------------------------------------------------------------------

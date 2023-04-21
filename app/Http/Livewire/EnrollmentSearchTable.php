@@ -54,7 +54,7 @@ class EnrollmentSearchTable extends LivewireDatatable
             $this->roles->pluck('name')
          )->searchable()->alignRight(),
          Column::name('period')->label(__('modules.input.period'))->filterable()->searchable()->alignRight(),
-         Column::callback(['state_enrollemnt.name'], function($name) {
+         Column::callback(['state_enrollment.name'], function($name) {
             return Str::title($name);
          })->label(Str::title(__('modules.input.state')))->filterable(
             $this->states->pluck('name')

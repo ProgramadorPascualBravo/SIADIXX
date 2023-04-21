@@ -83,7 +83,7 @@ class RolMoodleComponent extends Component implements ModuleComponent
       ]);
       try {
          $this->process   = true;
-         $rolMoodle = RolMoodle::findOrFail($this->department_id);
+         $rolMoodle = RolMoodle::findOrFail($this->id_rol_moodle);
          $rolMoodle->update([
             'name'        => trim($this->name),
             'state'       => trim($this->state)

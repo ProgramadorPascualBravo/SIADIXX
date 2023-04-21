@@ -30,12 +30,28 @@ class StudentsImport implements ToModel, WithHeadingRow, SkipsOnFailure, WithVal
 
    public function rules(): array
    {
-      return [
+      $rules = [
          'name'          => 'required',
          'last_name'     => 'required',
          'document'      => 'required|unique:students,document|numeric',
-         'email'         => 'required|email:rfc|unique:students,email',
       ];
+
+      $rules['email'] = [
+         'required',
+         'email:rfc',
+         'unique:students,email',
+         'unique:students,document',
+         function($attribute, $value, $fail) {
+            $cleanValue = str_replace(' ', '', $value);
+            $cleanValue = preg_replace('/[^A-Za-z0-9@._\-]/', '', $value); // Removes special chars.
+            $cleanValue = strtolower($cleanValue);
+
+            if ($value !== $cleanValue) {
+               $fail(__('validation.moodle_username'));
+            }
+         },
+      ];
+      return $rules;
    }
 
    /**

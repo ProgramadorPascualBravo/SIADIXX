@@ -40,15 +40,47 @@ class StudentComponent extends Component implements ModuleComponent
       ]);
    }
 
-   public function store()
+   public function validationAttributes()
    {
-      $this->validate([
+      return [
+         'name' => 'Nombres',
+         'last_name' => 'Apellidos',
+         'email' => 'Correo Institucional',
+         'document' => 'Documento De Identidad',
+         'state' => 'Estado',
+      ];
+   }
+
+   public function validationRules()
+   {
+      $rules = [
          'name'          => 'required',
          'last_name'     => 'required',
-         'email'         => 'required|email:rfc|unique:students,email|unique_with:students,document',
          'document'      => 'required|unique:students,document|numeric',
          'state'         => 'required',
-      ]);
+      ];
+
+      $rules['email'] = [
+         'required',
+         'email:rfc',
+         'unique:students,email',
+         'unique:students,document',
+         function($attribute, $value, $fail) {
+            $cleanValue = str_replace(' ', '', $value); 
+            $cleanValue = preg_replace('/[^A-Za-z0-9@._\-]/', '', $value); // Removes special chars.
+            $cleanValue = strtolower($cleanValue);
+
+            if ($value !== $cleanValue) {
+               $fail(__('validation.moodle_username'));
+            }
+         },
+      ];
+      return $rules;
+   }
+
+   public function store()
+   {
+      $this->validate($this->validationRules());
       try {
          $student = new Student();
 
@@ -87,7 +119,6 @@ class StudentComponent extends Component implements ModuleComponent
       $this->state         = $student->state;
       $this->enrollment    = $student->enrollments->count();
       $this->view          = 'edit';
-
    }
 
    public function update()
@@ -105,7 +136,7 @@ class StudentComponent extends Component implements ModuleComponent
          $student->update([
             'name'          => trim($this->name),
             'last_name'     => trim($this->last_name),
-            'email'         => trim($this->email),
+            //'email'         => trim($this->email),
             'document'      => trim($this->document),
             'state'         => trim($this->state),
          ]);
@@ -119,7 +150,8 @@ class StudentComponent extends Component implements ModuleComponent
          $this->showAlert('alert-error', __('messages.errors.update'));
          $this->setLog('error', __('messages.errors.update'), 'update', __('modules.moodle.title'), [
             'exception' => $queryException->getMessage()
-         ]);      }
+         ]);      
+      }
 
    }
 
