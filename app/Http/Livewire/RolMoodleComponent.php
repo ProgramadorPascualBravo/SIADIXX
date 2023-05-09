@@ -84,10 +84,15 @@ class RolMoodleComponent extends Component implements ModuleComponent
       try {
          $this->process   = true;
          $rolMoodle = RolMoodle::findOrFail($this->id_rol_moodle);
-         $rolMoodle->update([
+         /*$rolMoodle->update([
             'name'        => trim($this->name),
             'state'       => trim($this->state)
-         ]);
+         ]);*/
+          $rolMoodle->name = $this->name;
+          $rolMoodle->state = $this->state;
+          $rolMoodle->save();
+
+        // dd("hizo el update", $this->state, $rolMoodle);
          $this->cancel();
          $this->refreshTable();
          $this->showAlert('alert-success', __('messages.success.update'));

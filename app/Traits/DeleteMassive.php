@@ -79,8 +79,20 @@ trait DeleteMassive
                      }
                   }
                   break;
+                case 'role_moodle'     :
+
+                    foreach ($this->selected as $id) {
+                        $u = $this->model::find($id);
+
+                        if ($u->enrollments->isEmpty()) {
+                            $u->delete();
+                        } else {
+                            $restrictions++;
+                        }
+                    }
+                    break;
                default           :
-                  dd("Not Found relation.");
+                  dd("Not Found relation. 1", $relation);
             }
 //            $this->selected = [];
             if ($restrictions > 0) {
@@ -144,7 +156,7 @@ trait DeleteMassive
                $message = "El grupo tiene matrículas asociadas.";
                break;
             default           :
-               dd("Not Found relation.");
+               dd("Not Found relation. 2");
          }
          if ($flag) {
             $this->emit('showAlert', 'alert-success', __('messages.success.delete'));

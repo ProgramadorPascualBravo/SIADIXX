@@ -35,7 +35,8 @@ class GroupSearchTable extends LivewireDatatable
    {
       return $this->model::query()
          ->where('groups.name', 'like', "%$this->params%")
-         ->orWhere('groups.code', 'like', "%$this->params%");
+         ->orWhere('groups.code', 'like', "%$this->params%")
+          ->join('courses', 'courses.id', '=', 'course_id');
    }
 
    public function columns() : array

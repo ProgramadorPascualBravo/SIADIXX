@@ -41,7 +41,8 @@ class EnrollmentSearchTable extends LivewireDatatable
          ->orWhere('enrollments.code', 'like', "%$this->params%")
          ->orWhere('enrollments.period', 'like', "%$this->params%")
          ->orWhere('enrollments.state', 'like', "%$this->params%")
-         ->orWhere('enrollments.rol', 'like', "%$this->params%");
+         ->orWhere('enrollments.rol', 'like', "%$this->params%")
+          ->leftJoin('state_enrollments','state_enrollments.id','enrollments.state');
    }
    public function columns()
    {

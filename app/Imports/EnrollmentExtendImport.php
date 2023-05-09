@@ -71,7 +71,7 @@ class EnrollmentExtendImport implements ToModel, WithHeadingRow, WithValidation,
         }
         $this->count['mistakes']++;
         $array = $this->values;
-        $array['errors'] = [['Usuario matrículado en la asignatura.']];
+        $array['errors'] = [['Usuario matrículado en la asignatura.' . $e]];
         $this->failures->add($array);
     }
 
@@ -79,7 +79,7 @@ class EnrollmentExtendImport implements ToModel, WithHeadingRow, WithValidation,
     {
        return [
            '*.code'              => 'required|exists:groups,code',
-           '*.email'             => 'required|email:rfc',
+           '*.email'             => 'required|email:rfc|exists:students,email',
            '*.rol'               => 'required|exists:roles_moodle,name',
            '*.state'             => 'required|exists:state_enrollments,id',
            '*.document'          => 'required|numeric',

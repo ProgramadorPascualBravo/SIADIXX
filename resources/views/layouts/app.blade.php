@@ -97,6 +97,9 @@
                     @can('enrollment_massive')
                         <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('enrollment-mass-creation') }}">Matrículas</a></li>
                     @endcan
+                    @can('enrollment_massive')
+                        <li><a class="block my-4 w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800" href="{{ route('unenrollment-mass-update') }}">Desmatrículas</a></li>
+                    @endcan
                 </ul>
         </div>
         @endcanany
