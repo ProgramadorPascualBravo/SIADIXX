@@ -49,7 +49,7 @@ class ProgramSearchTable extends LivewireDatatable
          NumberColumn::name('courses.id:count')->label('# de Asignaturas')->filterable()->alignCenter(),
          Column::callback(['id'], function ($id){
             return view('fragments.link-to', ['route' => 'program-detail', 'params' => ['id' => $id], 'name' => 'Ver', 'btn' => 'btn-blue']);
-         })->label(__('modules.table.detail'))->alignRight(),
+         })->label(__('modules.table.detail'))->alignRight()->excludeFromExport(),
       ];
       return $columns;
    }

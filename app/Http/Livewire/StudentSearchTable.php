@@ -49,7 +49,7 @@ class StudentSearchTable extends LivewireDatatable
          DateColumn::name('created_at')->label(__('modules.table.created'))->filterable(),
          Column::callback(['id'], function ($id){
             return view('fragments.link-to', ['route' => 'moodle-detail', 'params' => ['id' => $id], 'name' => 'Ver']);
-         })->label(__('modules.table.detail'))->alignCenter(),
+         })->label(__('modules.table.detail'))->alignCenter()->excludeFromExport(),
       ];
       return $columns;
    }

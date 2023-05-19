@@ -54,7 +54,7 @@ class GroupSearchTable extends LivewireDatatable
          DateColumn::name('created_at')->label(__('modules.table.created'))->filterable(),
          Column::callback(['id'], function ($id){
             return view('fragments.link-to', ['route' => 'group-detail', 'params' => ['id' => $id], 'name' => "Ver", 'btn' => 'btn-blue']);
-         })->label(__('modules.table.detail'))->alignRight(),
+         })->label(__('modules.table.detail'))->alignRight()->excludeFromExport(),
       ];
       return $columns;
    }

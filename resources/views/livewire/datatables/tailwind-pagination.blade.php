@@ -1,8 +1,8 @@
   <div class="pagination flex rounded border border-gray-300 overflow-hidden divide-x divide-gray-300">
     <!-- Previous Page Link -->
+
     @if ($paginator->onFirstPage())
-    <button class="relative inline-flex items-center px-2 py-2 bg-white text-sm leading-5 font-medium text-gray-500"
-        disabled>
+    <button class="relative inline-flex items-center px-2 py-2 bg-white text-sm leading-5 font-medium text-gray-500" disabled>
         <span>&laquo;</span>
     </button>
     @else
