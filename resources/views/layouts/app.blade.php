@@ -12,6 +12,8 @@
     @stack('custom-css')
     @livewireStyles
 
+    <style>[x-cloak] { display: none!important }</style>
+
 </head>
 <body class="flex flex-col min-h-screen ">
 <header>
@@ -25,7 +27,7 @@
                 @endif
             </span>
         </div>
-        <div class="mr-6 relative" x-data="{ open : false}" >
+        <div class="mr-6 relative" x-data="{ open : false}" x-cloak>
             <a @click="open = true" class="cursor-pointer">
                 Módulos
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -76,7 +78,7 @@
                 </ul>
         </div>
         @canany(['moodle_massive', 'enrollment_massive'])
-        <div class="mr-6 relative" x-data="{ open : false}" >
+        <div class="mr-6 relative" x-data="{ open : false}" x-cloak >
             <a @click="open = true" class="cursor-pointer">
                 Carga Masiva
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -104,7 +106,7 @@
         </div>
         @endcanany
         @can('report_read')
-        <div class="mr-6 relative" x-data="{ open : false}" >
+        <div class="mr-6 relative" x-data="{ open : false}" x-cloak >
             <a @click="open = true" class="cursor-pointer">
                 Estadisticas
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -129,7 +131,7 @@
                 <a href="{{ route('search-index') }}">Búsquedas</a>
             </div>
         @endcan
-        <div class="flex-1 text-right relative" x-data="{ open : false }">
+        <div class="flex-1 text-right relative" x-data="{ open : false }" x-cloak>
             <a @click="open = true" class="text-white cursor-pointer py-2 px-4">
                 @if(isset($_GET['egg']))
                     <img class="inline-block rounded-full" width="50px" src="{{ asset('img/suafonson.jpg') }}" alt="">
