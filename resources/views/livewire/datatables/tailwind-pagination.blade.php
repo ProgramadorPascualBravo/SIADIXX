@@ -2,7 +2,7 @@
     <!-- Previous Page Link -->
 
     @if ($paginator->onFirstPage())
-    <button class="relative inline-flex items-center px-2 py-2 bg-white text-sm leading-5 font-medium text-gray-500" disabled>
+    <button wire:click="previousPage" class="relative inline-flex items-center px-2 py-2 bg-white text-sm leading-5 font-medium text-gray-500" disabled style="display: none">
         <span>&laquo;</span>
     </button>
     @else
@@ -42,6 +42,6 @@
     @else
     <button
         class="-ml-px relative inline-flex items-center px-2 py-2 bg-white text-sm leading-5 font-medium text-gray-500 "
-        disabled><span>&raquo;</span></button>
+        disabled style="display: none"><span>&raquo;</span></button>
     @endif
 </div>
