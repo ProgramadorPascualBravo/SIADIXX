@@ -52,7 +52,7 @@ class StudentTable extends LivewireDatatable
             Column::name('email')->label(Str::title(__('modules.input.email')))->filterable()->searchable(),
             Column::name('document')->label(Str::title(__('modules.input.document')))->filterable()->searchable(),
             BooleanColumn::name('state')->label('Estado')->filterable(),
-            NumberColumn::name('enrollments.id:count')->label('# Matríciulas')->filterable()->alignCenter(),
+            NumberColumn::name('enrollments.id:count')->label('# Matrículas')->filterable()->alignCenter(),
             DateColumn::name('created_at')->label(Str::title(__('modules.table.created')))->filterable(),
             Column::callback(['id'], function ($id){
                return view('fragments.link-to', ['route' => 'moodle-detail', 'params' => ['id' => $id]]);
